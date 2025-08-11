@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Estedad-Bold";
+    src: url(/src/assets/fonts/Estedad-Bold.woff2);
+}
+@font-face {
+    font-family: "Estedad-Regular";
+    src: url(/src/assets/fonts/Estedad-Regular.woff2);
+}
+@font-face {
+    font-family: "Estedad-Medium";
+    src: url(/src/assets/fonts/Estedad-Medium.woff2);
+}
+
+@theme {
+    --font-Estedad-Bold: "Estedad-Bold";
+    --font-Estedad-Regular: "Estedad-Regular";
+    --font-Estedad-Medium: "Estedad-Medium";
+
+    --color-primary: #417F56
+}
+
+@utility container {
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+

@@ -1,0 +1,31 @@
+.my-bullet {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: #ADADAD;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    transition: all 0.3s ease;
+    z-index: 20;
+    cursor: pointer;
+}
+
+.my-bullet-active {
+    background-color: #417F56;
+    width: 1.2rem;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .my-bullet {
+        background-color: #ADADAD;
+        width: 0.65rem;
+        height: 0.65rem;
+    }
+
+    .my-bullet-active {
+        background-color: #417F56;
+        width: 1.5rem;
+    }
+}
