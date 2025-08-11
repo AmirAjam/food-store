@@ -1,6 +1,5 @@
 import RestaurantMenuItem from "./RestaurantMenuItem"
-import SectionTitle from "../Ui/SectionTitle"
-
+import SectionTitle from "../../../components/Ui/SectionTitle"
 const RestaurantMenu = () => {
     return(
         <section className="mt-10">

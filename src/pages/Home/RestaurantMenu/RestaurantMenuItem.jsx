@@ -8,7 +8,7 @@ const RestaurantMenuItem = ({ children , src}) => {
                     {children}
                 </p>
             </div>
-            <div className="bg-primary absolute h-21 inset-x-0 bottom-3.5 z-0 rounded-lg lg:h-28"></div>
+            <div className="bg-primary-color absolute h-21 inset-x-0 bottom-3.5 z-0 rounded-lg lg:h-28"></div>
         </div>
     )
 }

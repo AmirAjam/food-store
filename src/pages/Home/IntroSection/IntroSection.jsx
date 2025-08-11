@@ -1,4 +1,4 @@
-import WhiteButton from "../Ui/Button/WhiteButton"
+import WhiteButton from "../../../components/Ui/Button/WhiteButton"
 
 import { CiUser } from "react-icons/ci";
 
