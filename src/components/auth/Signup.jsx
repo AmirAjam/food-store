@@ -14,9 +14,10 @@ import PrimaryButton from "../Ui/Button/PrimaryButton"
 
 const { Close } = icons
 
-const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
+const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
+    
     return (
-        <Dialog open={isOpenLogin} onOpenChange={() => setIsOpenLogin(false)} className="">
+        <Dialog open={isOpenSignup} onOpenChange={() => setIsOpenSignup(false)} className="">
             <form>
                 <DialogTrigger asChild>
                 </DialogTrigger>
@@ -30,20 +31,22 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
                     </DialogClose>
 
                     <DialogHeader>
-                        <DialogTitle className="text-center">ورود</DialogTitle>
+                        <DialogTitle className="text-center">عضویت</DialogTitle>
+                        <AuthInput placeholder="اسم را وارد کنید" label="اسم" />
+                        <AuthInput placeholder="فامیل را وارد کنید" label="فامیل" />
                         <AuthInput placeholder="ایمیل را وارد کنید" label="ایمیل" />
                         <AuthInput placeholder="رمز عبور را وارد کنید" label="رمز عبور" />
-                        <p className="text-right text-sm mt-2">حساب کاربری ندارید؟
+                        <p className="text-right text-sm mt-2">قبلا ثبت نام کرده اید؟
                             <span onClick={() => {
-                                setIsOpenSignup(true)
-                                setIsOpenLogin(false)
+                                setIsOpenSignup(false)
+                                setIsOpenLogin(true)
                             }}
-                                className="mr-1 font-Estedad-Bold text-primary-color cursor-pointer">ثبت نام کنید</span>
+                                className="mr-1 font-Estedad-Bold text-primary-color cursor-pointer">وارد شوید</span>
                         </p>
                     </DialogHeader>
 
                     <DialogFooter className="items-center justify-center! w-42 mx-auto mt-2">
-                        <PrimaryButton text="ورود" />
+                        <PrimaryButton text="عضویت" />
                     </DialogFooter>
                 </DialogContent>
             </form>
@@ -51,4 +54,4 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
     )
 }
 
-export default Login
+export default Signup

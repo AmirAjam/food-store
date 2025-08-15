@@ -1,7 +1,7 @@
 const PrimaryButton = ({text}) => {
     return(
-        <button className="bg-primary-color text-white font-Estedad-Medium px-4 py-2 rounded-lg duration-300
-            hover:bg-green-200 hover:text-primary-color cursor-pointer">
+        <button className="bg-primary-color text-white w-full font-Estedad-Medium py-2 rounded-lg duration-300
+            hover:bg-green-900 cursor-pointer">
             {text}
         </button>
     )

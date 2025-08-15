@@ -4,9 +4,11 @@ import icons from "@/icons";
 
 import NavBar from "./NavBar";
 import Login from "../auth/Login";
+import Signup from "../auth/Signup";
 
 const Header = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const [isOpenSignup, setIsOpenSignup] = useState(false);
 
   const { Menu, Search, Cart, UserLu } = icons;
 
@@ -55,7 +57,8 @@ const Header = () => {
         </div>
       </div>
 
-      <Login isOpenLogin={isOpenLogin} setIsOpenLogin={setIsOpenLogin} />
+      <Login isOpenLogin={isOpenLogin} setIsOpenLogin={setIsOpenLogin} setIsOpenSignup={setIsOpenSignup}/>
+      <Signup isOpenSignup={isOpenSignup} setIsOpenSignup={setIsOpenSignup} setIsOpenLogin={setIsOpenLogin}/>
     </header>
   );
 };
