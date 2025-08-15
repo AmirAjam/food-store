@@ -13,15 +13,14 @@ import AuthInput from "./AuthInput"
 import PrimaryButton from "../Ui/Button/PrimaryButton"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
-import signupSchema from "@/schema/signupSchema"
 import { Toaster, toast } from 'sonner'
 import useFetch from "@/hooks/useFetch"
-import { useEffect } from "react"
+import { signupSchema } from "@/schema/authSchema"
 
 const { Close } = icons
 
 const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
-    const { data, loading, error, sendRequest } = useFetch();
+    const {sendRequest } = useFetch();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(signupSchema),
@@ -39,7 +38,6 @@ const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
             .catch(() => {
                 toast.error("ایمیل وارد شده تکراری می باشد")
             })
-
     };
 
     const onError = (errors) => {

@@ -11,16 +11,50 @@ import { Link } from "react-router-dom"
 import icons from "@/icons"
 import AuthInput from "./AuthInput"
 import PrimaryButton from "../Ui/Button/PrimaryButton"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/schema/authSchema"
+import { Toaster, toast } from 'sonner'
+import useFetch from "@/hooks/useFetch"
+import { setAccessToken, setUser, setUserId } from "@/store/authSlice";
+import { useDispatch } from "react-redux"
 
 const { Close } = icons
 
 const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
+    const dispatch = useDispatch();
+
+    const {sendRequest } = useFetch();
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(loginSchema),
+    });
+
+    const onSubmit = (data) => {
+        console.log(data)
+        sendRequest('auth/login', 'POST', data)
+            .then(res => {
+                if (res) {
+                    console.log("User -> " , res)
+                    dispatch(setAccessToken(res.user.token));
+                    dispatch(setUserId(res.user.id));
+                    toast.success("با موفقیت وارد شدید");
+                    setIsOpenLogin(false)
+                }
+            })
+    };
+
+    const onError = (errors) => {
+        const errorValues = Object.values(errors);
+        if (errorValues.length > 0) {
+            toast.error(errorValues[0].message);
+        }
+    }
     return (
         <Dialog open={isOpenLogin} onOpenChange={() => setIsOpenLogin(false)} className="">
-            <form>
-                <DialogTrigger asChild>
-                </DialogTrigger>
-                <DialogContent showCloseButton={false} className="sm:max-w-[425px] p-4">
+            <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
+            <DialogContent showCloseButton={false} className="sm:max-w-[425px] p-4">
+                <form onSubmit={handleSubmit(onSubmit, onError)}>
                     <Link className="mx-auto w-fit">
                         <img src="/images/logo/logo.png" alt="" className="h-10" />
                     </Link>
@@ -31,8 +65,20 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
 
                     <DialogHeader>
                         <DialogTitle className="text-center">ورود</DialogTitle>
-                        <AuthInput placeholder="ایمیل را وارد کنید" label="ایمیل" />
-                        <AuthInput placeholder="رمز عبور را وارد کنید" label="رمز عبور" />
+                        <AuthInput
+                            placeholder="ایمیل"
+                            label="ایمیل را وارد کنید"
+                            {...register("email")}
+                            error={errors.email?.message}
+                        />
+
+                        <AuthInput
+                            placeholder="رمز عبور را وارد کنید"
+                            label="رمز عبور"
+                            type="password"
+                            {...register("password")}
+                            error={errors.password?.message}
+                        />
                         <p className="text-right text-sm mt-2">حساب کاربری ندارید؟
                             <span onClick={() => {
                                 setIsOpenSignup(true)
@@ -43,10 +89,10 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
                     </DialogHeader>
 
                     <DialogFooter className="items-center justify-center! w-42 mx-auto mt-2">
-                        <PrimaryButton text="ورود" />
+                        <PrimaryButton type="submit" text="ورود" />
                     </DialogFooter>
-                </DialogContent>
-            </form>
+                </form>
+            </DialogContent>
         </Dialog>
     )
 }
