@@ -10,11 +10,6 @@ import { useEffect } from "react";
 const { Search } = icons
 
 export default function Home() {
-  const { data, loading, error, sendRequest } = useFetch();
-
-  useEffect(() => {
-    sendRequest('/product', 'GET', { limit: 5 });
-  }, [sendRequest]);
 
   return (
     <>
@@ -23,7 +18,7 @@ export default function Home() {
       <div className="container mt-8 md:hidden">
         <Input placeHolder="جستجو">  <Search className="text-lg" /> </Input>
       </div>
-      <RestaurantMenu data={data}/>
+      <RestaurantMenu/>
       <IntroSection />
     </>
   )
