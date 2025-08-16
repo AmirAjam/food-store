@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schema/authSchema"
 import { Toaster, toast } from 'sonner'
 import useFetch from "@/hooks/useFetch"
-import { setAccessToken, setUser, setUserId } from "@/store/authSlice";
+import { setAccessToken, setUserId } from "@/store/authSlice";
 import { useDispatch } from "react-redux"
 
 const { Close } = icons

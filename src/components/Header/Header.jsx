@@ -16,7 +16,7 @@ const Header = () => {
 
   const id = useSelector((state) => state.auth.userId);
 
-  const { Menu, Search, Cart, UserLu } = icons;
+  const { Menu, Search, Cart, UserLu} = icons;
 
   useEffect(() => {
     if (!id) return;

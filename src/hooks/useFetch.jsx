@@ -3,11 +3,10 @@ import { useState, useCallback } from 'react';
 
 const useFetch = () => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const sendRequest = useCallback(async (url, method = 'get', body = null, headers = {}) => {
-    setLoading(true);
     setError(null);
     try {
       const response = await axios({

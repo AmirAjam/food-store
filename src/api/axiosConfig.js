@@ -45,7 +45,6 @@ axiosInstance.interceptors.response.use(
         store.dispatch(logout());
       }
     }
-
     return Promise.reject(error);
   }
 );
