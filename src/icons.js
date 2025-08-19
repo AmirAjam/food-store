@@ -6,10 +6,11 @@ import { IoFastFoodOutline, IoClose } from "react-icons/io5";
 import { BiSearch } from "react-icons/bi";
 import { IoIosMenu } from "react-icons/io";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline,IoMdCart  } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory } from "react-icons/md"
 import { BsDatabaseFillAdd } from "react-icons/bs";
 import {HiOutlineUsers} from 'react-icons/hi2'
+import { FaUsers } from "react-icons/fa";
 
 const icons = {
   UserCi: CiUser,
@@ -22,13 +23,14 @@ const icons = {
   Search: BiSearch,
   Menu: IoIosMenu,
   Cart: RiShoppingCartLine,
+  Cart2: IoMdCart,
   Close: IoClose,
   Search: CiSearch,
   Notification: IoIosNotificationsOutline,
   Dashboard: MdSpaceDashboard,
   AddProduct: BsDatabaseFillAdd,
   Category: MdCategory,
-  Users: HiOutlineUsers,
+  Users: FaUsers,
 
 };
 
