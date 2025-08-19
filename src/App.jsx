@@ -4,6 +4,7 @@ import store from "./store";
 import { setAccessToken, setUserId } from "./store/authSlice";
 import { useDispatch } from "react-redux";
 
+
 const App = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("accessToken");
@@ -11,8 +12,8 @@ const App = () => {
 
 
   if (token) {
-    store.dispatch(setAccessToken(token));
-    store.dispatch(setUserId(id));
+    dispatch(setAccessToken(token));
+    dispatch(setUserId(id));
   }
 
   const router = useRoutes(routes)
