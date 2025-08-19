@@ -35,7 +35,6 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
         sendRequest('auth/login', 'POST', data)
             .then(res => {
                 if (res) {
-                    console.log("User -> " , res)
                     dispatch(setAccessToken(res.user.token));
                     dispatch(setUserId(res.user.id));
                     toast.success("با موفقیت وارد شدید");

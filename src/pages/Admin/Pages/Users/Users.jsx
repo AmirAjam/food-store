@@ -5,9 +5,15 @@ import { useSelector } from "react-redux"
 
 import { DataTable } from '../../ui/DataTable';
 import AdminButton from "../../ui/AdminButton";
+import { AdminAlertDialog } from '../../ui/AlertDialog';
+import { useState } from 'react';
+import { toast, Toaster } from 'sonner';
 
 
 const Users = () => {
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const [userID, setUserID] = useState(null)
+
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users.users)
   const token = useSelector((state) => state.auth.accessToken)
@@ -56,21 +62,37 @@ const Users = () => {
       header: "عملیات",
       cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
         <AdminButton text="ویرایش" />
-        <AdminButton onClick={() => deleteHandler(row.original._id)} danger text="حذف" />
+        <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
         <AdminButton text="بن" />
       </div>,
       enableSorting: false
     },
   ]
 
-  const deleteHandler = (id) => {
-    dispatch(deleteUser({token,id}))
+  const openAlertDialog = (id) => {
+    setIsOpenDialog(true)
+    setUserID(id)
+  }
+
+  const deleteHandler = () => {
+    dispatch(deleteUser({ token, id: userID }))
+    console.log("success")
+    toast.success("با موفقیت حذف شد.");
   }
 
   return (
-    <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2'>
-      <DataTable data={users.users} columns={columns} />
-    </section>
+    <>
+      <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
+      <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2'>
+        <DataTable data={users.users} columns={columns} />
+        <AdminAlertDialog
+          title="آیا از حذف کاربر مطمئن هستید؟"
+          confirmAlert={deleteHandler}
+          setIsOpenDialog={setIsOpenDialog}
+          isOpenDialog={isOpenDialog}
+        />
+      </section>
+    </>
   )
 }
 

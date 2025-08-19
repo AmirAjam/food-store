@@ -20,8 +20,7 @@ const IntroSection = () => {
             طبیعتی دلنواز، غذایی سالم و درخور شان شما عزیزان ارائه دهیم.
           </p>
           <div className="mt-5">
-            <WhiteButton>
-              اطلاعات بیشتر
+            <WhiteButton text="اطلاعات بیشتر">
               <ChevronLeft />
             </WhiteButton>
           </div>

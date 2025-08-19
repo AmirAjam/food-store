@@ -20,14 +20,15 @@ import {
 
 import { useState } from "react"
 import icons from "@/icons"
+import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 
-export function DataTable({ data,columns }) {
+export function DataTable({ data, columns }) {
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
   const [columnVisibility, setColumnVisibility] = useState({})
   const [rowSelection, setRowSelection] = useState({})
 
-  const {SortAlphabetDesc,SortAlphabetAsc,Sort} = icons 
+  const { SortAlphabetDesc, SortAlphabetAsc, Sort } = icons
 
   const table = useReactTable({
     data,
@@ -125,30 +126,53 @@ export function DataTable({ data,columns }) {
         </Table>
       </div>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+      <div className="flex items-center justify-between py-4">
+        {/* کنترل سایز صفحه */}
+        <div className="flex items-center gap-2">
+          <span>تعداد در صفحه:</span>
+          <select
+            className="bg-gray-200 px-2 py-1 rounded"
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => table.setPageSize(Number(e.target.value))}
+          >
+            {[5, 10, 20, 50].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="space-x-2">
+
+        {/* شماره صفحات */}
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            قبلی
           </Button>
+
+          <span>
+            صفحه{" "}
+            <strong>
+              {table.getState().pagination.pageIndex + 1} از{" "}
+              {table.getPageCount()}
+            </strong>
+          </span>
+
           <Button
             variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            بعدی
           </Button>
         </div>
       </div>
+
     </div>
   )
 }
