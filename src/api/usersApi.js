@@ -40,10 +40,24 @@ const deleteUserApi = async (token, id) => {
 const getOneUserApi = async (id) => {
     try {
         const response = await axios.get(`user/${id}`)
-        console.log(response)
         return response.data
     } catch (err) {
         return err.response
     }
 }
-export { getUsers, deleteUserApi, signupApi,getOneUserApi }
+
+const editUserApi = async (token,id,data) => {
+    console.log("Check")
+    const response = await axios.put(`user/${id}`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    console.log(response)
+    return response.data
+}
+
+export { getUsers, deleteUserApi, signupApi, getOneUserApi, editUserApi }

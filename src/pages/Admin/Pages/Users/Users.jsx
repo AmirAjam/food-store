@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 import store from "@/store/index";
-import { addUser, deleteUser } from '@/store/usersSlice';
+import { addUser, deleteUser, editUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DataTable } from '../../ui/DataTable';
 import AdminButton from "../../ui/AdminButton";
 import { AdminAlertDialog } from '../../ui/AlertDialog';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import { AdminSheet } from '../../ui/AdminSheet';
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
@@ -98,13 +98,26 @@ const Users = () => {
   }
 
   const onSubmit = async (data) => {
-    try {
-      const result = await dispatch(addUser(data)).unwrap();
-      toast.success("کاربر با موفقیت ساخته شد.")
-      reset()
-      setIsOpenSheet(false)
-    } catch (err) {
-      toast.error("ایمیل وارد شده تکراری می باشد.")
+    if (userID) {
+      delete data.password
+      try {
+        const result = await dispatch(editUser({ token, id: userID, data })).unwrap();
+        toast.success("کاربر با موفقیت ادیت شد.")
+        reset()
+        setIsOpenSheet(false)
+      } catch (err) {
+        console.log(err)
+        toast.error("ایمیل وارد شده تکراری می باشد.")
+      }
+    } else {
+      try {
+        const result = await dispatch(addUser(data)).unwrap();
+        toast.success("کاربر با موفقیت ساخته شد.")
+        reset()
+        setIsOpenSheet(false)
+      } catch (err) {
+        toast.error("ایمیل وارد شده تکراری می باشد.")
+      }
     }
   };
 
@@ -132,6 +145,7 @@ const Users = () => {
         firstname: userData.firstname,
         lastname: userData.lastname,
         email: userData.email,
+        password: "Ali334452@"
       });
     } else {
       reset({
