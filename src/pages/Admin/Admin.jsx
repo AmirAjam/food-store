@@ -7,6 +7,7 @@ import Cover from '@/components/Ui/Cover'
 import store from "@/store/index";
 import { useDispatch } from 'react-redux'
 import { fetchUsers } from '@/store/usersSlice'
+import { getCategories } from '@/store/categorySlice'
 
 
 const AdminPanel = () => {
@@ -17,6 +18,7 @@ const AdminPanel = () => {
 
     useEffect(() => {
         dispatch(fetchUsers(token))
+        dispatch(getCategories(token))
     })
 
     return (

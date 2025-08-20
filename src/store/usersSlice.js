@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { blockUserApi, deleteUserApi, editUserApi, getUsers, signupApi, unBlockUserApi } from "@/api/usersApi";
+import { blockUserApi, changeUserRoleApi, deleteUserApi, editUserApi, getUsers, signupApi, unBlockUserApi } from "@/api/usersApi";
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
@@ -37,6 +37,16 @@ export const blockUser = createAsyncThunk(
   }
 );
 
+export const changeUserRole = createAsyncThunk(
+  "users/changeUserRole",
+  async ({ token, id }) => {
+    console.log("s")
+    const res = await changeUserRoleApi(token, id);
+    console.log("res => ",res)
+    return res;
+  }
+);
+
 export const unBlockUser = createAsyncThunk(
   "users/unBlockUser",
   async ({ token, id }) => {
@@ -66,7 +76,6 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.users = action.payload;
-      console.log(action.payload)
     });
 
     builder.addCase(deleteUser.fulfilled, (state, action) => {

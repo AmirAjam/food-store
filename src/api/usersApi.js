@@ -50,6 +50,21 @@ const blockUserApi = async (token, id) => {
         return err.response
     }
 }
+const changeUserRoleApi = async (token, id) => {
+    try {
+        const response = await axios.patch(`user/${id}/change-role`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        console.log(response.data)
+        return response.data
+    } catch (err) {
+        return err.response
+    }
+}
 const unBlockUserApi = async (token, id) => {
     try {
         const response = await axios.patch(`user/unblock/${id}`,
@@ -59,7 +74,6 @@ const unBlockUserApi = async (token, id) => {
                 }
             }
         )
-        console.log(response)
         return response.data
     } catch (err) {
         return err.response
@@ -75,8 +89,7 @@ const getOneUserApi = async (id) => {
     }
 }
 
-const editUserApi = async (token,id,data) => {
-    console.log("Check")
+const editUserApi = async (token, id, data) => {
     const response = await axios.put(`user/${id}`,
         data,
         {
@@ -85,8 +98,16 @@ const editUserApi = async (token,id,data) => {
             }
         }
     )
-    console.log(response)
     return response.data
 }
 
-export { getUsers, deleteUserApi, signupApi, getOneUserApi, editUserApi,blockUserApi,unBlockUserApi }
+export {
+    getUsers,
+    deleteUserApi,
+    signupApi,
+    getOneUserApi,
+    editUserApi,
+    blockUserApi,
+    unBlockUserApi,
+    changeUserRoleApi
+}

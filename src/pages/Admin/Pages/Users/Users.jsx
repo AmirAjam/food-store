@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import store from "@/store/index";
-import { addUser, blockUser, deleteUser, editUser, unBlockUser } from '@/store/usersSlice';
+import { addUser, blockUser, changeUserRole, deleteUser, editUser, unBlockUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +14,8 @@ import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
 import AdminInput from '../../ui/AdminInput';
 import { signupSchema } from '@/schema/authSchema';
 import { blockUserApi, getOneUserApi } from '@/api/usersApi';
-
+import { AdminSelect } from '../../ui/AdminSelect';
+import {SelectItem} from "@/components/ui/select"
 
 const Users = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false)
@@ -50,9 +51,10 @@ const Users = () => {
         const role = row.getValue("role");
         return (
           <div className="capitalize mr-3 w-4/20">
-            {role === "admin" ?
-              <span className="text-red-800 font-Estedad-Bold">{role}</span>
-              : <span className="">{role}</span>}
+            <AdminSelect defaultValue={role} changeHandler={changeRole} itemId={row.original._id}>
+              <SelectItem value="admin" className="text-right cursor-pointer">ادمین</SelectItem>
+              <SelectItem value="user" className="text-right cursor-pointer">یوزر</SelectItem>
+            </AdminSelect>
           </div>
         );
       },
@@ -138,6 +140,10 @@ const Users = () => {
 
   const blockHandler = (id) => dispatch(blockUser({ token, id }))
   const unBlockHandler = (id) => dispatch(unBlockUser({ token, id }))
+  
+  const changeRole = (id) => {
+    dispatch(changeUserRole({id,token}))
+  }
 
   useEffect(() => {
     if (userID) {
