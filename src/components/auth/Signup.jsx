@@ -22,6 +22,7 @@ const { Close } = icons
 const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
     const {sendRequest } = useFetch();
 
+    
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(signupSchema),
     });
@@ -47,9 +48,6 @@ const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
             toast.error(errorValues[0].message);
         }
     }
-
-    // useEffect(() => {
-    // }, [sendRequest]);
 
     return (
         <Dialog open={isOpenSignup} onOpenChange={() => setIsOpenSignup(false)} className="">

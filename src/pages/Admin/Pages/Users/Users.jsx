@@ -2,21 +2,31 @@ import { useDispatch } from 'react-redux';
 import store from "@/store/index";
 import { deleteUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
-
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup";
 import { DataTable } from '../../ui/DataTable';
 import AdminButton from "../../ui/AdminButton";
 import { AdminAlertDialog } from '../../ui/AlertDialog';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast, Toaster } from 'sonner';
+import { AdminSheet } from '../../ui/AdminSheet';
+import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
+import AdminInput from '../../ui/AdminInput';
+import { signupSchema } from '@/schema/authSchema';
 
 
 const Users = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const [isOpenSheet, setIsOpenSheet] = useState(false)
   const [userID, setUserID] = useState(null)
 
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users.users)
   const token = useSelector((state) => state.auth.accessToken)
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(signupSchema),
+  });
 
   const columns = [
     {
@@ -76,14 +86,30 @@ const Users = () => {
 
   const deleteHandler = () => {
     dispatch(deleteUser({ token, id: userID }))
-    console.log("success")
     toast.success("با موفقیت حذف شد.");
+    setUserID(null)
+  }
+
+  const onSubmit = (data) => {
+    console.log("Submit")
+  };
+
+  const onError = (errors) => {
+    const errorValues = Object.values(errors);
+
+    if (errorValues.length > 0) {
+      toast.error(errorValues[0].message);
+    }
+    console.log("Err")
   }
 
   return (
     <>
       <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
-      <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2'>
+      <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
+        <div className='w-42 mt-5'>
+          <PrimaryButton text="افزودن کاربر جدید" onClick={() => setIsOpenSheet(true)} />
+        </div>
         <DataTable data={users.users} columns={columns} />
         <AdminAlertDialog
           title="آیا از حذف کاربر مطمئن هستید؟"
@@ -91,7 +117,20 @@ const Users = () => {
           setIsOpenDialog={setIsOpenDialog}
           isOpenDialog={isOpenDialog}
         />
-      </section>
+        <AdminSheet
+          isOpenSheet={isOpenSheet}
+          setIsOpenSheet={setIsOpenSheet}
+          onSubmitClick={handleSubmit(onSubmit, onError)}>
+          <form onSubmit={handleSubmit(onSubmit, onError)} className='px-4'>
+
+            <AdminInput label="نام کاربر" placeholder="نام کاربر را وارد کنید..." />
+            <AdminInput label="فامیل کاربر" placeholder="فامیل کاربر را وارد کنید..." />
+            <AdminInput label="نام کاربر" placeholder="ایمیل کاربر را وارد کنید..." />
+            <AdminInput label="رمز عبور کاربر" placeholder="رمز عبور کاربر را وارد کنید..." />
+
+          </form>
+        </AdminSheet>
+      </section >
     </>
   )
 }
