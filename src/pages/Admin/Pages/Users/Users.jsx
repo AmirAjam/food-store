@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import store from "@/store/index";
-import { addUser, deleteUser, editUser } from '@/store/usersSlice';
+import { addUser, blockUser, deleteUser, editUser, unBlockUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ import { AdminSheet } from '../../ui/AdminSheet';
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
 import AdminInput from '../../ui/AdminInput';
 import { signupSchema } from '@/schema/authSchema';
-import { getOneUserApi } from '@/api/usersApi';
+import { blockUserApi, getOneUserApi } from '@/api/usersApi';
 
 
 const Users = () => {
@@ -63,7 +63,7 @@ const Users = () => {
       cell: ({ row }) => (
         <div className="capitalize mr-3 w-4/20">
           {row.getValue("isBlock") ?
-            <span className="py-1 px-3 rounded-sm bg-red-500 text-white">مسدود شده</span>
+            <span className="py-1 px-3 rounded-sm bg-red-500 text-white">مسدود</span>
             :
             <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span>}
         </div>
@@ -75,7 +75,11 @@ const Users = () => {
       cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
         <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
         <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
-        <AdminButton text="بن" />
+        {row.getValue("isBlock") ?
+          <AdminButton text="فعال‌سازی" onClick={() => unBlockHandler(row.original._id)} />
+          :
+          <AdminButton text="بن" onClick={() => blockHandler(row.original._id)} />}
+
       </div>,
       enableSorting: false
     },
@@ -105,6 +109,8 @@ const Users = () => {
         toast.success("کاربر با موفقیت ادیت شد.")
         reset()
         setIsOpenSheet(false)
+        setUserID(null)
+        setUserData(null)
       } catch (err) {
         console.log(err)
         toast.error("ایمیل وارد شده تکراری می باشد.")
@@ -129,6 +135,9 @@ const Users = () => {
     }
     console.log("Err")
   }
+
+  const blockHandler = (id) => dispatch(blockUser({ token, id }))
+  const unBlockHandler = (id) => dispatch(unBlockUser({ token, id }))
 
   useEffect(() => {
     if (userID) {
@@ -156,6 +165,7 @@ const Users = () => {
       });
     }
   }, [userData])
+
   return (
     <>
       <Toaster richColors position="top-left" className="font-Estedad-Medium!" />

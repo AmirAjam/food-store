@@ -36,6 +36,35 @@ const deleteUserApi = async (token, id) => {
         return err.response
     }
 }
+const blockUserApi = async (token, id) => {
+    try {
+        const response = await axios.patch(`user/block/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return response.data
+    } catch (err) {
+        return err.response
+    }
+}
+const unBlockUserApi = async (token, id) => {
+    try {
+        const response = await axios.patch(`user/unblock/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        console.log(response)
+        return response.data
+    } catch (err) {
+        return err.response
+    }
+}
 
 const getOneUserApi = async (id) => {
     try {
@@ -60,4 +89,4 @@ const editUserApi = async (token,id,data) => {
     return response.data
 }
 
-export { getUsers, deleteUserApi, signupApi, getOneUserApi, editUserApi }
+export { getUsers, deleteUserApi, signupApi, getOneUserApi, editUserApi,blockUserApi,unBlockUserApi }
