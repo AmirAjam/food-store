@@ -15,9 +15,6 @@ import SecondaryButton from "@/components/Ui/Button/SecondaryButton"
 export function AdminSheet({children,isOpenSheet,setIsOpenSheet,onSubmitClick}) {
     return (
         <Sheet open={isOpenSheet} onOpenChange={setIsOpenSheet}>
-            <SheetTrigger asChild>
-                <Button variant="outline">Open</Button>
-            </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>افزودن کاربر</SheetTitle>

@@ -1,11 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteUserApi, getUsers } from "@/api/usersApi";
+import { deleteUserApi, getUsers, signupApi } from "@/api/usersApi";
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (token) => {
     const res = await getUsers(token);
     return res;
+  }
+);
+
+export const addUser = createAsyncThunk(
+  "users/addUser",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await signupApi(data);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "خطای ناشناخته از سرور");
+    }
   }
 );
 
@@ -22,20 +34,35 @@ const slice = createSlice({
   initialState: {
     users: { users: "" },
     error: null,
+    status: "idle",
   },
   reducers: {
 
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      state.status = "succeeded";
       state.users = action.payload;
       console.log(action.payload)
-    }),
-      builder.addCase(deleteUser.fulfilled, (state, action) => {
-        const deletedId = action.meta.arg.id; 
-        state.users.users = state.users.users.filter(user => user._id !== deletedId);
+    });
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      const deletedId = action.meta.arg.id;
+      state.users.users = state.users.users.filter(user => user._id !== deletedId);
+    });
+    builder
+      .addCase(addUser.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.users.users.push(action.payload.user);
+      })
+      .addCase(addUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
+
+
   },
 });
 

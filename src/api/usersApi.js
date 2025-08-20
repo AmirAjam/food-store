@@ -15,7 +15,14 @@ const getUsers = async (token) => {
     }
 }
 
-const deleteUserApi = async (token,id) => {
+const signupApi = async (data) => {
+    const response = await axios.post(`auth/register`,
+        data
+    )
+    return response.data
+}
+
+const deleteUserApi = async (token, id) => {
     try {
         const response = await axios.delete(`user/${id}`,
             {
@@ -30,4 +37,13 @@ const deleteUserApi = async (token,id) => {
     }
 }
 
-export { getUsers,deleteUserApi }
+const getOneUserApi = async (id) => {
+    try {
+        const response = await axios.get(`user/${id}`)
+        console.log(response)
+        return response.data
+    } catch (err) {
+        return err.response
+    }
+}
+export { getUsers, deleteUserApi, signupApi,getOneUserApi }

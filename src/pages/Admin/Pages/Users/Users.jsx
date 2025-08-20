@@ -1,30 +1,32 @@
 import { useDispatch } from 'react-redux';
 import store from "@/store/index";
-import { deleteUser } from '@/store/usersSlice';
+import { addUser, deleteUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DataTable } from '../../ui/DataTable';
 import AdminButton from "../../ui/AdminButton";
 import { AdminAlertDialog } from '../../ui/AlertDialog';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import { AdminSheet } from '../../ui/AdminSheet';
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
 import AdminInput from '../../ui/AdminInput';
 import { signupSchema } from '@/schema/authSchema';
+import { getOneUserApi } from '@/api/usersApi';
 
 
 const Users = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false)
   const [isOpenSheet, setIsOpenSheet] = useState(false)
   const [userID, setUserID] = useState(null)
+  const [userData, setUserData] = useState(null)
 
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users.users)
   const token = useSelector((state) => state.auth.accessToken)
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(signupSchema),
   });
 
@@ -71,7 +73,7 @@ const Users = () => {
       accessorKey: "action",
       header: "عملیات",
       cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
-        <AdminButton text="ویرایش" />
+        <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
         <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
         <AdminButton text="بن" />
       </div>,
@@ -90,8 +92,20 @@ const Users = () => {
     setUserID(null)
   }
 
-  const onSubmit = (data) => {
-    console.log("Submit")
+  const editHandler = (id) => {
+    setUserID(id)
+    setIsOpenSheet(true)
+  }
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await dispatch(addUser(data)).unwrap();
+      toast.success("کاربر با موفقیت ساخته شد.")
+      reset()
+      setIsOpenSheet(false)
+    } catch (err) {
+      toast.error("ایمیل وارد شده تکراری می باشد.")
+    }
   };
 
   const onError = (errors) => {
@@ -103,12 +117,40 @@ const Users = () => {
     console.log("Err")
   }
 
+  useEffect(() => {
+    if (userID) {
+      getOneUserApi(userID)
+        .then((res) => setUserData(res.user))
+    } else {
+      setUserData(null)
+    }
+  }, [userID, reset]);
+
+  useEffect(() => {
+    if (userData) {
+      reset({
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+      });
+    } else {
+      reset({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: ""
+      });
+    }
+  }, [userData])
   return (
     <>
       <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
       <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
         <div className='w-42 mt-5'>
-          <PrimaryButton text="افزودن کاربر جدید" onClick={() => setIsOpenSheet(true)} />
+          <PrimaryButton text="افزودن کاربر جدید" onClick={() => {
+            setUserID(null)
+            setIsOpenSheet(true)
+          }} />
         </div>
         <DataTable data={users.users} columns={columns} />
         <AdminAlertDialog
@@ -123,10 +165,30 @@ const Users = () => {
           onSubmitClick={handleSubmit(onSubmit, onError)}>
           <form onSubmit={handleSubmit(onSubmit, onError)} className='px-4'>
 
-            <AdminInput label="نام کاربر" placeholder="نام کاربر را وارد کنید..." />
-            <AdminInput label="فامیل کاربر" placeholder="فامیل کاربر را وارد کنید..." />
-            <AdminInput label="نام کاربر" placeholder="ایمیل کاربر را وارد کنید..." />
-            <AdminInput label="رمز عبور کاربر" placeholder="رمز عبور کاربر را وارد کنید..." />
+            <AdminInput
+              {...register("firstname")}
+              error={errors.firstname?.message}
+              label="نام کاربر"
+              placeholder="نام کاربر را وارد کنید..." />
+
+            <AdminInput
+              {...register("lastname")}
+              error={errors.lastname?.message}
+              label="فامیل کاربر"
+              placeholder="فامیل کاربر را وارد کنید..." />
+
+            <AdminInput
+              {...register("email")}
+              error={errors.email?.message}
+              label="ایمیل کاربر"
+              placeholder="ایمیل کاربر را وارد کنید..." />
+            {!userID &&
+              <AdminInput
+                {...register("password")}
+                error={errors.password?.message}
+                label="رمز عبور کاربر"
+                placeholder="رمز عبور کاربر را وارد کنید..." />
+            }
 
           </form>
         </AdminSheet>
