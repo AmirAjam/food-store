@@ -5,7 +5,7 @@ import AdminInput from '@/pages/Admin/ui/AdminInput'
 import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
-import { addCategory, deleteCategory } from '@/store/categorySlice'
+import { addCategory, deleteCategory, editCategory } from '@/store/categorySlice'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -63,13 +63,24 @@ const Category = () => {
 
     const onSubmit = async (data) => {
         data.type = "product"
-        try {
-            const res = await dispatch(addCategory({ token, data })).unwrap()
-            toast.success("دسته بندی با موفقیت ساخته شد")
-            reset()
-            setIsOpenSheet(false)
-        } catch {
-            toast.error("لینک وارد شده تکراری می باشد")
+        if (categoryID) {
+            try {
+                const res = await dispatch(editCategory({ token, id: categoryID, data })).unwrap()
+                toast.success("دسته بندی با موفقیت ویرایش شد")
+                reset()
+                setIsOpenSheet(false)
+            } catch {
+                toast.error("لینک وارد شده تکراری می باشد")
+            }
+        } else {
+            try {
+                const res = await dispatch(addCategory({ token, data })).unwrap()
+                toast.success("دسته بندی با موفقیت ساخته شد")
+                reset()
+                setIsOpenSheet(false)
+            } catch {
+                toast.error("لینک وارد شده تکراری می باشد")
+            }
         }
 
     }
@@ -94,7 +105,7 @@ const Category = () => {
 
     useEffect(() => {
         if (categoryID) {
-            getCategoryInfoApi(token,categoryID)
+            getCategoryInfoApi(token, categoryID)
                 .then((res) => setCategoryData(res.category))
         } else {
             setCategoryData(null)
@@ -102,7 +113,6 @@ const Category = () => {
     }, [categoryID, reset]);
 
     useEffect(() => {
-        console.log("categoryData : ",categoryData)
         if (categoryData) {
             reset({
                 title: categoryData.title,

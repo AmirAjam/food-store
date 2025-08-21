@@ -26,6 +26,17 @@ const createCategoryApi = async (token, data) => {
     )
     return response.data
 }
+const editCategoryApi = async (token, id, data) => {
+    const response = await axios.put(`category/${id}`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
 
 const removeCategoryApi = async (token, id) => {
     const response = await axios.delete(`category/${id}`,
@@ -37,6 +48,7 @@ const removeCategoryApi = async (token, id) => {
     )
     return response.data
 }
+
 const getCategoryInfoApi = async (token, id) => {
     const response = await axios.get(`category/${id}`,
         {
@@ -48,4 +60,10 @@ const getCategoryInfoApi = async (token, id) => {
     return response.data
 }
 
-export { getCategoryApi, createCategoryApi,removeCategoryApi,getCategoryInfoApi }
+export {
+    getCategoryApi,
+    createCategoryApi,
+    removeCategoryApi,
+    getCategoryInfoApi,
+    editCategoryApi
+}

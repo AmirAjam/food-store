@@ -22,7 +22,7 @@ import { useState } from "react"
 import icons from "@/icons"
 import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 
-export function DataTable({ data, columns }) {
+export function DataTable({ data, columns, searchValue }) {
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
   const [columnVisibility, setColumnVisibility] = useState({})
@@ -51,16 +51,19 @@ export function DataTable({ data, columns }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <input
-          placeholder="جست و جو ایمیل"
-          value={table.getColumn("email")?.getFilterValue() ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm bg-gray-200 pr-4 w-72 py-2 rounded-lg text-sm"
-        />
-      </div>
+      {searchValue ?
+        <div className="flex items-center py-4">
+          <input
+            placeholder="جست و جو ایمیل"
+            value={table.getColumn(searchValue)?.getFilterValue() ?? ""}
+            onChange={(event) =>
+              table.getColumn(searchValue)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm bg-gray-200 pr-4 w-72 py-2 rounded-lg text-sm"
+          />
+        </div>
+        :
+        ""}
 
       <div className="overflow-hidden rounded-md border mt-5 bg-gray-200 border-gray-400">
         <Table className="border-gray-400">

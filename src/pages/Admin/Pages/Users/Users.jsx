@@ -139,7 +139,7 @@ const Users = () => {
   const blockHandler = (id) => dispatch(blockUser({ token, id }))
   const unBlockHandler = (id) => dispatch(unBlockUser({ token, id }))
   
-  const changeRole = (id) => {
+  const changeRole = (target,id) => {
     dispatch(changeUserRole({id,token}))
   }
 
@@ -180,7 +180,7 @@ const Users = () => {
             setIsOpenSheet(true)
           }} />
         </div>
-        <DataTable data={users.users} columns={columns} />
+        <DataTable data={users.users} columns={columns} searchValue="email"/>
         <AdminAlertDialog
           title="آیا از حذف کاربر مطمئن هستید؟"
           confirmAlert={deleteHandler}

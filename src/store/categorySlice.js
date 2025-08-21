@@ -1,4 +1,4 @@
-import { createCategoryApi, getCategoryApi, removeCategoryApi } from "@/api/categoryApi";
+import { createCategoryApi, editCategoryApi, getCategoryApi, removeCategoryApi } from "@/api/categoryApi";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
@@ -27,6 +27,15 @@ export const deleteCategory = createAsyncThunk(
     }
 )
 
+export const editCategory = createAsyncThunk(
+    "category/editCategory",
+    async ({ token, id, data }) => {
+        const res = await editCategoryApi(token, id, data);
+        console.log(res)
+        return res;
+    }
+)
+
 
 const slice = createSlice({
     name: "category",
@@ -46,7 +55,11 @@ const slice = createSlice({
         builder.addCase(deleteCategory.fulfilled, (state, action) => {
             const deletedId = action.meta.arg.id;
             state.categories = state.categories.filter(category => category._id !== deletedId);
-            // state.categories.push(action.payload.category);
+        });
+        builder.addCase(editCategory.fulfilled, (state, action) => {
+            const changedCategory = action.payload.category
+            const index = state.categories.findIndex(category => category._id === changedCategory._id);
+            state.categories[index] = changedCategory
         });
 
     }

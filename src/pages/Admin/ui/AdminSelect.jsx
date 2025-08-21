@@ -9,13 +9,15 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-export function AdminSelect({ defaultValue, children ,changeHandler,itemId}) {
+export function AdminSelect({defaultValue, children ,changeHandler,itemId}) {
+    console.log("defaultValue" ,defaultValue)
     return (
-        <Select defaultValue={defaultValue} onValueChange={() => changeHandler(itemId)}>
+        <>
+        <Select defaultValue={defaultValue} onValueChange={(e) => changeHandler(e,itemId)}>
             <SelectTrigger className={`${defaultValue === "admin" &&"bg-neutral-400/50"}
              w-[180px] text-right  border border-gray-400 cursor-pointer`}
                 dir="rtl">
-                <SelectValue placeholder="Select a fruit" />
+                <SelectValue />
             </SelectTrigger>
             <SelectContent dir="rtl">
                 <SelectGroup className="cursor-pointer">
@@ -23,5 +25,7 @@ export function AdminSelect({ defaultValue, children ,changeHandler,itemId}) {
                 </SelectGroup>
             </SelectContent>
         </Select>
+        </>
+
     )
 }
