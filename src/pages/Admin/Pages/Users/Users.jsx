@@ -114,7 +114,6 @@ const Users = () => {
         setUserID(null)
         setUserData(null)
       } catch (err) {
-        console.log(err)
         toast.error("ایمیل وارد شده تکراری می باشد.")
       }
     } else {
@@ -135,7 +134,6 @@ const Users = () => {
     if (errorValues.length > 0) {
       toast.error(errorValues[0].message);
     }
-    console.log("Err")
   }
 
   const blockHandler = (id) => dispatch(blockUser({ token, id }))

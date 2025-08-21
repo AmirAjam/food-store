@@ -51,6 +51,7 @@ const blockUserApi = async (token, id) => {
     }
 }
 const changeUserRoleApi = async (token, id) => {
+    console.log("ID => " ,id)
     try {
         const response = await axios.patch(`user/${id}/change-role`,
             {
