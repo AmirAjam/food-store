@@ -1,3 +1,4 @@
+import { getCategoryInfoApi } from '@/api/categoryApi'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import AdminButton from '@/pages/Admin/ui/AdminButton'
 import AdminInput from '@/pages/Admin/ui/AdminInput'
@@ -5,7 +6,7 @@ import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
 import { addCategory, deleteCategory } from '@/store/categorySlice'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast, Toaster } from 'sonner'
@@ -14,6 +15,8 @@ const Category = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
     const [isOpenSheet, setIsOpenSheet] = useState(false)
     const [categoryID, setCategoryID] = useState(null)
+    const [categoryData, setCategoryData] = useState(null)
+
     const categories = useSelector((state) => state.categories.categories)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -85,10 +88,35 @@ const Category = () => {
     }
 
     const deleteHandler = () => {
-        dispatch(deleteCategory({token,id:categoryID}))
+        dispatch(deleteCategory({ token, id: categoryID }))
         setCategoryID(null)
     }
 
+    useEffect(() => {
+        if (categoryID) {
+            getCategoryInfoApi(token,categoryID)
+                .then((res) => setCategoryData(res.category))
+        } else {
+            setCategoryData(null)
+        }
+    }, [categoryID, reset]);
+
+    useEffect(() => {
+        console.log("categoryData : ",categoryData)
+        if (categoryData) {
+            reset({
+                title: categoryData.title,
+                slug: categoryData.slug,
+                description: categoryData.description,
+            });
+        } else {
+            reset({
+                title: "",
+                slug: "",
+                email: "",
+            });
+        }
+    }, [categoryData])
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />

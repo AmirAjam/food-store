@@ -22,9 +22,7 @@ export const addCategory = createAsyncThunk(
 export const deleteCategory = createAsyncThunk(
     "category/deleteCategory",
     async ({ token, id }) => {
-        console.log(token, id)
         const res = await removeCategoryApi(token, id);
-        console.log(res)
         return res;
     }
 )

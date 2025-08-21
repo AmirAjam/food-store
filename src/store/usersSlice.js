@@ -40,9 +40,7 @@ export const blockUser = createAsyncThunk(
 export const changeUserRole = createAsyncThunk(
   "users/changeUserRole",
   async ({ token, id }) => {
-    console.log("s")
     const res = await changeUserRoleApi(token, id);
-    console.log("res => ",res)
     return res;
   }
 );
