@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select"
 
 export function AdminSelect({defaultValue, children ,changeHandler,itemId}) {
-    console.log("defaultValue" ,defaultValue)
     return (
         <>
         <Select defaultValue={defaultValue} onValueChange={(e) => changeHandler(e,itemId)}>

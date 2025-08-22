@@ -1,7 +1,6 @@
 import React from 'react'
 
 const AdminInput = ({ type = "text", placeholder,label ,...props }, ref) => {
-    console.log(label)
     return (
         <div className={`${label ? "mt-8" : ""} first:mt-0`}>
             <label htmlFor="">{label}</label>
