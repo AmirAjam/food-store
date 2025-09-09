@@ -1,40 +1,69 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AdminInput from '../../ui/AdminInput'
 import AddProductInput from './AddProductInput'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AdminSelect } from '../../ui/AdminSelect'
 import { SelectItem } from "@/components/ui/select"
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
 import { calFinalPrice } from '@/utils/utils'
+import { addProduct } from '@/store/productSlice'
 
 
 const AddProduct = () => {
-    const [categoryId, setCategoryId] = useState(null)
-    const token = useSelector((state) => state.auth.accessToken)
     const categories = useSelector((state) => state.categories.categories)
+
+    const fileInputRef = useRef()
+    const [categoryId, setCategoryId] = useState()
+    const [preview, setPreview] = useState(null)
+    const [fileInput, setFileInput] = useState(null)
+
+    const token = useSelector((state) => state.auth.accessToken)
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const dispatch = useDispatch()
+
 
     const changeRole = (value, id) => {
-        console.log(value)
         setCategoryId(value)
     }
 
-    const onSubmit = (data) => {
-        console.log("categoryId => ",categoryId)
-        data.brand = "68a712d9f395443e82350fee"
-        data.category = categoryId
-        console.log("Submit => ",data)
+    const onSubmit = async (data) => {
+        if (fileInput) {
+            try {
+                data.brand = "68a712d9f395443e82350fee"
+                data.category = categoryId
+                const res = await dispatch(addProduct({ token, data })).unwrap()
+                toast.success("محصول با موفقیت اضافه شد")
+                reset()
+                setPreview(null)
+                setFileInput(null)
+            } catch {
+                toast.error("لینک وارد شده تکراری می باشد")
+            }
+        } else {
+            toast.error("لطفا عکس محصول را وارد کنید.");
+        }
     }
 
     const onError = (formErrors) => {
-        console.log(calFinalPrice(500,0))
         const errorValues = Object.values(formErrors);
         if (errorValues.length > 0) {
             toast.error(errorValues[0].message);
         }
     };
+
+    const fileInputChange = (e) => {
+        if (e.target.files[0]) {
+            setFileInput(e.target.files[0])
+            setPreview(URL.createObjectURL(e.target.files[0]))
+        }
+    }
+
+    useEffect(() => {
+        categories[0] && setCategoryId(categories[0]._id)
+    }, [categories])
 
     return (
         <>
@@ -72,17 +101,46 @@ const AddProduct = () => {
                             </div>
 
                             <div className='mt-8'>
-                                <AdminSelect defaultValue={categories[0]?.slug} changeHandler={changeRole} itemId={""} >
-                                    {categories.map(category =>
-                                        <SelectItem key={category._id} value={category._id}
-                                            className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
-                                    }
+                                {categories[0] &&
+                                    <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeRole} itemId={""} >
+                                        {categories.map(category =>
+                                            <SelectItem key={category._id} value={category._id}
+                                                className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
+                                        }
 
-                                </AdminSelect>
+                                    </AdminSelect>}
+                            </div>
+                            <div className='mt-12'>
+                                <h2 className='font-Estedad-Medium'>عکس محصول</h2>
+                                <div className='min-h-70 flex items-center justify-center border-3 border-dashed
+                                border-gray-500/80 mt-8 rounded-lg flex-col'>
+
+                                    {preview ?
+                                        <>
+                                            <div className='w-42 mt-12'>
+                                                <PrimaryButton text="حذف عکس"
+                                                    onClick={() => {
+                                                        setPreview(null)
+                                                        setFileInput(null)
+                                                    }} danger />
+                                            </div>
+                                            <img
+                                                src={preview}
+                                                alt="preview"
+                                                className="object-cover rounded mt-8 size-full p-10"
+                                            />
+                                        </>
+                                        :
+                                        <div className='w-42'>
+                                            <PrimaryButton text="آپلود عکس"
+                                                onClick={() => fileInputRef.current.click()} />
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='w-2/5 bg-gray-300 p-5 rounded-lg'>
+                    <div className='w-2/5 bg-gray-300 p-5 rounded-lg h-fit'>
                         <h2 className='font-Estedad-Medium'>قیمت محصول</h2>
                         <div className='mt-5'>
                             <AddProductInput
@@ -97,11 +155,14 @@ const AddProduct = () => {
                                 {...register("quantity")}
                             />
                         </div>
-                        <p className='mt-8 font-Estedad-Bold text-lg text-gray-700'>قیمت نهایی:150000</p>
                         <div className='mt-8'>
                             <PrimaryButton text="اضافه کردن محصول" type='submit' />
                         </div>
                     </div>
+                    <input type="file"
+                        className='hidden'
+                        ref={fileInputRef}
+                        onChange={fileInputChange} />
                 </form>
             </section>
         </>

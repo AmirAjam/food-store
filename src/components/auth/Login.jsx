@@ -24,7 +24,7 @@ const { Close } = icons
 const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
     const dispatch = useDispatch();
 
-    const {sendRequest } = useFetch();
+    const { sendRequest } = useFetch();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema),
@@ -34,11 +34,13 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
         console.log(data)
         sendRequest('auth/login', 'POST', data)
             .then(res => {
-                if (res) {
+                if (res.user) {
                     dispatch(setAccessToken(res.user.token));
                     dispatch(setUserId(res.user.id));
                     toast.success("با موفقیت وارد شدید");
                     setIsOpenLogin(false)
+                } else {
+                    toast.error("نام کاربری یا رمز عبور اشتباه است.");
                 }
             })
     };

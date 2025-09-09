@@ -8,6 +8,7 @@ import store from "@/store/index";
 import { useDispatch } from 'react-redux'
 import { fetchUsers } from '@/store/usersSlice'
 import { getCategories } from '@/store/categorySlice'
+import { getProducts } from '@/store/productSlice'
 
 
 const AdminPanel = () => {
@@ -19,6 +20,7 @@ const AdminPanel = () => {
     useEffect(() => {
         dispatch(fetchUsers(token))
         dispatch(getCategories(token))
+        dispatch(getProducts(token))
     })
 
     return (
