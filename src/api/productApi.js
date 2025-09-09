@@ -31,6 +31,7 @@ const deleteProductApi = async (token, id) => {
             }
         },
     )
+    console.log(response)
     return response.data
 }
 

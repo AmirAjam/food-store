@@ -25,6 +25,7 @@ const Category = () => {
 
     const token = useSelector((state) => state.auth.accessToken)
 
+
     const columns = [
         {
             accessorKey: "title",
@@ -66,20 +67,20 @@ const Category = () => {
         if (categoryID) {
             try {
                 const res = await dispatch(editCategory({ token, id: categoryID, data })).unwrap()
-                toast.success("دسته بندی با موفقیت ویرایش شد")
+                toast.success("دسته بندی با موفقیت ویرایش شد.")
                 reset()
                 setIsOpenSheet(false)
             } catch {
-                toast.error("لینک وارد شده تکراری می باشد")
+                toast.error("لینک وارد شده تکراری می باشد.")
             }
         } else {
             try {
                 const res = await dispatch(addCategory({ token, data })).unwrap()
-                toast.success("دسته بندی با موفقیت ساخته شد")
+                toast.success("دسته بندی با موفقیت ساخته شد.")
                 reset()
                 setIsOpenSheet(false)
             } catch {
-                toast.error("لینک وارد شده تکراری می باشد")
+                toast.error("لینک وارد شده تکراری می باشد.")
             }
         }
 
@@ -101,6 +102,7 @@ const Category = () => {
     const deleteHandler = () => {
         dispatch(deleteCategory({ token, id: categoryID }))
         setCategoryID(null)
+        toast.success("دسته بندی با موفقیت حذف شد.")
     }
 
     useEffect(() => {

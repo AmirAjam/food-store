@@ -35,12 +35,12 @@ const AddProduct = () => {
                 data.brand = "68a712d9f395443e82350fee"
                 data.category = categoryId
                 const res = await dispatch(addProduct({ token, data })).unwrap()
-                toast.success("محصول با موفقیت اضافه شد")
+                toast.success("محصول با موفقیت اضافه شد.")
                 reset()
                 setPreview(null)
                 setFileInput(null)
             } catch {
-                toast.error("لینک وارد شده تکراری می باشد")
+                toast.error("لینک وارد شده تکراری می باشد.")
             }
         } else {
             toast.error("لطفا عکس محصول را وارد کنید.");

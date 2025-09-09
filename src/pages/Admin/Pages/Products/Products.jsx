@@ -1,8 +1,8 @@
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import React, { useState } from 'react'
-import { Toaster } from 'sonner'
+import { toast, Toaster } from 'sonner'
 import { DataTable } from '../../ui/DataTable'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { calFinalPrice } from '@/utils/utils'
 import AdminButton from '../../ui/AdminButton'
 import { Link } from 'react-router-dom'
@@ -11,11 +11,12 @@ import { deleteProduct } from '@/store/productSlice'
 
 const Products = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
-    const [productID, setProductID] = useState(false)
+    const [productID, setProductID] = useState(null)
 
+    const dispatch = useDispatch()
     const token = useSelector((state) => state.auth.accessToken)
-
     const products = useSelector((state) => state.products.products)
+
     console.log("products => ", products)
 
     const columns = [
@@ -77,13 +78,13 @@ const Products = () => {
         },
     ]
 
-    const deleteHandler = (id) => {
-        console.log("Delete => ", productID)
-        deleteProduct(id, token)
+    const deleteHandler = () => {
+        dispatch(deleteProduct({token,id:productID}))
+        toast.success("محصول با موفقیت حذف شد.")
     }
 
     const editHandler = (id) => {
-        console.log("Edit => ", id)
+        // console.log("Edit => ", id)
     }
 
     const openAlertDialog = (id) => {

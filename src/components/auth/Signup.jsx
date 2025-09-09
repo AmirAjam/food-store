@@ -37,7 +37,7 @@ const Signup = ({ isOpenSignup, setIsOpenSignup, setIsOpenLogin }) => {
                 },3000)
             })
             .catch(() => {
-                toast.error("ایمیل وارد شده تکراری می باشد")
+                toast.error("ایمیل وارد شده تکراری می باشد.")
             })
     };
 

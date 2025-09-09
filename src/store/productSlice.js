@@ -1,5 +1,5 @@
 
-import { createProductApi, getProductsApi } from "@/api/productApi";
+import { createProductApi, deleteProductApi, getProductsApi } from "@/api/productApi";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
@@ -13,11 +13,9 @@ export const addProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
     "Product/deleteProduct",
-    async ({token,id}) => {
-        console.log("token => " , token)
-        console.log("id => " , id)
-        // const res = await getProductsApi(token);
-        // return res;
+    async ({ token, id }) => {
+        const res = await deleteProductApi(token, id);
+        return res;
     }
 )
 
@@ -38,11 +36,18 @@ const slice = createSlice({
 
     },
     extraReducers: (builder) => {
+
+        builder.addCase(getProducts.fulfilled, (state, action) => {
+            state.products = action.payload.data
+        });
+
         builder.addCase(addProduct.fulfilled, (state, action) => {
             state.products.unshift(action.payload.product);
         });
-        builder.addCase(getProducts.fulfilled, (state, action) => {
-            state.products=action.payload.data
+
+        builder.addCase(deleteProduct.fulfilled, (state, action) => {
+            const productID = action.meta.arg.id;
+            state.products = state.products.filter(product => product._id !== productID)
         });
     }
 })
