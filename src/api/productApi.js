@@ -12,8 +12,6 @@ const getProductsApi = async (token) => {
 }
 
 const createProductApi = async (token, data) => {
-    console.log(data)
-
     const response = await axios.post("product",
         data,
         {
@@ -22,11 +20,22 @@ const createProductApi = async (token, data) => {
             }
         }
     )
-    console.log(response)
+    return response.data
+}
+
+const deleteProductApi = async (token, id) => {
+    const response = await axios.delete(`product/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        },
+    )
     return response.data
 }
 
 export {
     getProductsApi,
-    createProductApi
+    createProductApi,
+    deleteProductApi
 }

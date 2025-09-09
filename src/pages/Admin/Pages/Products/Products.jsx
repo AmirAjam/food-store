@@ -1,13 +1,21 @@
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
-import React from 'react'
+import React, { useState } from 'react'
 import { Toaster } from 'sonner'
 import { DataTable } from '../../ui/DataTable'
 import { useSelector } from 'react-redux'
-import { number } from 'yup'
+import { calFinalPrice } from '@/utils/utils'
+import AdminButton from '../../ui/AdminButton'
+import { Link } from 'react-router-dom'
+import { AdminAlertDialog } from '../../ui/AlertDialog'
+import { deleteProduct } from '@/store/productSlice'
 
 const Products = () => {
-    const products = useSelector((state) => state.products.products)
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
+    const [productID, setProductID] = useState(false)
 
+    const token = useSelector((state) => state.auth.accessToken)
+
+    const products = useSelector((state) => state.products.products)
     console.log("products => ", products)
 
     const columns = [
@@ -32,40 +40,57 @@ const Products = () => {
         {
             accessorKey: "quantity",
             header: "تخفیف",
-            cell: ({ row }) => <div className="capitalize w-fit!">
+            cell: ({ row }) => <div className="capitalize">
                 {row.getValue("quantity")}
             </div>,
         },
         {
             accessorKey: "finalPrice",
             header: "قیمت نهایی",
-            cell: ({ row }) => <div className="capitalize w-2/20">
-                ۲۰۰۰۰۰
+            accessorFn: (row) => {
+                return calFinalPrice(row.price, row.quantity)
+            },
+            cell: ({ getValue }) => <div className="capitalize w-2/20">
+                {getValue().toLocaleString()}
             </div>,
         },
         {
             accessorKey: "category",
             header: "دسته بندی",
-            cell: ({ row }) => <div className="capitalize w-5/20!">
-                {row.original.category?.title}
-            </div>,
-        },
-        {
-            accessorKey: "description",
-            header: "توصیحات",
-            cell: ({ row }) => <div className="capitalize w-50! text-sm!">{row.getValue("description")}</div>,
-            enableSorting: false
+            accessorFn: (row) => row.category?.title || "",
+            cell: ({ row }) => (
+                <div className="capitalize w-5/20!">
+                    {row.original.category?.title}
+                </div>
+            ),
         },
         {
             accessorKey: "action",
             header: "عملیات",
             cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
-                {/* <AdminButto text="ویرایش" onClick={() => editHandler(row.original._id)} />
-                <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" /> */}
+                <Link to={`/p-admin/add-product?${row.original._id}`}>
+                    <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
+                </Link>
+                <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
             </div>,
             enableSorting: false
         },
     ]
+
+    const deleteHandler = (id) => {
+        console.log("Delete => ", productID)
+        deleteProduct(id, token)
+    }
+
+    const editHandler = (id) => {
+        console.log("Edit => ", id)
+    }
+
+    const openAlertDialog = (id) => {
+        setIsOpenDialog(true)
+        setProductID(id)
+    }
+
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
@@ -78,12 +103,12 @@ const Products = () => {
                 </div>
 
                 <DataTable data={products} columns={columns} />
-                {/* <AdminAlertDialog
+                <AdminAlertDialog
                     title="آیا از حذف محصول مطمئن هستید؟"
                     confirmAlert={deleteHandler}
                     setIsOpenDialog={setIsOpenDialog}
                     isOpenDialog={isOpenDialog}
-                /> */}
+                />
             </section>
         </>
     )

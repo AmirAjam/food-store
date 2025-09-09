@@ -4,18 +4,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
 export const addProduct = createAsyncThunk(
-    "category/addProduct",
+    "Product/addProduct",
     async ({ token, data }) => {
         const res = await createProductApi(token, data);
-        console.log(res)
         return res;
     }
 )
+
+export const deleteProduct = createAsyncThunk(
+    "Product/deleteProduct",
+    async ({token,id}) => {
+        console.log("token => " , token)
+        console.log("id => " , id)
+        // const res = await getProductsApi(token);
+        // return res;
+    }
+)
+
 export const getProducts = createAsyncThunk(
-    "category/getProducts",
+    "Product/getProducts",
     async (token) => {
         const res = await getProductsApi(token);
-        console.log(res)
         return res;
     }
 )
@@ -31,7 +40,6 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(addProduct.fulfilled, (state, action) => {
             state.products.unshift(action.payload.product);
-            console.log("action.payload => ",action.payload.product)
         });
         builder.addCase(getProducts.fulfilled, (state, action) => {
             state.products=action.payload.data

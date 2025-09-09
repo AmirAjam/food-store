@@ -31,7 +31,6 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
     });
 
     const onSubmit = (data) => {
-        console.log(data)
         sendRequest('auth/login', 'POST', data)
             .then(res => {
                 if (res.user) {

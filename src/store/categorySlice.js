@@ -6,7 +6,6 @@ export const getCategories = createAsyncThunk(
     "category/getCategory",
     async (token) => {
         const res = await getCategoryApi(token);
-        console.log(res)
         return res;
     }
 )
@@ -31,7 +30,6 @@ export const editCategory = createAsyncThunk(
     "category/editCategory",
     async ({ token, id, data }) => {
         const res = await editCategoryApi(token, id, data);
-        console.log(res)
         return res;
     }
 )
