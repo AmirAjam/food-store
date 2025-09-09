@@ -31,12 +31,25 @@ const deleteProductApi = async (token, id) => {
             }
         },
     )
-    console.log(response)
     return response.data
 }
+
+const publisProductApi = async (token, id) => {
+    const response = await axios.patch(`product/${id}/publish`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        },
+    )
+    return response.data
+}
+
+
 
 export {
     getProductsApi,
     createProductApi,
-    deleteProductApi
+    deleteProductApi,
+    publisProductApi
 }

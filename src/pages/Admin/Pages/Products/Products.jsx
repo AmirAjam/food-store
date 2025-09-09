@@ -7,7 +7,7 @@ import { calFinalPrice } from '@/utils/utils'
 import AdminButton from '../../ui/AdminButton'
 import { Link } from 'react-router-dom'
 import { AdminAlertDialog } from '../../ui/AlertDialog'
-import { deleteProduct } from '@/store/productSlice'
+import { deleteProduct, publisProduct } from '@/store/productSlice'
 
 const Products = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
@@ -41,7 +41,7 @@ const Products = () => {
         {
             accessorKey: "quantity",
             header: "تخفیف",
-            cell: ({ row }) => <div className="capitalize">
+            cell: ({ row }) => <div className="capitalize w-10!">
                 {row.getValue("quantity")}
             </div>,
         },
@@ -66,27 +66,50 @@ const Products = () => {
             ),
         },
         {
+            accessorKey: "published",
+            header: "وضعیت",
+            accessorFn: (row) => {
+                return row.statusProduct
+            },
+            cell: ({ getValue }) => (
+                <div className="capitalize mr-3 w-32!">
+                    {getValue() === "Unpublished" ?
+                        <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>
+                        :
+                        <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span>}
+                </div>
+            ),
+        },
+        {
             accessorKey: "action",
             header: "عملیات",
-            cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
+            cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-10/20!">
                 <Link to={`/p-admin/add-product?${row.original._id}`}>
                     <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
                 </Link>
                 <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
+                {row.original.statusProduct === "Unpublished" ?
+                    <AdminButton text="فعال سازی"
+                        onClick={() => publisProductHandler(row.original._id)} />
+                    :
+                    <AdminButton text="غیرفعال کردن"
+                        onClick={() => dispatch(publisProduct({ token, id: row.original._id }))} />
+                }
             </div>,
             enableSorting: false
         },
     ]
 
     const deleteHandler = () => {
-        dispatch(deleteProduct({token,id:productID}))
+        dispatch(deleteProduct({ token, id: productID }))
         toast.success("محصول با موفقیت حذف شد.")
     }
 
-    const editHandler = (id) => {
-        // console.log("Edit => ", id)
+    const publisProductHandler = (id) => {
+        dispatch(publisProduct({token,id}))
+        toast.success("محصول با موفقیت منتشر شد.")
     }
-
+ 
     const openAlertDialog = (id) => {
         setIsOpenDialog(true)
         setProductID(id)
