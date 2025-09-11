@@ -1,5 +1,13 @@
 
-import { createProductApi, deleteProductApi, getProductsApi, publisProductApi } from "@/api/productApi";
+import {
+    createProductApi,
+    deleteProductApi,
+    getProductsApi,
+    publisProductApi,
+    unpublisProductApi,
+    uploadProducImageApi,
+} from "@/api/productApi";
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
@@ -7,6 +15,14 @@ export const addProduct = createAsyncThunk(
     "Product/addProduct",
     async ({ token, data }) => {
         const res = await createProductApi(token, data);
+        return res;
+    }
+)
+export const uploadProductImage = createAsyncThunk(
+    "Product/uploadProductImage",
+    async ({ token,id,file}) => {
+        const res = await uploadProducImageApi(token,id,file);
+        console.log("uploadProductImage => ",res)
         return res;
     }
 )
@@ -23,6 +39,14 @@ export const publisProduct = createAsyncThunk(
     "Product/publisProduct",
     async ({ token, id }) => {
         const res = await publisProductApi(token, id);
+        return res;
+    }
+)
+
+export const unpublisProduct = createAsyncThunk(
+    "Product/unpublisProduct",
+    async ({ token, id }) => {
+        const res = await unpublisProductApi(token, id);
         return res;
     }
 )
@@ -58,7 +82,12 @@ const slice = createSlice({
             const productID = action.meta.arg.id;
             const productIndex = state.products.findIndex(product => product._id === productID)
             state.products[productIndex].statusProduct = "published"
-            // state.products = state.products.filter(product => product._id !== productID)
+        });
+
+        builder.addCase(unpublisProduct.fulfilled, (state, action) => {
+            const productID = action.meta.arg.id;
+            const productIndex = state.products.findIndex(product => product._id === productID)
+            state.products[productIndex].statusProduct = "Unpublished"
         });
 
         builder.addCase(getProducts.fulfilled, (state, action) => {

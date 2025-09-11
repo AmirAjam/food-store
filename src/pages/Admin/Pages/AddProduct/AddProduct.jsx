@@ -7,8 +7,7 @@ import { SelectItem } from "@/components/ui/select"
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
-import { calFinalPrice } from '@/utils/utils'
-import { addProduct } from '@/store/productSlice'
+import { addProduct, uploadProductImage } from '@/store/productSlice'
 
 
 const AddProduct = () => {
@@ -29,12 +28,30 @@ const AddProduct = () => {
         setCategoryId(value)
     }
 
+    const fileInputChange = (e) => {
+        if (e.target.files[0]) {
+            setFileInput(e.target.files[0])
+            setPreview(URL.createObjectURL(e.target.files[0]))
+        }
+        console.log(e.target.files[0])
+    }
+
+    const addImageProduct = (id) => {
+        const formData = new FormData();
+        formData.append("images", fileInput);
+        dispatch(uploadProductImage({ token, id, file: formData }))
+    }
+
+
     const onSubmit = async (data) => {
         if (fileInput) {
             try {
                 data.brand = "68a712d9f395443e82350fee"
                 data.category = categoryId
+                console.log("data => ",data)
                 const res = await dispatch(addProduct({ token, data })).unwrap()
+                const productID = res.product._id
+                addImageProduct(productID)
                 toast.success("محصول با موفقیت اضافه شد.")
                 reset()
                 setPreview(null)
@@ -54,17 +71,16 @@ const AddProduct = () => {
         }
     };
 
-    const fileInputChange = (e) => {
-        if (e.target.files[0]) {
-            setFileInput(e.target.files[0])
-            setPreview(URL.createObjectURL(e.target.files[0]))
-        }
-    }
-
     useEffect(() => {
         categories[0] && setCategoryId(categories[0]._id)
     }, [categories])
 
+    // useEffect(() => {
+    //     console.log(fileInput)
+    //     const formData = new FormData();
+    //     formData.append("images", fileInput);
+    //     dispatch(uploadProductImage({ token, id:"68bef5078fb6cead1eb390c8", file: formData }))
+    // }, [fileInput])
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />

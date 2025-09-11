@@ -129,6 +129,8 @@ const Category = () => {
             });
         }
     }, [categoryData])
+
+    
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />

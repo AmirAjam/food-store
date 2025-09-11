@@ -7,7 +7,7 @@ import { calFinalPrice } from '@/utils/utils'
 import AdminButton from '../../ui/AdminButton'
 import { Link } from 'react-router-dom'
 import { AdminAlertDialog } from '../../ui/AlertDialog'
-import { deleteProduct, publisProduct } from '@/store/productSlice'
+import { deleteProduct, publisProduct, unpublisProduct } from '@/store/productSlice'
 
 const Products = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
@@ -66,14 +66,11 @@ const Products = () => {
             ),
         },
         {
-            accessorKey: "published",
+            accessorKey: "statusProduct",
             header: "وضعیت",
-            accessorFn: (row) => {
-                return row.statusProduct
-            },
-            cell: ({ getValue }) => (
+            cell: ({ row }) => (
                 <div className="capitalize mr-3 w-32!">
-                    {getValue() === "Unpublished" ?
+                    { row.original.statusProduct === "Unpublished" ?
                         <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>
                         :
                         <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span>}
@@ -93,7 +90,7 @@ const Products = () => {
                         onClick={() => publisProductHandler(row.original._id)} />
                     :
                     <AdminButton text="غیرفعال کردن"
-                        onClick={() => dispatch(publisProduct({ token, id: row.original._id }))} />
+                        onClick={() => unpublisProductHandler(row.original._id)} />
                 }
             </div>,
             enableSorting: false
@@ -106,10 +103,15 @@ const Products = () => {
     }
 
     const publisProductHandler = (id) => {
-        dispatch(publisProduct({token,id}))
+        dispatch(publisProduct({ token, id }))
         toast.success("محصول با موفقیت منتشر شد.")
     }
- 
+
+    const unpublisProductHandler = (id) => {
+        dispatch(unpublisProduct({ token, id }))
+        toast.success("محصول با موفقیت از انتشار خارج شد.")
+    }
+
     const openAlertDialog = (id) => {
         setIsOpenDialog(true)
         setProductID(id)
@@ -120,10 +122,12 @@ const Products = () => {
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
-                    <PrimaryButton text="افزودن دسته بندی" onClick={() => {
-                        setCategoryID(null)
-                        setIsOpenSheet(true)
-                    }} />
+                    <Link to="/p-admin/add-product">
+                        <PrimaryButton text="افزودن محصول" onClick={() => {
+                            setCategoryID(null)
+                            setIsOpenSheet(true)
+                        }} />
+                    </Link>
                 </div>
 
                 <DataTable data={products} columns={columns} />

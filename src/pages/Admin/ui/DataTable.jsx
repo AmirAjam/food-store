@@ -20,7 +20,6 @@ import {
 
 import { useState } from "react"
 import icons from "@/icons"
-import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 
 export function DataTable({ data, columns, searchValue }) {
   const [sorting, setSorting] = useState([])
@@ -130,7 +129,6 @@ export function DataTable({ data, columns, searchValue }) {
       </div>
 
       <div className="flex items-center justify-between py-4">
-        {/* کنترل سایز صفحه */}
         <div className="flex items-center gap-2">
           <span>تعداد در صفحه:</span>
           <select
@@ -146,7 +144,6 @@ export function DataTable({ data, columns, searchValue }) {
           </select>
         </div>
 
-        {/* شماره صفحات */}
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
