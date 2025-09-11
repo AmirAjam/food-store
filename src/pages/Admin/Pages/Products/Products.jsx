@@ -23,7 +23,9 @@ const Products = () => {
         {
             accessorKey: "title",
             header: "تیتر",
-            cell: ({ row }) => <div className="capitalize text-right! w-5/20">{row.getValue("title")}</div>,
+            cell: ({ row }) => <div className="capitalize text-right! w-5/20">
+                {row.getValue("title")}
+            </div>,
         },
         {
             accessorKey: "slug",
@@ -70,7 +72,7 @@ const Products = () => {
             header: "وضعیت",
             cell: ({ row }) => (
                 <div className="capitalize mr-3 w-32!">
-                    { row.original.statusProduct === "Unpublished" ?
+                    {row.original.statusProduct === "Unpublished" ?
                         <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>
                         :
                         <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span>}
@@ -81,8 +83,8 @@ const Products = () => {
             accessorKey: "action",
             header: "عملیات",
             cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-10/20!">
-                <Link to={`/p-admin/add-product?${row.original._id}`}>
-                    <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
+                <Link to={`/p-admin/add-product/${row.original._id}`}>
+                    <AdminButton text="ویرایش" />
                 </Link>
                 <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
                 {row.original.statusProduct === "Unpublished" ?
@@ -122,6 +124,7 @@ const Products = () => {
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
+                    <img src="http://127.0.0.1:369/images/products/images-1757597547775.png" alt="" />
                     <Link to="/p-admin/add-product">
                         <PrimaryButton text="افزودن محصول" onClick={() => {
                             setCategoryID(null)

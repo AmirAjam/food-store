@@ -13,6 +13,7 @@ export const routes = [
         path: "/p-admin", element: <AdminRoute><Admin /></AdminRoute>,
         children: [
             {path: "/p-admin/users",element:<Users />},
+            {path: "/p-admin/add-product/:id",element:<AddProduct />},
             {path: "/p-admin/add-product",element:<AddProduct />},
             {path: "/p-admin/products",element:<Products />},
             {path: "/p-admin/category",element:<Category />},

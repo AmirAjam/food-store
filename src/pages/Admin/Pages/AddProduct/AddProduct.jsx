@@ -7,18 +7,24 @@ import { SelectItem } from "@/components/ui/select"
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
-import { addProduct, uploadProductImage } from '@/store/productSlice'
+import { addProduct, findProduct, uploadProductImage } from '@/store/productSlice'
+import { useParams } from 'react-router-dom'
 
 
 const AddProduct = () => {
     const categories = useSelector((state) => state.categories.categories)
+    const products = useSelector((state) => state.products.products)
 
     const fileInputRef = useRef()
-    const [categoryId, setCategoryId] = useState()
+    const [categoryId, setCategoryId] = useState(null)
     const [preview, setPreview] = useState(null)
     const [fileInput, setFileInput] = useState(null)
 
     const token = useSelector((state) => state.auth.accessToken)
+
+    const productParam = useParams()
+    const productDetials = findProduct(products, productParam.id)
+
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const dispatch = useDispatch()
@@ -48,7 +54,7 @@ const AddProduct = () => {
             try {
                 data.brand = "68a712d9f395443e82350fee"
                 data.category = categoryId
-                console.log("data => ",data)
+                console.log("data => ", data)
                 const res = await dispatch(addProduct({ token, data })).unwrap()
                 const productID = res.product._id
                 addImageProduct(productID)
@@ -71,16 +77,31 @@ const AddProduct = () => {
         }
     };
 
+    
+    const setDefaultValue = () => {
+        console.log(productDetials)
+        setCategoryId(productDetials.category._id)
+        productDetials &&
+            reset({
+                title: productDetials.title,
+                slug: productDetials.slug,
+                price: productDetials.price,
+                quantity: productDetials.quantity,
+            })
+    }
+
+
+
+
     useEffect(() => {
         categories[0] && setCategoryId(categories[0]._id)
     }, [categories])
 
-    // useEffect(() => {
-    //     console.log(fileInput)
-    //     const formData = new FormData();
-    //     formData.append("images", fileInput);
-    //     dispatch(uploadProductImage({ token, id:"68bef5078fb6cead1eb390c8", file: formData }))
-    // }, [fileInput])
+    useEffect(() => {
+        if (productDetials) {
+            setDefaultValue()
+        }
+    }, [productDetials])
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
@@ -117,6 +138,8 @@ const AddProduct = () => {
                             </div>
 
                             <div className='mt-8'>
+                                {productDetials && 
+                                 <p>Test</p>}
                                 {categories[0] &&
                                     <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeRole} itemId={""} >
                                         {categories.map(category =>

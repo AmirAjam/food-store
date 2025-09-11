@@ -20,9 +20,9 @@ export const addProduct = createAsyncThunk(
 )
 export const uploadProductImage = createAsyncThunk(
     "Product/uploadProductImage",
-    async ({ token,id,file}) => {
-        const res = await uploadProducImageApi(token,id,file);
-        console.log("uploadProductImage => ",res)
+    async ({ token, id, file }) => {
+        const res = await uploadProducImageApi(token, id, file);
+        console.log("uploadProductImage => ", res)
         return res;
     }
 )
@@ -68,9 +68,14 @@ const slice = createSlice({
 
     },
     extraReducers: (builder) => {
-
         builder.addCase(addProduct.fulfilled, (state, action) => {
             state.products.unshift(action.payload.product);
+        });
+
+        builder.addCase(uploadProductImage.fulfilled, (state, action) => {
+            const productID = action.meta.arg.id;
+            const productIndex = state.products.findIndex(product => product._id === productID)
+            state.products[productIndex].gallery = action.payload.gallery
         });
 
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
@@ -97,3 +102,7 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
+
+export const findProduct = (products,id) => {
+    return products.find(product => product._id === id)
+}
