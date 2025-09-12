@@ -23,6 +23,18 @@ const createProductApi = async (token, data) => {
     return response.data
 }
 
+const editProductApi = async (token, id ,data) => {
+    const response = await axios.put(`product/${id}`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
+
 const uploadProducImageApi = async (token, id, file) => {
     console.log("file => ", file)
     const response = await axios.put(`product/${id}/gallery`,
@@ -75,6 +87,7 @@ const unpublisProductApi = async (token, id) => {
 export {
     getProductsApi,
     createProductApi,
+    editProductApi,
     uploadProducImageApi,
     deleteProductApi,
     publisProductApi,

@@ -2,6 +2,7 @@
 import {
     createProductApi,
     deleteProductApi,
+    editProductApi,
     getProductsApi,
     publisProductApi,
     unpublisProductApi,
@@ -18,6 +19,16 @@ export const addProduct = createAsyncThunk(
         return res;
     }
 )
+
+export const editProduct = createAsyncThunk(
+    "Product/editProduct",
+    async ({ token, id, data }) => {
+        const res = await editProductApi(token, id, data);
+        console.log(res)
+        return res;
+    }
+)
+
 export const uploadProductImage = createAsyncThunk(
     "Product/uploadProductImage",
     async ({ token, id, file }) => {
@@ -72,6 +83,11 @@ const slice = createSlice({
             state.products.unshift(action.payload.product);
         });
 
+        builder.addCase(editProduct.fulfilled, (state, action) => {
+            const productID = action.meta.arg.id;
+            console.log("productID => ",productID)
+        });
+
         builder.addCase(uploadProductImage.fulfilled, (state, action) => {
             const productID = action.meta.arg.id;
             const productIndex = state.products.findIndex(product => product._id === productID)
@@ -103,6 +119,6 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const findProduct = (products,id) => {
+export const findProduct = (products, id) => {
     return products.find(product => product._id === id)
 }

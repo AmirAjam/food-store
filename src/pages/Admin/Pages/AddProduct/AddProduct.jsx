@@ -7,7 +7,7 @@ import { SelectItem } from "@/components/ui/select"
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
-import { addProduct, findProduct, uploadProductImage } from '@/store/productSlice'
+import { addProduct, editProduct, findProduct, uploadProductImage } from '@/store/productSlice'
 import { useParams } from 'react-router-dom'
 
 
@@ -16,7 +16,7 @@ const AddProduct = () => {
     const products = useSelector((state) => state.products.products)
 
     const fileInputRef = useRef()
-    const [categoryId, setCategoryId] = useState(null)
+    const [categoryId, setCategoryId] = useState("")
     const [preview, setPreview] = useState(null)
     const [fileInput, setFileInput] = useState(null)
 
@@ -30,8 +30,9 @@ const AddProduct = () => {
     const dispatch = useDispatch()
 
 
-    const changeRole = (value, id) => {
+    const changeCategory = (value, id) => {
         setCategoryId(value)
+        console.log(value)
     }
 
     const fileInputChange = (e) => {
@@ -48,21 +49,35 @@ const AddProduct = () => {
         dispatch(uploadProductImage({ token, id, file: formData }))
     }
 
+    const resetForm = () => {
+        reset()
+        setPreview(null)
+        setFileInput(null)
+    }
+
+    const editProductHandler = (data) => {
+        console.log("EditProduct => ", data)
+        console.log(" categoryId=> ", categoryId)
+        dispatch(editProduct({token,id:productDetials._id,data}))
+    }
+
 
     const onSubmit = async (data) => {
+        data.brand = "68a712d9f395443e82350fee"
+        data.category = categoryId
+        if (productDetials) {
+            editProductHandler(data)
+            return
+        }
         if (fileInput) {
             try {
-                data.brand = "68a712d9f395443e82350fee"
-                data.category = categoryId
-                console.log("data => ", data)
                 const res = await dispatch(addProduct({ token, data })).unwrap()
                 const productID = res.product._id
                 addImageProduct(productID)
                 toast.success("محصول با موفقیت اضافه شد.")
-                reset()
-                setPreview(null)
-                setFileInput(null)
-            } catch {
+                resetForm()
+            }
+            catch {
                 toast.error("لینک وارد شده تکراری می باشد.")
             }
         } else {
@@ -83,6 +98,7 @@ const AddProduct = () => {
             console.log(productDetials)
             setCategoryId(productDetials.category._id)
             const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
+            setFileInput(true)
             reset({
                 title: productDetials.title,
                 description: productDetials.description,
@@ -142,7 +158,7 @@ const AddProduct = () => {
                             <div className='mt-8'>
                                 {
                                     productDetials && categoryId &&
-                                    <AdminSelect defaultValue={categoryId} changeHandler={changeRole} itemId={""} >
+                                    <AdminSelect defaultValue={categoryId} changeHandler={changeCategory} itemId={""} >
                                         {categories.map(category =>
                                             <SelectItem key={category._id} value={category._id}
                                                 className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
@@ -150,7 +166,7 @@ const AddProduct = () => {
                                     </AdminSelect>}
 
                                 {categories[0] && !productDetials &&
-                                    <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeRole} itemId={""} >
+                                    <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeCategory} itemId={""} >
                                         {categories.map(category =>
                                             <SelectItem key={category._id} value={category._id}
                                                 className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
