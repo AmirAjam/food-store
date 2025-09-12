@@ -77,20 +77,22 @@ const AddProduct = () => {
         }
     };
 
-    
+
     const setDefaultValue = () => {
-        console.log(productDetials)
-        setCategoryId(productDetials.category._id)
-        productDetials &&
+        if (productDetials) {
+            console.log(productDetials)
+            setCategoryId(productDetials.category._id)
+            const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
             reset({
                 title: productDetials.title,
+                description: productDetials.description,
                 slug: productDetials.slug,
                 price: productDetials.price,
                 quantity: productDetials.quantity,
             })
+            setPreview(imageSrc)
+        }
     }
-
-
 
 
     useEffect(() => {
@@ -138,9 +140,16 @@ const AddProduct = () => {
                             </div>
 
                             <div className='mt-8'>
-                                {productDetials && 
-                                 <p>Test</p>}
-                                {categories[0] &&
+                                {
+                                    productDetials && categoryId &&
+                                    <AdminSelect defaultValue={categoryId} changeHandler={changeRole} itemId={""} >
+                                        {categories.map(category =>
+                                            <SelectItem key={category._id} value={category._id}
+                                                className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
+                                        }
+                                    </AdminSelect>}
+
+                                {categories[0] && !productDetials &&
                                     <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeRole} itemId={""} >
                                         {categories.map(category =>
                                             <SelectItem key={category._id} value={category._id}
