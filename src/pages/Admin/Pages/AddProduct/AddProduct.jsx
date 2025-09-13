@@ -32,7 +32,6 @@ const AddProduct = () => {
 
     const changeCategory = (value, id) => {
         setCategoryId(value)
-        console.log(value)
     }
 
     const fileInputChange = (e) => {
@@ -58,7 +57,7 @@ const AddProduct = () => {
     const editProductHandler = (data) => {
         console.log("EditProduct => ", data)
         console.log(" categoryId=> ", categoryId)
-        dispatch(editProduct({token,id:productDetials._id,data}))
+        dispatch(editProduct({ token, id: productDetials._id, data }))
     }
 
 
@@ -95,8 +94,6 @@ const AddProduct = () => {
 
     const setDefaultValue = () => {
         if (productDetials) {
-            console.log(productDetials)
-            setCategoryId(productDetials.category._id)
             const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
             setFileInput(true)
             reset({
@@ -106,20 +103,23 @@ const AddProduct = () => {
                 price: productDetials.price,
                 quantity: productDetials.quantity,
             })
+            setCategoryId(productDetials.category._id)
             setPreview(imageSrc)
         }
     }
 
 
     useEffect(() => {
-        categories[0] && setCategoryId(categories[0]._id)
-    }, [categories])
+        if (categories[0] && productParam.id) {
+            setDefaultValue()
+        } else {
+            categories[0] && setCategoryId(categories[0]._id)
+        }
+    }, [categories,productDetials])
+
 
     useEffect(() => {
-        if (productDetials) {
-            setDefaultValue()
-        }
-    }, [productDetials])
+    }, [categoryId])
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
@@ -157,7 +157,7 @@ const AddProduct = () => {
 
                             <div className='mt-8'>
                                 {
-                                    productDetials && categoryId &&
+                                    categoryId && productParam.id &&
                                     <AdminSelect defaultValue={categoryId} changeHandler={changeCategory} itemId={""} >
                                         {categories.map(category =>
                                             <SelectItem key={category._id} value={category._id}
@@ -166,13 +166,17 @@ const AddProduct = () => {
                                     </AdminSelect>}
 
                                 {categories[0] && !productDetials &&
-                                    <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeCategory} itemId={""} >
-                                        {categories.map(category =>
-                                            <SelectItem key={category._id} value={category._id}
-                                                className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
-                                        }
+                                    <>
+                                        <p>Test FFFF</p>
+                                        <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeCategory} itemId={""} >
+                                            {categories.map(category =>
+                                                <SelectItem key={category._id} value={category._id}
+                                                    className="text-right cursor-pointer py-1">{category.title}</SelectItem>)
+                                            }
 
-                                    </AdminSelect>}
+                                        </AdminSelect>
+                                    </>
+                                }
                             </div>
                             <div className='mt-12'>
                                 <h2 className='font-Estedad-Medium'>عکس محصول</h2>
@@ -220,7 +224,11 @@ const AddProduct = () => {
                             />
                         </div>
                         <div className='mt-8'>
-                            <PrimaryButton text="اضافه کردن محصول" type='submit' />
+                            {productDetials ?
+                                <PrimaryButton text="ویرایش کردن محصول" type='submit' />
+                                :
+                                <PrimaryButton text="اضافه کردن محصول" type='submit' />
+                            }
                         </div>
                     </div>
                     <input type="file"
