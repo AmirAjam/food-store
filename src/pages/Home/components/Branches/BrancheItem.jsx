@@ -1,7 +1,6 @@
 import React from 'react'
 
 const BrancheItem = ({ branche }) => {
-    console.log(branche)
     return (
         <div className='flex border border-gray-300 rounded-lg mt-5 first:mt-0 overflow-hidden 
         items-center sm:h-32 sm:mt-0 md:block md:h-auto'>

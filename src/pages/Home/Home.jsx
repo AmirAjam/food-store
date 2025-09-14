@@ -7,6 +7,7 @@ import icons from "@/icons";
 import useFetch from "@/hooks/useFetch";
 import { useEffect } from "react";
 import Branches from "./components/Branches/Branches";
+import Footer from "@/components/Footer/Footer";
 
 const { Search } = icons
 
@@ -22,6 +23,7 @@ export default function Home() {
       <RestaurantMenu />
       <IntroSection />
       <Branches />
+      <Footer />
     </>
   )
 }

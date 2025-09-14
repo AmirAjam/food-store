@@ -5,7 +5,7 @@ import { PiMaskHappyLight } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose } from "react-icons/io5";
 import { BiSearch,BiSort } from "react-icons/bi";
 import { IoIosMenu } from "react-icons/io";
-import { RiShoppingCartLine } from "react-icons/ri";
+import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
 import { IoIosNotificationsOutline,IoMdCart  } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory } from "react-icons/md"
 import { BsDatabaseFillAdd } from "react-icons/bs";
@@ -36,7 +36,9 @@ const icons = {
   SortAlphabetDesc:RiSortAlphabetDesc,
   SortAlphabetAsc:RiSortAlphabetAsc,
   Sort:BiSort,
-
+  Twitter:RiTwitterXLine,
+  Instagram:RiInstagramLine ,
+  Telegram:RiTelegram2Line 
 };
 
 export default icons;
