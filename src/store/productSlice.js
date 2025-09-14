@@ -8,6 +8,7 @@ import {
     unpublisProductApi,
     uploadProducImageApi,
 } from "@/api/productApi";
+import { findArrayIndex } from "@/utils/utils";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
@@ -85,12 +86,15 @@ const slice = createSlice({
 
         builder.addCase(editProduct.fulfilled, (state, action) => {
             const productID = action.meta.arg.id;
-            console.log("productID => ",productID)
+            const productData = action.meta.arg.data;
+            const productIndex = findArrayIndex(state.products, productID)
+            console.log("productID => ", productID)
+            console.log("productData => ", productData)
         });
 
         builder.addCase(uploadProductImage.fulfilled, (state, action) => {
             const productID = action.meta.arg.id;
-            const productIndex = state.products.findIndex(product => product._id === productID)
+            const productIndex = findArrayIndex(state.products, productID)
             state.products[productIndex].gallery = action.payload.gallery
         });
 
@@ -101,13 +105,13 @@ const slice = createSlice({
 
         builder.addCase(publisProduct.fulfilled, (state, action) => {
             const productID = action.meta.arg.id;
-            const productIndex = state.products.findIndex(product => product._id === productID)
+            const productIndex = findArrayIndex(state.products, productID)
             state.products[productIndex].statusProduct = "published"
         });
 
         builder.addCase(unpublisProduct.fulfilled, (state, action) => {
             const productID = action.meta.arg.id;
-            const productIndex = state.products.findIndex(product => product._id === productID)
+            const productIndex = findArrayIndex(state.products, productID)
             state.products[productIndex].statusProduct = "Unpublished"
         });
 

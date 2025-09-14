@@ -1,4 +1,4 @@
-import WhiteButton from "../../../components/Ui/Button/WhiteButton";
+import WhiteButton from "../../../../components/Ui/Button/WhiteButton";
 import icons from "@/icons";
 
 const { UserCi, ChevronLeft, ChartLine, MaskHappy, FastFoodOutline } = icons;

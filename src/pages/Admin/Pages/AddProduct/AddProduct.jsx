@@ -58,6 +58,9 @@ const AddProduct = () => {
         console.log("EditProduct => ", data)
         console.log(" categoryId=> ", categoryId)
         dispatch(editProduct({ token, id: productDetials._id, data }))
+        if(fileInput){
+            addImageProduct(productDetials._id)
+        }
     }
 
 
@@ -95,7 +98,7 @@ const AddProduct = () => {
     const setDefaultValue = () => {
         if (productDetials) {
             const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
-            setFileInput(true)
+            // setFileInput(true)
             reset({
                 title: productDetials.title,
                 description: productDetials.description,
@@ -167,7 +170,6 @@ const AddProduct = () => {
 
                                 {categories[0] && !productDetials &&
                                     <>
-                                        <p>Test FFFF</p>
                                         <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeCategory} itemId={""} >
                                             {categories.map(category =>
                                                 <SelectItem key={category._id} value={category._id}

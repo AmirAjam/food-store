@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import PrimaryButton from '../../../components/Ui/Button/PrimaryButton';
+import PrimaryButton from '../../../../components/Ui/Button/PrimaryButton';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
