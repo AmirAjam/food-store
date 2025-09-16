@@ -21,15 +21,15 @@ const Footer = () => {
         <footer className='mt-12 bg-[url(/images/footer/mobile-footer.png)] md:bg-[url(/images/footer/desktop-footer.png)]
          py-5 px-1 relative bg-no-repeat bg-cover'>
             <div className="container relative z-20 text-white">
-                <div className='flex justify-between'>
-                    <div className='flex justify-between md:justify-around lg:justify-between gap-5 lg:gap-20 lg:w-1/3'>
+                <div className='flex justify-between gap-25'>
+                    <div className='flex justify-between md:justify-around lg:justify-start gap-5 lg:gap-20 w-full '>
                         <div>
                             <FooterList list={quickAccess} title="دسترسی آسان" />
                             <SocialMedia />
                         </div>
                         <FooterList list={branches} title="شعبه‌های ترخینه" />
                     </div>
-                    <div className='lg:w-1/3'>
+                    <div className='lg:w-1/2 lg:block hidden'>
                         <MessageUs />
                     </div>
                 </div>
