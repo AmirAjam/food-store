@@ -19,7 +19,6 @@ const AdminPanel = () => {
 
     useEffect(() => {
         dispatch(fetchUsers(token))
-        dispatch(getCategories(token))
         dispatch(getProducts(token))
     })
 

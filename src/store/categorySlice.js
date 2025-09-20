@@ -4,8 +4,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 export const getCategories = createAsyncThunk(
     "category/getCategory",
-    async (token) => {
-        const res = await getCategoryApi(token);
+    async () => {
+        const res = await getCategoryApi();
         return res;
     }
 )

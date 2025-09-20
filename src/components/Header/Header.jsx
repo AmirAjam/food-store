@@ -7,6 +7,7 @@ import Login from "../auth/Login";
 import Signup from "../auth/Signup";
 import { useSelector } from "react-redux";
 import useFetch from "@/hooks/useFetch";
+import SubMenu from "./SubMenu";
 
 const Header = () => {
   const { sendRequest } = useFetch();
@@ -14,9 +15,17 @@ const Header = () => {
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [username, setUsername] = useState(null)
 
+  const { Menu, Search, Cart, UserLu, ArrowDown,Card,Heart,Location } = icons;
+
+
   const id = useSelector((state) => state.auth.userId);
 
-  const { Menu, Search, Cart, UserLu} = icons;
+  const subMenuList = [
+    { id: 1, title: "پروفایل", slug: "profile", icon: <UserLu className="text-xl" /> },
+    { id: 2, title: "پیگیری سفارش", slug: "orders", icon: <Card className="text-lg " /> },
+    { id: 3, title: "علاقه‌مندی‌ها", slug: "favorites", icon: <Heart className="text-lg " /> },
+    { id: 3, title: "آدرس‌های من", slug: "locations", icon: <Location className="text-lg " /> },
+  ]
 
   useEffect(() => {
     if (!id) return;
@@ -25,7 +34,7 @@ const Header = () => {
   }, [id])
   return (
     <header className="mt-6">
-      <div className="container flex justify-between items-center">
+      <div className="container flex justify-between items-center relative">
         <div className="md:hidden">
           <Menu className="text-3xl text-primary-color" />
         </div>
@@ -43,7 +52,7 @@ const Header = () => {
             className="hidden md:block bg-green-200 p-2 rounded-lg cursor-pointer hover:bg-primary-color
                      text-primary-color hover:text-green-200 duration-300"
           >
-            <Search className="text-xl" />
+            <Search className="text-xl stroke-1" />
           </div>
 
           <div
@@ -60,10 +69,15 @@ const Header = () => {
 
           {
             username ?
-              <Link className="flex justify-center items-center gap-2 
-              md:block bg-green-200 py-2 px-5 rounded-lg cursor-pointer hover:bg-primary-color text-primary-color hover:text-green-200 duration-300">
-                <span className="text-sm">{username}</span>
-              </Link>
+              <>
+                <div className="flex justify-center items-center gap-0.5
+               bg-green-200 p-2 rounded-lg cursor-pointer
+              a hover:bg-primary-color text-primary-color hover:text-green-200 duration-300">
+                  <UserLu className="text-xl" />
+                  <ArrowDown />
+                </div>
+                <SubMenu list={subMenuList} />
+              </>
               :
               <div
                 onClick={() => setIsOpenLogin((prev) => !prev)}

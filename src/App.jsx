@@ -3,6 +3,8 @@ import { routes } from "./routes/routes"
 import store from "./store";
 import { setAccessToken, setUserId } from "./store/authSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getCategories } from "./store/categorySlice";
 
 
 const App = () => {
@@ -11,10 +13,15 @@ const App = () => {
   const id = localStorage.getItem("userId");
 
 
+
   if (token) {
     dispatch(setAccessToken(token));
     dispatch(setUserId(id));
   }
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
 
   const router = useRoutes(routes)
 

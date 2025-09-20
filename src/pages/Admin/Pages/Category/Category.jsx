@@ -19,6 +19,8 @@ const Category = () => {
 
     const categories = useSelector((state) => state.categories.categories)
 
+    console.log("categories => ",categories)
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const dispatch = useDispatch()
@@ -41,10 +43,16 @@ const Category = () => {
         },
         {
             accessorKey: "description",
-            header: "توصیحات",
+            header: "توضیحات",
             cell: ({ row }) => <div className="capitalize w-5/20">{row.getValue("description")}</div>,
             enableSorting: false
         },
+        // {
+        //     accessorKey: "description",
+        //     header: "توصیحات",
+        //     cell: ({ row }) => <div className="capitalize w-5/20">{row.original.children}</div>,
+        //     enableSorting: false
+        // },
         {
             accessorKey: "action",
             header: "عملیات",

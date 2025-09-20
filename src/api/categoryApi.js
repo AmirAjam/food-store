@@ -1,14 +1,8 @@
 import axios from "./axiosConfig"
 
-const getCategoryApi = async (token) => {
+const getCategoryApi = async () => {
     try {
-        const response = await axios.get("category",
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        )
+        const response = await axios.get("category")
         return response.data
     } catch (err) {
         return err.response
