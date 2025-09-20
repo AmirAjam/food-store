@@ -14,8 +14,9 @@ const Header = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [username, setUsername] = useState(null)
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
 
-  const { Menu, Search, Cart, UserLu, ArrowDown,Card,Heart,Location } = icons;
+  const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
 
 
   const id = useSelector((state) => state.auth.userId);
@@ -70,13 +71,13 @@ const Header = () => {
           {
             username ?
               <>
-                <div className="flex justify-center items-center gap-0.5
-               bg-green-200 p-2 rounded-lg cursor-pointer
-              a hover:bg-primary-color text-primary-color hover:text-green-200 duration-300">
+                <div onClick={() => setIsSubMenuOpen(prev=>!prev)}
+                className="flex justify-center items-center gap-0.5bg-green-200 p-2 rounded-lg bg-green-200
+                cursor-pointer hover:bg-primary-color text-primary-color hover:text-green-200 duration-300">
                   <UserLu className="text-xl" />
-                  <ArrowDown />
+                  <ArrowDown className={`duration-200 ${isSubMenuOpen ? "rotate-180":""}`}/>
                 </div>
-                <SubMenu list={subMenuList} />
+                <SubMenu list={subMenuList} isOpen={isSubMenuOpen}/>
               </>
               :
               <div
