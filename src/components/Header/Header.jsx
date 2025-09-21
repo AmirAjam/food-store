@@ -8,6 +8,8 @@ import Signup from "../auth/Signup";
 import { useSelector } from "react-redux";
 import useFetch from "@/hooks/useFetch";
 import SubMenu from "./SubMenu";
+import MobileNavbar from "./MobileNavbar";
+import Cover from "../Cover/Cover";
 
 const Header = () => {
   const { sendRequest } = useFetch();
@@ -94,6 +96,8 @@ const Header = () => {
 
       <Login isOpenLogin={isOpenLogin} setIsOpenLogin={setIsOpenLogin} setIsOpenSignup={setIsOpenSignup} />
       <Signup isOpenSignup={isOpenSignup} setIsOpenSignup={setIsOpenSignup} setIsOpenLogin={setIsOpenLogin} />
+      <MobileNavbar />
+      <Cover />
     </header>
   );
 };

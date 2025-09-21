@@ -3,13 +3,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const SubMenu = ({ isOpen, list }) => {
-    console.log("list => ", list)
     const { LogOut } = icons;
     return (
-        <ul className={`bg-white z-20 w-42 shadow-black/90 shadow-lg top-12 rounded-sm 
+        <ul className={`bg-white z-30 w-42 shadow-black/90 shadow-lg top-12 rounded-sm left-5
         ${isOpen ? "absolute" : "hidden"}`}>
             {list.map(item =>
-                <li key={item._id} className={`flex items-center gap-2 p-2 border-b border-gray-300 
+                <li key={crypto.randomUUID()} className={`flex items-center gap-2 p-2 border-b border-gray-300 
                 last:border-none hover:text-primary-color! text-[#414141] ${item.icon ? "text-xs" : "text-sm"}`}>
                     {item.icon &&
                         item.icon}

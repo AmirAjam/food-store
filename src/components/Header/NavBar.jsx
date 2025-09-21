@@ -22,9 +22,9 @@ const NavBar = () => {
                     <div onClick={() => setIsSubMenuOpen(prev => !prev)}
                         className="hover:text-primary-color duration-300 flex items-center gap-1 cursor-pointer">
                         <span className="">منو</span>
-                        <ArrowDown className={`text-sm duration-200 ${isSubMenuOpen ? "rotate-180" : ""}`}/>
+                        <ArrowDown className={`text-sm duration-200 ${isSubMenuOpen ? "rotate-180" : ""}`} />
                     </div>
-                    <SubMenu list={categories} isOpen={isSubMenuOpen}/>
+                        <SubMenu list={categories} isOpen={isSubMenuOpen} />
                 </li>
                 <li className="duration-300 hover:text-primary-color">
                     <NavLink>درباره ما</NavLink>
