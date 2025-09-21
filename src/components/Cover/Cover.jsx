@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Cover = () => {
+const Cover = ({onClick,isShow}) => {
   return (
-    <div className='fixed inset-0 bg-black/60 z-30'></div>
+    <div onClick={onClick} className={`inset-0 bg-black/60 z-30 ${isShow ? "fixed" : "hidden"}`}></div>
   )
 }
 

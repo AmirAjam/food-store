@@ -16,6 +16,7 @@ const Header = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [username, setUsername] = useState(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
 
   const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
@@ -38,7 +39,7 @@ const Header = () => {
   return (
     <header className="mt-6">
       <div className="container flex justify-between items-center relative">
-        <div className="md:hidden">
+        <div className="md:hidden" onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="text-3xl text-primary-color" />
         </div>
 
@@ -73,13 +74,13 @@ const Header = () => {
           {
             username ?
               <>
-                <div onClick={() => setIsSubMenuOpen(prev=>!prev)}
-                className="flex justify-center items-center gap-0.5bg-green-200 p-2 rounded-lg bg-green-200
+                <div onClick={() => setIsSubMenuOpen(prev => !prev)}
+                  className="flex justify-center items-center gap-0.5bg-green-200 p-2 rounded-lg bg-green-200
                 cursor-pointer hover:bg-primary-color text-primary-color hover:text-green-200 duration-300">
                   <UserLu className="text-xl" />
-                  <ArrowDown className={`duration-200 ${isSubMenuOpen ? "rotate-180":""}`}/>
+                  <ArrowDown className={`duration-200 ${isSubMenuOpen ? "rotate-180" : ""}`} />
                 </div>
-                <SubMenu list={subMenuList} isOpen={isSubMenuOpen}/>
+                <SubMenu list={subMenuList} isOpen={isSubMenuOpen} />
               </>
               :
               <div
@@ -94,10 +95,19 @@ const Header = () => {
         </div>
       </div>
 
-      <Login isOpenLogin={isOpenLogin} setIsOpenLogin={setIsOpenLogin} setIsOpenSignup={setIsOpenSignup} />
-      <Signup isOpenSignup={isOpenSignup} setIsOpenSignup={setIsOpenSignup} setIsOpenLogin={setIsOpenLogin} />
-      <MobileNavbar />
-      <Cover />
+      <Login isOpenLogin={isOpenLogin}
+        setIsOpenLogin={setIsOpenLogin}
+        setIsOpenSignup={setIsOpenSignup} />
+
+      <Signup isOpenSignup={isOpenSignup}
+        setIsOpenSignup={setIsOpenSignup}
+        setIsOpenLogin={setIsOpenLogin} />
+
+      <MobileNavbar closeMenu={() => setIsMobileMenuOpen(false)}
+        isOpen={isMobileMenuOpen} />
+
+      <Cover onClick={() => setIsMobileMenuOpen(false)}
+        isShow={isMobileMenuOpen} />
     </header>
   );
 };
