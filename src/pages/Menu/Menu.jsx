@@ -15,7 +15,7 @@ const Menu = () => {
 
   console.log("params => ", params)
   console.log("categoryID => ", categoryID)
-  const { Search } = icons
+  const { Search, Cart } = icons
   return (
     <>
       <Header />
@@ -24,9 +24,11 @@ const Menu = () => {
       <div className="container mt-5 md:hidden">
         <Input placeHolder="جستجو">  <Search className="text-lg" /> </Input>
       </div>
-      <div className='container mt-8 flex items-center'>
-        <h2 className='font-Estedad-Bold'>غذاهای ایرانی</h2>
-        <Link className='text-sm border border-primary-color p-1 rounded-sm text-primary-color'>
+      <div className='container mt-8 flex items-center justify-between'>
+        <h2 className='font-Estedad-Bold md:text-lg lg:text-xl'>غذاهای ایرانی</h2>
+        <Link className='flex items-center gap-1 text-sm md:text-base border border-primary-color 
+        p-1.5 md:px-4 rounded-sm text-primary-color hover:bg-primary-color hover:text-white duration-200'>
+          <Cart className='text-lg' />
           <span>تکمیل خرید</span>
         </Link>
       </div>
