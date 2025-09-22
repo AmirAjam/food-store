@@ -45,7 +45,7 @@ const Header = () => {
 
         <div className="w-fit flex justify-center">
           <Link to="/">
-            <img src="images/logo/logo.png" alt="Logo" className="h-10" />
+            <img src="/images/logo/logo.png" alt="Logo" className="h-10" />
           </Link>
         </div>
 

@@ -7,7 +7,7 @@ const FooterList = ({ list, title }) => {
             <h3 className='font-Estedad-Bold md:text-xl'>{title}</h3>
             <ul className='mt-4 text-sm md:text-base'>
                 {list.map(item =>
-                    <li key={item.id} className='mt-3 lg:mt-5'>
+                    <li key={item.id} className='mt-3 lg:mt-5 text-gray-400 duration-200 hover:text-white'>
                         <Link>{item.text}</Link>
                     </li>
                 )}

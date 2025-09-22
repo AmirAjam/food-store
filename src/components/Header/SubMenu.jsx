@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 const SubMenu = ({ isOpen, list }) => {
     const { LogOut } = icons;
     return (
-        <ul className={`bg-white z-30 w-42 shadow-black/90 shadow-lg top-12 rounded-sm left-5
+        <ul className={`bg-white z-30 w-42 shadow-black/90 shadow-lg top-12 rounded-sm left-5 md:left-auto
         ${isOpen ? "absolute" : "hidden"}`}>
             {list.map(item =>
                 <li key={crypto.randomUUID()} className={`flex items-center gap-2 p-2 border-b border-gray-300 
                 last:border-none hover:text-primary-color! text-[#414141] ${item.icon ? "text-xs" : "text-sm"}`}>
                     {item.icon &&
                         item.icon}
-                    <Link className='size-full'>{item.title}</Link>
+                    <Link to={item.slug ? `menu/${item.slug}`:""} className='size-full'>{item.title}</Link>
                 </li>
             )}
             {list[0]?.icon &&

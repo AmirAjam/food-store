@@ -16,15 +16,17 @@ const NavBar = () => {
         <nav className="hidden md:block">
             <ul className="flex gap-6 text-sm lg:text-base ">
                 <li className="duration-300 hover:text-primary-color">
-                    <NavLink className="text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1">صفحه اصلی</NavLink>
+                    <NavLink className="text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1">
+                        صفحه اصلی
+                    </NavLink>
                 </li>
-                <li>
+                <li className="relative">
                     <div onClick={() => setIsSubMenuOpen(prev => !prev)}
                         className="hover:text-primary-color duration-300 flex items-center gap-1 cursor-pointer">
                         <span className="">منو</span>
                         <ArrowDown className={`text-sm duration-200 ${isSubMenuOpen ? "rotate-180" : ""}`} />
                     </div>
-                        <SubMenu list={categories} isOpen={isSubMenuOpen} />
+                    <SubMenu list={categories} isOpen={isSubMenuOpen} />
                 </li>
                 <li className="duration-300 hover:text-primary-color">
                     <NavLink>درباره ما</NavLink>
