@@ -8,6 +8,7 @@ import Input from '@/components/Ui/Input/Input'
 import icons from '@/icons'
 import SectionTitle from '@/components/Ui/SectionTitle'
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
+import Products from '@/components/Products/Products'
 
 const Menu = () => {
   const params = useParams()
@@ -32,6 +33,7 @@ const Menu = () => {
           <span>تکمیل خرید</span>
         </Link>
       </div>
+      <Products />
       <Footer />
     </>
   )

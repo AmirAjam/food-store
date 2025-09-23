@@ -1,6 +1,6 @@
 import icons from '@/icons';
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const SubMenu = ({ isOpen, list }) => {
     const { LogOut } = icons;
@@ -12,7 +12,7 @@ const SubMenu = ({ isOpen, list }) => {
                 last:border-none hover:text-primary-color! text-[#414141] ${item.icon ? "text-xs" : "text-sm"}`}>
                     {item.icon &&
                         item.icon}
-                    <Link to={item.slug ? `menu/${item.slug}`:""} className='size-full'>{item.title}</Link>
+                    <NavLink to={item.slug ? `/menu/${item.slug}`:""} className='size-full'>{item.title}</NavLink>
                 </li>
             )}
             {list[0]?.icon &&
