@@ -1,6 +1,6 @@
 import { CiUser, CiSearch  } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard  } from "react-icons/fa6";
-import { LuChartLine, LuUser,LuHouse,LuUsers  } from "react-icons/lu";
+import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus    } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose,IoLocationOutline  } from "react-icons/io5";
 import { BiSearch,BiSort,BiLogOut  } from "react-icons/bi";
@@ -46,7 +46,9 @@ const icons = {
   Sort:BiSort,
   Twitter:RiTwitterXLine,
   Instagram:RiInstagramLine ,
-  Telegram:RiTelegram2Line 
+  Telegram:RiTelegram2Line ,
+  Plus:LuPlus,
+  Minus:LuMinus 
 };
 
 export default icons;

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PrimaryButton from '../Ui/Button/PrimaryButton'
 import icons from '@/icons'
+import ProductCounter from './ProductCounter'
 
-const Product = ({products}) => {
-  const {Heart} = icons
+const Product = ({ products }) => {
+  const [count, setCount] = useState()
+  const { Heart } = icons
   return (
     <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
       <div className='w-1/3'>
-        <img src="/images/products/1.png" alt="" className='h-full w-full object-cover'/>
+        <img src="/images/products/1.png" alt="" className='h-full w-full object-cover' />
       </div>
       <div className='px-1 sm:px-2 py-2.5 w-2/3 flex flex-col justify-between'>
         <div className='flex justify-between items-center w-full'>
@@ -22,8 +24,12 @@ const Product = ({products}) => {
           <p className='text-nowrap lg:text-base'>۱۴۲٬۵۰۰ تومان</p>
         </div>
         <div className='text-xs lg:text-sm flex justify-between items-center mt-2.5 gap-5'>
-          <PrimaryButton text="افزودن به سبد خرید"/>
-          <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300'/>
+          {count ?
+            <ProductCounter setCount={setCount} count={count} />
+            :
+            <PrimaryButton text="افزودن به سبد خرید" onClick={() => setCount(1)} />
+          }
+          <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300' />
         </div>
       </div>
     </div>
