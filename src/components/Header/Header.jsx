@@ -22,15 +22,15 @@ const Header = () => {
   const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
 
 
-  const id = useSelector((state) => state.auth.userId);
-
+  
   const subMenuList = [
     { id: 1, title: "پروفایل", slug: "profile", icon: <UserLu className="text-xl" /> },
     { id: 2, title: "پیگیری سفارش", slug: "orders", icon: <Card className="text-lg " /> },
     { id: 3, title: "علاقه‌مندی‌ها", slug: "favorites", icon: <Heart className="text-lg " /> },
     { id: 3, title: "آدرس‌های من", slug: "locations", icon: <Location className="text-lg " /> },
   ]
-
+  const id = useSelector((state) => state.auth.userId);
+  
   useEffect(() => {
     if (!id) return;
     sendRequest(`user/${id}`, "GET")

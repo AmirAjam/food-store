@@ -1,16 +1,12 @@
 import React from 'react'
 import Product from './Product'
 
-const Products = () => {
+const Products = ({products}) => {
+  console.log(products)
   return (
     <section className='mt-8'>
       <div className="container grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        {products?.map(product => <Product productDetails={product}/>)}
       </div>
     </section>
   )

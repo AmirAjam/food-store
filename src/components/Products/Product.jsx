@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PrimaryButton from '../Ui/Button/PrimaryButton'
 import icons from '@/icons'
 import ProductCounter from './ProductCounter'
 
-const Product = ({ products }) => {
+const Product = ({ productDetails }) => {
   const [count, setCount] = useState()
   const { Heart } = icons
   return (

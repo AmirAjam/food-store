@@ -4,8 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-const MenuNavbar = () => {
-    const categories = useSelector((state) => state.categories.categories)
+const MenuNavbar = ({categories}) => {
     const { Search } = icons
     return (
         <nav className='bg-gray-200 px-[1rem] text-sm md:text-base text-gray-600'>

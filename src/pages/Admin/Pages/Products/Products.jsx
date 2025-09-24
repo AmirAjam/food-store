@@ -17,7 +17,6 @@ const Products = () => {
     const token = useSelector((state) => state.auth.accessToken)
     const products = useSelector((state) => state.products.products)
 
-    console.log("products => ", products)
 
     const columns = [
         {

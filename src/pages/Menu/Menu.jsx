@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Slider from '../Home/components/Slider/Slider'
 import MenuNavbar from './MenuNavbar'
@@ -9,19 +9,44 @@ import icons from '@/icons'
 import SectionTitle from '@/components/Ui/SectionTitle'
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import Products from '@/components/Products/Products'
+import { getProductsCategoryApi } from '@/api/productApi'
+import { useSelector } from 'react-redux'
 
 const Menu = () => {
-  const params = useParams()
-  const categoryID = params.id
+  const categories = useSelector((state) => state.categories.categories)
 
-  console.log("params => ", params)
-  console.log("categoryID => ", categoryID)
+  const [products, setProducts] = useState(null)
+  const params = useParams()
+  const categorySlug = params.id
+
   const { Search, Cart } = icons
+
+  const fetchProducts = async (categoryID) => {
+    try {
+      const res = await getProductsCategoryApi(categoryID)
+      setProducts(res.products)
+    } catch (error) {
+      console.error("خطا در گرفتن محصولات:", error)
+    }
+  }
+
+  const findCategoryID = (categorySlug) => {
+    const findCategory = categories.find(category => category.slug === categorySlug)
+    fetchProducts(findCategory._id)
+  }
+
+
+  useEffect(() => {
+    if (categories.length) {
+      findCategoryID(categorySlug)
+    }
+  }, [categories])
+
   return (
     <>
       <Header />
       <Slider />
-      <MenuNavbar />
+      <MenuNavbar categories={categories} />
       <div className="container mt-5 md:hidden">
         <Input placeHolder="جستجو">  <Search className="text-lg" /> </Input>
       </div>
@@ -33,7 +58,7 @@ const Menu = () => {
           <span>تکمیل خرید</span>
         </Link>
       </div>
-      <Products />
+      <Products products={products}/>
       <Footer />
     </>
   )

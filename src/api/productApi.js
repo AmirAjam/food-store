@@ -23,7 +23,7 @@ const createProductApi = async (token, data) => {
     return response.data
 }
 
-const editProductApi = async (token, id ,data) => {
+const editProductApi = async (token, id, data) => {
     const response = await axios.put(`product/${id}`,
         data,
         {
@@ -36,13 +36,26 @@ const editProductApi = async (token, id ,data) => {
 }
 
 const uploadProducImageApi = async (token, id, file) => {
-    console.log("file => ", file)
     const response = await axios.put(`product/${id}/gallery`,
         file,
         {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
+            }
+        }
+    )
+    return response.data
+}
+
+const removeProductImageApi = async (token, id, imageUrl) => {
+    const response = await axios.delete(`product/${id}/gallery`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                imageUrl
             }
         }
     )
@@ -82,6 +95,11 @@ const unpublisProductApi = async (token, id) => {
     return response.data
 }
 
+const getProductsCategoryApi = async (id) => {
+    const response = await axios.get(`category/${id}/products`)
+    return response.data
+}
+
 
 
 export {
@@ -89,7 +107,9 @@ export {
     createProductApi,
     editProductApi,
     uploadProducImageApi,
+    removeProductImageApi,
     deleteProductApi,
     publisProductApi,
     unpublisProductApi,
+    getProductsCategoryApi,
 }

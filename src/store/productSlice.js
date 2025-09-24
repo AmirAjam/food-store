@@ -25,7 +25,6 @@ export const editProduct = createAsyncThunk(
     "Product/editProduct",
     async ({ token, id, data }) => {
         const res = await editProductApi(token, id, data);
-        console.log(res)
         return res;
     }
 )
@@ -34,7 +33,6 @@ export const uploadProductImage = createAsyncThunk(
     "Product/uploadProductImage",
     async ({ token, id, file }) => {
         const res = await uploadProducImageApi(token, id, file);
-        console.log("uploadProductImage => ", res)
         return res;
     }
 )
@@ -88,8 +86,6 @@ const slice = createSlice({
             const productID = action.meta.arg.id;
             const productData = action.meta.arg.data;
             const productIndex = findArrayIndex(state.products, productID)
-            console.log("productID => ", productID)
-            console.log("productData => ", productData)
         });
 
         builder.addCase(uploadProductImage.fulfilled, (state, action) => {

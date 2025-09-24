@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
 import { addProduct, editProduct, findProduct, uploadProductImage } from '@/store/productSlice'
 import { useParams } from 'react-router-dom'
+import { removeProductImageApi } from '@/api/productApi'
 
 
 const AddProduct = () => {
@@ -34,12 +35,17 @@ const AddProduct = () => {
         setCategoryId(value)
     }
 
+    const deleteImage = async () => {
+        setPreview(null)
+        setFileInput(null)
+        fileInputRef.current.value = ""
+    }
+
     const fileInputChange = (e) => {
         if (e.target.files[0]) {
             setFileInput(e.target.files[0])
             setPreview(URL.createObjectURL(e.target.files[0]))
         }
-        console.log(e.target.files[0])
     }
 
     const addImageProduct = (id) => {
@@ -55,11 +61,13 @@ const AddProduct = () => {
     }
 
     const editProductHandler = (data) => {
-        console.log("EditProduct => ", data)
-        console.log(" categoryId=> ", categoryId)
-        dispatch(editProduct({ token, id: productDetials._id, data }))
-        if(fileInput){
+        if (fileInput) {
+            removeProductImageApi(token, productDetials._id, productDetials.gallery[0])
             addImageProduct(productDetials._id)
+            dispatch(editProduct({ token, id: productDetials._id, data }))
+        }
+        else {
+            toast.error("لطفا عکس محصول را وارد کنید.");
         }
     }
 
@@ -97,8 +105,8 @@ const AddProduct = () => {
 
     const setDefaultValue = () => {
         if (productDetials) {
+            setFileInput(true)
             const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
-            // setFileInput(true)
             reset({
                 title: productDetials.title,
                 description: productDetials.description,
@@ -118,7 +126,7 @@ const AddProduct = () => {
         } else {
             categories[0] && setCategoryId(categories[0]._id)
         }
-    }, [categories,productDetials])
+    }, [categories, productDetials])
 
 
     useEffect(() => {
@@ -189,15 +197,12 @@ const AddProduct = () => {
                                         <>
                                             <div className='w-42 mt-12'>
                                                 <PrimaryButton text="حذف عکس"
-                                                    onClick={() => {
-                                                        setPreview(null)
-                                                        setFileInput(null)
-                                                    }} danger />
+                                                    onClick={deleteImage} danger />
                                             </div>
                                             <img
                                                 src={preview}
                                                 alt="preview"
-                                                className="object-cover rounded mt-8 size-full p-10"
+                                                className="object-contain rounded mt-8 max-w-full h-auto"
                                             />
                                         </>
                                         :
