@@ -19,7 +19,6 @@ const Category = () => {
 
     const categories = useSelector((state) => state.categories.categories)
 
-    console.log("categories => ",categories)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 

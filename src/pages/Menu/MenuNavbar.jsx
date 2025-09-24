@@ -11,7 +11,7 @@ const MenuNavbar = ({categories}) => {
             <div className="container md:flex justify-between py-2">
                 <ul className='flex gap-5 scroll-auto overflow-scroll [scrollbar-width:none] py-[2px]'>
                     {categories.map(category =>
-                        <li>
+                        <li key={category._id}>
                             <NavLink to={`/menu/${category.slug}`} className={({ isActive }) =>
                                 `text-nowrap  block h-full relative py-2 lg:py-4Aa123456@ ${isActive ?
                                     'px-2 after:absolute after:inset-0 after:h-[2px] after:bg-primary-color after:top-full rounded-full text-primary-color font-Estedad-Bold'
