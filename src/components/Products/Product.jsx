@@ -4,13 +4,22 @@ import icons from '@/icons'
 import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '@/store/cartSlice'
 
 const Product = ({ productDetails, setOpenLogin }) => {
+  const dispatch = useDispatch()
+
   const [isUserLogin, setIsUserLogin] = useState(false)
+
   const id = useSelector((state) => state.auth.userId);
+  const token = useSelector((state) => state.auth.accessToken)
+
+
   const { sendRequest } = useFetch();
 
+  const [count, setCount] = useState()
+  const { Heart } = icons
 
   useEffect(() => {
     if (!id) return;
@@ -18,8 +27,13 @@ const Product = ({ productDetails, setOpenLogin }) => {
       .then(res => res.success && setIsUserLogin(true))
   }, [id])
 
-  const [count, setCount] = useState()
-  const { Heart } = icons
+  const addProductToCart = () => {
+    setCount(1)
+    dispatch(addToCart({
+      token,
+      data: { productId: productDetails._id, quantity: 1 }
+    }))
+  }
   return (
     <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
       <div className='w-1/3'>
@@ -54,7 +68,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
             :
 
             <PrimaryButton text="افزودن به سبد خرید"
-              onClick={() => isUserLogin ? setCount(1) : setOpenLogin(true)} />
+              onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
           }
           <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300' />
         </div>

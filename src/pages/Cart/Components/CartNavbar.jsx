@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const CartNavbar = ({ step = 1 }) => {
   const { Cart, CheckBox, Card } = icons
   return (
-    <section className='mt-8'>
+    <section className='mt-8 md:block hidden'>
       <div className={`container flex items-center justify-center gap-3 group
         ${step === 1 ? "step-1" : ""}
         ${step === 2 ? "step-2" : ""}

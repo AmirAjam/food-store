@@ -4,6 +4,7 @@ import React from 'react'
 import TopCart from './Components/TopCart'
 import EmptyCart from './Components/EmptyCart'
 import CartNavbar from './Components/CartNavbar'
+import ProductsCartMobile from './Components/ProductsCartMobile'
 
 const Cart = () => {
     return (
@@ -11,7 +12,8 @@ const Cart = () => {
             <Header />
             <CartNavbar step={1}/>
             <TopCart />
-            <EmptyCart />
+            {/* <EmptyCart /> */}
+            <ProductsCartMobile />
             <Footer />
         </>
 

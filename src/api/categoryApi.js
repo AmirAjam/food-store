@@ -20,6 +20,7 @@ const createCategoryApi = async (token, data) => {
     )
     return response.data
 }
+
 const editCategoryApi = async (token, id, data) => {
     const response = await axios.put(`category/${id}`,
         data,
