@@ -6,11 +6,13 @@ import Category from "@/pages/Admin/Pages/Category/Category";
 import AddProduct from "@/pages/Admin/Pages/AddProduct/AddProduct";
 import Products from "@/pages/Admin/Pages/Products/Products";
 import Menu from "@/pages/Menu/Menu";
+import Cart from "@/pages/Cart/Cart";
 
 
 export const routes = [
     { path: "/", element: <Home /> },
     { path: "/menu/:id", element: <Menu /> },
+    { path: "/cart", element: <Cart /> },
     {
         path: "/p-admin", element: <AdminRoute><Admin /></AdminRoute>,
         children: [

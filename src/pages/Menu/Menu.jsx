@@ -13,7 +13,10 @@ import { getProductsCategoryApi } from '@/api/productApi'
 import { useSelector } from 'react-redux'
 
 const Menu = () => {
+  const[openLogin,setOpenLogin] = useState(false)
+
   const categories = useSelector((state) => state.categories.categories)
+
 
   const [products, setProducts] = useState(null)
   const params = useParams()
@@ -36,15 +39,17 @@ const Menu = () => {
   }
 
 
+
+
   useEffect(() => {
     if (categories.length) {
       findCategoryID(categorySlug)
     }
-  }, [categories])
+  }, [categories,categorySlug])
 
   return (
     <>
-      <Header />
+      <Header openLogin={openLogin}/>
       <Slider />
       <MenuNavbar categories={categories} />
       <div className="container mt-5 md:hidden">
@@ -58,7 +63,7 @@ const Menu = () => {
           <span>تکمیل خرید</span>
         </Link>
       </div>
-      <Products products={products}/>
+      <Products products={products} setOpenLogin={setOpenLogin}/>
       <Footer />
     </>
   )

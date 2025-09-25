@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import icons from "@/icons";
 
 import NavBar from "./NavBar";
@@ -11,9 +11,10 @@ import SubMenu from "./SubMenu";
 import MobileNavbar from "./MobileNavbar";
 import Cover from "../Cover/Cover";
 
-const Header = () => {
+const Header = ({ openLogin = false }) => {
+  console.log("openLogin =>", openLogin)
   const { sendRequest } = useFetch();
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(openLogin);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [username, setUsername] = useState(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -22,7 +23,7 @@ const Header = () => {
   const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
 
 
-  
+
   const subMenuList = [
     { id: 1, title: "پروفایل", slug: "profile", icon: <UserLu className="text-xl" /> },
     { id: 2, title: "پیگیری سفارش", slug: "orders", icon: <Card className="text-lg " /> },
@@ -30,12 +31,16 @@ const Header = () => {
     { id: 3, title: "آدرس‌های من", slug: "locations", icon: <Location className="text-lg " /> },
   ]
   const id = useSelector((state) => state.auth.userId);
-  
+
   useEffect(() => {
     if (!id) return;
     sendRequest(`user/${id}`, "GET")
       .then(res => setUsername(res.user.firstname + " " + res.user.lastname))
   }, [id])
+
+  useEffect(() => {
+    setIsOpenLogin(openLogin)
+  }, [openLogin])
   return (
     <header className="mt-6">
       <div className="container flex justify-between items-center relative">
@@ -51,7 +56,7 @@ const Header = () => {
 
         <NavBar />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <div
             className="hidden md:block bg-green-200 p-2 rounded-lg cursor-pointer hover:bg-primary-color
                      text-primary-color hover:text-green-200 duration-300"
@@ -59,17 +64,19 @@ const Header = () => {
             <Search className="text-xl stroke-1" />
           </div>
 
-          <div
-            className="md:block bg-green-200 p-2 rounded-lg cursor-pointer hover:bg-primary-color
-                     text-primary-color hover:text-green-200 duration-300 relative"
+          <NavLink to="/cart"
+            className={({ isActive }) =>
+              `md:block bg-green-200 p-2 rounded-lg cursor-pointer hover:bg-primary-color 
+            text-primary-color hover:text-green-200 duration-300 relative 
+            ${isActive ? "bg-primary-color text-green-200!" : ""}`}
           >
-            <Link to="/cart">
+            <div>
               <Cart className="text-xl" />
-            </Link>
+            </div>
             <div className="absolute bg-primary-color px-1.5 py-0.5 rounded-full -top-1.5 -right-1">
               <span className="text-xs text-white block">۲</span>
             </div>
-          </div>
+          </NavLink>
 
           {
             username ?

@@ -13,7 +13,7 @@ const MenuNavbar = ({categories}) => {
                     {categories.map(category =>
                         <li key={category._id}>
                             <NavLink to={`/menu/${category.slug}`} className={({ isActive }) =>
-                                `text-nowrap  block h-full relative py-2 lg:py-4Aa123456@ ${isActive ?
+                                `text-nowrap  block h-full relative py-2 lg:py-2 ${isActive ?
                                     'px-2 after:absolute after:inset-0 after:h-[2px] after:bg-primary-color after:top-full rounded-full text-primary-color font-Estedad-Bold'
                                     : ''}`
                             }>

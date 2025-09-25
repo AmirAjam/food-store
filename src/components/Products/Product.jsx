@@ -3,9 +3,21 @@ import PrimaryButton from '../Ui/Button/PrimaryButton'
 import icons from '@/icons'
 import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
+import useFetch from '@/hooks/useFetch'
+import { useSelector } from 'react-redux'
 
-const Product = ({ productDetails }) => {
-  console.log(productDetails)
+const Product = ({ productDetails, setOpenLogin }) => {
+  const [isUserLogin, setIsUserLogin] = useState(false)
+  const id = useSelector((state) => state.auth.userId);
+  const { sendRequest } = useFetch();
+
+
+  useEffect(() => {
+    if (!id) return;
+    sendRequest(`user/${id}`, "GET")
+      .then(res => res.success && setIsUserLogin(true))
+  }, [id])
+
   const [count, setCount] = useState()
   const { Heart } = icons
   return (
@@ -29,7 +41,7 @@ const Product = ({ productDetails }) => {
         <div className='mt-2.5 text-xs flex gap-2'>
           <p className='line-clamp-1 md:line-clamp-2'>{productDetails.description}</p>
           {!productDetails.quantity ?
-            <p className='text-nowrap lg:text-base'>{productDetails.price} تومان</p>
+            <p className='text-nowrap lg:text-base'>{productDetails.price.toLocaleString()} تومان</p>
             :
             <p className='text-nowrap lg:text-base'>
               {calFinalPrice(productDetails.price, productDetails.quantity).toLocaleString()} تومان
@@ -40,7 +52,9 @@ const Product = ({ productDetails }) => {
           {count ?
             <ProductCounter setCount={setCount} count={count} />
             :
-            <PrimaryButton text="افزودن به سبد خرید" onClick={() => setCount(1)} />
+
+            <PrimaryButton text="افزودن به سبد خرید"
+              onClick={() => isUserLogin ? setCount(1) : setOpenLogin(true)} />
           }
           <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300' />
         </div>
