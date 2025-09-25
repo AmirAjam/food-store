@@ -10,7 +10,7 @@ const MobileSubMenu = ({ isOpen }) => {
         ${isOpen ? "block" : "hidden"}`}>
             {categories.map(category =>
                 <li key={category._id} className='text-sm py-1'>
-                    <Link to={`menu/${category.slug}`}>{category.title}</Link>
+                    <Link to={`/menu/${category.slug}`}>{category.title}</Link>
                 </li>
             )}
         </ul>

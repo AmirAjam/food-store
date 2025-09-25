@@ -1,0 +1,17 @@
+import icons from '@/icons'
+import React from 'react'
+
+const TopCart = () => {
+    const {ArrowDown,Trash} = icons
+  return (
+    <section className='mt-8 md:hidden'>
+        <div className="container flex items-center justify-between">
+            <ArrowDown className='text-2xl -rotate-90'/>
+            <h2 className='font-Estedad-Bold'>سبد خرید</h2>
+            <Trash className='text-xl'/>
+        </div>
+    </section>
+  )
+}
+
+export default TopCart

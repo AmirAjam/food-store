@@ -39,7 +39,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
           }
         </div>
         <div className='mt-2.5 text-xs flex gap-2'>
-          <p className='line-clamp-1 md:line-clamp-2'>{productDetails.description}</p>
+          <p className='line-clamp-2'>{productDetails.description}</p>
           {!productDetails.quantity ?
             <p className='text-nowrap lg:text-base'>{productDetails.price.toLocaleString()} تومان</p>
             :

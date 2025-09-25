@@ -1,5 +1,5 @@
 import { CiUser, CiSearch  } from "react-icons/ci";
-import { FaChevronLeft, FaChevronRight,FaRegCreditCard  } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus    } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose,IoLocationOutline  } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { MdSpaceDashboard, MdCategory } from "react-icons/md"
 import { BsDatabaseFillAdd,BsHouses  } from "react-icons/bs";
 import { FaUsers,FaRegHeart  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
+import { FiTrash2 } from "react-icons/fi";
 
  
 
@@ -48,7 +49,9 @@ const icons = {
   Instagram:RiInstagramLine ,
   Telegram:RiTelegram2Line ,
   Plus:LuPlus,
-  Minus:LuMinus 
+  Minus:LuMinus ,
+  Trash:FiTrash2,
+  CheckBox:FaRegSquareCheck
 };
 
 export default icons;

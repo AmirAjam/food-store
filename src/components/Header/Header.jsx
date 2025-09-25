@@ -12,7 +12,6 @@ import MobileNavbar from "./MobileNavbar";
 import Cover from "../Cover/Cover";
 
 const Header = ({ openLogin = false }) => {
-  console.log("openLogin =>", openLogin)
   const { sendRequest } = useFetch();
   const [isOpenLogin, setIsOpenLogin] = useState(openLogin);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
@@ -42,7 +41,7 @@ const Header = ({ openLogin = false }) => {
     setIsOpenLogin(openLogin)
   }, [openLogin])
   return (
-    <header className="mt-6">
+    <header className="mt-5 sm:mt6 shadow-xl sm:shadow-none pb-5 sm:pb-0">
       <div className="container flex justify-between items-center relative">
         <div className="md:hidden" onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="text-3xl text-primary-color" />
@@ -56,7 +55,7 @@ const Header = ({ openLogin = false }) => {
 
         <NavBar />
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1.5 md:gap-4">
           <div
             className="hidden md:block bg-green-200 p-2 rounded-lg cursor-pointer hover:bg-primary-color
                      text-primary-color hover:text-green-200 duration-300"
