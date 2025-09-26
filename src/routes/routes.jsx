@@ -7,12 +7,20 @@ import AddProduct from "@/pages/Admin/Pages/AddProduct/AddProduct";
 import Products from "@/pages/Admin/Pages/Products/Products";
 import Menu from "@/pages/Menu/Menu";
 import Cart from "@/pages/Cart/Cart";
+import Profile from "@/pages/Profile/Profile";
+import Information from "@/pages/Profile/pages/Information";
 
 
 export const routes = [
     { path: "/", element: <Home /> },
     { path: "/menu/:id", element: <Menu /> },
     { path: "/cart", element: <Cart /> },
+    {
+        path: "/profile", element: <Profile />,
+        children: [
+            { path: "/profile/inforamation", element: <Information /> },
+        ]
+    },
     {
         path: "/p-admin", element: <AdminRoute><Admin /></AdminRoute>,
         children: [

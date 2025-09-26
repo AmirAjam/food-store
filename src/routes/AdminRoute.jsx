@@ -15,7 +15,7 @@ const AdminRoute = ({ children }) => {
             })
     }, [id]);
 
-    if (userRole && loading && id) return <div>Loading...</div>; // میتونی spinner بذاری
+    if (userRole && loading && id) return <div>Loading...</div>;
 
     if (userRole !== "admin" && !loading) {
         return <Navigate to="/" replace />;
