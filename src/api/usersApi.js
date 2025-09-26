@@ -100,6 +100,18 @@ const editUserApi = async (token, id, data) => {
     return response.data
 }
 
+const editUserInfoApi = async (token, data) => {
+    const response = await axios.put(`user/edit`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
+
 export {
     getUsers,
     deleteUserApi,
@@ -108,5 +120,6 @@ export {
     editUserApi,
     blockUserApi,
     unBlockUserApi,
-    changeUserRoleApi
+    changeUserRoleApi,
+    editUserInfoApi
 }
