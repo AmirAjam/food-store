@@ -24,7 +24,7 @@ const Header = ({ openLogin = false }) => {
 
 
   const subMenuList = [
-    { id: 1, title: "پروفایل", slug: "profile/inforamation", icon: <UserLu className="text-xl" /> },
+    { id: 1, title: "پروفایل", slug: "profile/information", icon: <UserLu className="text-xl" /> },
     { id: 2, title: "پیگیری سفارش", slug: "orders", icon: <Card className="text-lg " /> },
     { id: 3, title: "علاقه‌مندی‌ها", slug: "favorites", icon: <Heart className="text-lg " /> },
     { id: 3, title: "آدرس‌های من", slug: "locations", icon: <Location className="text-lg " /> },

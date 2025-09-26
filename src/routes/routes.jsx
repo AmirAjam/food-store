@@ -7,8 +7,8 @@ import AddProduct from "@/pages/Admin/Pages/AddProduct/AddProduct";
 import Products from "@/pages/Admin/Pages/Products/Products";
 import Menu from "@/pages/Menu/Menu";
 import Cart from "@/pages/Cart/Cart";
-import Profile from "@/pages/Profile/Profile";
-import Information from "@/pages/Profile/pages/Information";
+import Profile from "@/pages/Profile/pages/Profile";
+import Information from "@/pages/Profile/pages/Information/Information";
 
 
 export const routes = [
@@ -18,7 +18,7 @@ export const routes = [
     {
         path: "/profile", element: <Profile />,
         children: [
-            { path: "/profile/inforamation", element: <Information /> },
+            { path: "/profile/information", element: <Information /> },
         ]
     },
     {

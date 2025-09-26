@@ -2,10 +2,10 @@ import useFetch from '@/hooks/useFetch';
 import icons from '@/icons';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import ProfileNavbarItem from './ProfileNavbarItem';
 
 const ProfileNavbar = () => {
-  const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
+  const { LogOut, UserLu, Card, Heart, Location } = icons;
 
   const [username, setUsername] = useState(null)
   const id = useSelector((state) => state.auth.userId);
@@ -13,6 +13,13 @@ const ProfileNavbar = () => {
 
   const { sendRequest } = useFetch();
 
+  const NavbarList = [
+    { id: 1, title: "پروفایل", slug: "/profile/information", icon: UserLu },
+    { id: 2, title: "پیگیری سفارش", slug: "/profile/orders", icon: Card  },
+    { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favorites", icon: Heart  },
+    { id: 4, title: "آدرس‌های من", slug: "/profile/locations", icon: Location  },
+  ]
+  
   useEffect(() => {
     if (!id) return;
     sendRequest(`user/${id}`, "GET")
@@ -20,27 +27,26 @@ const ProfileNavbar = () => {
   }, [])
 
   return (
-    <div className='border-2 border-gray-300 w-1/4 p-2.5 rounded-lg'>
+    <div className='border-2 border-gray-300 md:w-1/3 lg:w-1/4 rounded-lg p-2.5' >
       <div className='flex gap-4 items-center border-b-2 border-gray-300 pb-3'>
-        <div className='w-18 '>
+        <div className='w-10 md:w-18 '>
           <img src="/images/user/user.jpg" alt="" className='rounded-full w-full' />
         </div>
         <p className='text-sm'>{username}</p>
       </div>
-      <div className='mt-5'>
-        <NavLink to="inforamtion" className={({ isActive }) =>
-          `flex items-center gap-2 hover:text-primary-color duration-200`}>
-          <UserLu className='text-xl'/>
-          <span>پروفایل</span>
-        </NavLink>
-        <NavLink to="inforamtion" className={({ isActive }) =>
-          `flex items-center gap-2 hover:text-primary-color duration-200`}>
-          <UserLu className='text-xl'/>
-          <span>پروفایل</span>
-        </NavLink>
+      <div className='mt-2 '>
+        {NavbarList.map(item => <ProfileNavbarItem 
+        key={item.id}
+        item={item} />)}
+
+
+        <div className="text-red-500 flex items-center px-2 py-1 mt-2 hover:text-red-700 cursor-pointer
+        duration-200 gap-2 mr-1">
+          <LogOut className='text-lg' />
+          <span>خروج</span>
+        </div>
       </div>
     </div>
   )
 }
-
 export default ProfileNavbar
