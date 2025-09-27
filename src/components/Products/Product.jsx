@@ -5,16 +5,16 @@ import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '@/store/cartSlice'
+import { addToCart, getCart } from '@/store/cartSlice'
 
 const Product = ({ productDetails, setOpenLogin }) => {
   const dispatch = useDispatch()
 
   const [isUserLogin, setIsUserLogin] = useState(false)
 
+  const cart = useSelector(state => state.cart.cart)
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.accessToken)
-
 
   const { sendRequest } = useFetch();
 
@@ -34,6 +34,15 @@ const Product = ({ productDetails, setOpenLogin }) => {
       data: { productId: productDetails._id, quantity: 1 }
     }))
   }
+
+  const findQuantityProduct = () => {
+    const product = cart.find(item => console.log(item._id))
+    // console.log("product => ", product)
+  }
+
+  useEffect(() => {
+    findQuantityProduct()
+  }, [])
   return (
     <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
       <div className='w-1/3'>

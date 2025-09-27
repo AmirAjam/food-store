@@ -20,7 +20,6 @@ const Information = () => {
 
 
     const onSubmit = async (data) => {
-        console.log(data)
         const res = await editUserInfoApi(token,data)
         if(res.success){
             toast.success("با موفقیت تغییر کرد.")
@@ -32,7 +31,6 @@ const Information = () => {
     }
 
     const onError = (formErrors) => {
-        console.log("EEEE", formErrors);
         const errorValues = Object.values(formErrors);
         if (errorValues.length > 0) {
             toast.error(errorValues[0].message);
@@ -40,7 +38,6 @@ const Information = () => {
     };
 
     const setDefaultValue = (userData) => {
-        console.log(userData)
         reset({
             firstname: userData.firstname,
             lastname: userData.lastname,

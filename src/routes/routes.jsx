@@ -9,6 +9,7 @@ import Menu from "@/pages/Menu/Menu";
 import Cart from "@/pages/Cart/Cart";
 import Profile from "@/pages/Profile/pages/Profile";
 import Information from "@/pages/Profile/pages/Information/Information";
+import Address from "@/pages/Profile/pages/Address/Address";
 
 
 export const routes = [
@@ -19,6 +20,7 @@ export const routes = [
         path: "/profile", element: <Profile />,
         children: [
             { path: "/profile/information", element: <Information /> },
+            { path: "/profile/locations", element: <Address /> },
         ]
     },
     {
