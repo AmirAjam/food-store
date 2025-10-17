@@ -22,8 +22,20 @@ const addToCartApi = async (token, data) => {
     )
     return response.data
 }
+const updateCartApi = async (token, data) => {
+    const response = await axios.patch("cart/update",
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
 
 export {
     getCartApi,
     addToCartApi,
+    updateCartApi
 }

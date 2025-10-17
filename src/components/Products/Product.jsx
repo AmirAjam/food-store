@@ -5,7 +5,7 @@ import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, getCart } from '@/store/cartSlice'
+import { addToCart, getCart, updateCart } from '@/store/cartSlice'
 
 const Product = ({ productDetails, setOpenLogin }) => {
   const dispatch = useDispatch()
@@ -36,13 +36,24 @@ const Product = ({ productDetails, setOpenLogin }) => {
   }
 
   const findQuantityProduct = () => {
-    const product = cart.find(item => console.log(item._id))
-    // console.log("product => ", product)
+    const product = cart.find(item => item.product._id === productDetails._id)
+    if (product) {
+      setCount(product.quantity)
+    }
   }
 
   useEffect(() => {
     findQuantityProduct()
   }, [])
+
+  useEffect(() => {
+    if (count >=0) {
+      dispatch(updateCart({
+        token,
+        data: { productId: productDetails._id, quantity: count }
+      }))
+    }
+  }, [count])
   return (
     <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
       <div className='w-1/3'>
@@ -71,15 +82,16 @@ const Product = ({ productDetails, setOpenLogin }) => {
             </p>
           }
         </div>
-        <div className='text-xs lg:text-sm flex justify-between items-center mt-2.5 gap-5'>
-          {count ?
-            <ProductCounter setCount={setCount} count={count} />
-            :
-
-            <PrimaryButton text="افزودن به سبد خرید"
-              onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
-          }
-          <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300' />
+        <div className='text-xs lg:text-sm flex justify-between items-center mt-2.5 gap-10'>
+          <div className='w-2/3'>
+            {count ?
+              <ProductCounter setCount={setCount} count={count} />
+              :
+              <PrimaryButton text="افزودن به سبد خرید"
+                onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
+            }
+          </div>
+          <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300 size-5' />
         </div>
       </div>
     </div>

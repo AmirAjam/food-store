@@ -1,4 +1,4 @@
-import { addToCartApi, getCartApi } from "@/api/cartApi";
+import { addToCartApi, getCartApi, updateCartApi } from "@/api/cartApi";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 export const getCart = createAsyncThunk(
@@ -17,6 +17,14 @@ export const addToCart = createAsyncThunk(
     }
 )
 
+export const updateCart = createAsyncThunk(
+    "cart/updateCart",
+    async ({ token, data}) => {
+        const res = await updateCartApi(token, data);
+        return res;
+    }
+)
+
 const slice = createSlice({
     name: "cart",
     initialState: {
@@ -31,6 +39,9 @@ const slice = createSlice({
         });
 
         builder.addCase(addToCart.fulfilled, (state, action) => {
+            state.cart = action.payload.cart.items
+        });
+        builder.addCase(updateCart.fulfilled, (state, action) => {
             state.cart = action.payload.cart.items
         });
     }

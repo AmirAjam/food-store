@@ -4,7 +4,7 @@ import EmptyCart from '@/pages/Cart/Components/EmptyCart'
 import React, { useState } from 'react'
 
 const Address = () => {
-    const [isOpenAddress,setIsOpenAddress] = useState(false)
+    const [isOpenAddress, setIsOpenAddress] = useState(false)
     return (
         <section className='w-full'>
             <EmptyCart text="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!">
@@ -12,7 +12,9 @@ const Address = () => {
                     افزودن آدرس
                 </SecondaryButton>
             </EmptyCart>
-            <AddAddress />
+            <AddAddress
+                isOpenAddress={isOpenAddress}
+                setIsOpenAddress={setIsOpenAddress} />
         </section>
     )
 }
