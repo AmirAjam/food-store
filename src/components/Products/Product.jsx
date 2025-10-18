@@ -37,7 +37,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   const findQuantityProduct = () => {
     const product = cart.find(item => item.product._id === productDetails._id)
-    console.log("cart => ",cart)
+    console.log("cart => ", cart)
     if (product) {
       setCount(product.quantity)
     }
@@ -55,9 +55,9 @@ const Product = ({ productDetails, setOpenLogin }) => {
       </div>
       <div className='px-1 sm:px-2 py-2.5 w-2/3 flex flex-col justify-between'>
         <div className='flex justify-between items-center w-full'>
-          <p className='text-sm md:text-base md:font-Estedad-Bold'>{productDetails.title}</p>
+          <p className='text-sm md:text-base font-Estedad-Bold'>{productDetails.title}</p>
           {productDetails.quantity ?
-            <div className='text-xs flex items-center gap-2'>
+            <div className='text-xs items-center gap-2 hidden md:flex'>
               <p className='text-gray-400 line-through'>{productDetails.price.toLocaleString()}</p>
               <span className='block bg-red-200 text-red-500 py-0.5 px-1.5 rounded-sm'>{productDetails.quantity} %</span>
             </div>
@@ -65,29 +65,39 @@ const Product = ({ productDetails, setOpenLogin }) => {
             ""
           }
         </div>
-        <div className='mt-2.5 text-xs flex gap-2'>
-          <p className='line-clamp-2'>{productDetails.description}</p>
+        <div className='mt-2.5 text-xs md:flex gap-2'>
+          <p className='line-clamp-2 leading-5 text-xs'>{productDetails.description}</p>
           {!productDetails.quantity ?
-            <p className='text-nowrap lg:text-base'>{productDetails.price.toLocaleString()} تومان</p>
+            <p className='text-nowrap text-sm lg:text-base font-Estedad-Medium mt-2.5'>
+              {productDetails.price.toLocaleString()} تومان</p>
             :
-            <p className='text-nowrap lg:text-base'>
-              {calFinalPrice(productDetails.price, productDetails.quantity).toLocaleString()} تومان
-            </p>
+            <div className='flex items-center mt-2.5 justify-around'>
+
+              <p className='text-nowrap text-sm lg:text-base font-Estedad-Medium'>
+                {calFinalPrice(productDetails.price, productDetails.quantity).toLocaleString()} تومان
+              </p>
+
+              <div className='text-xs items-center gap-2 flex mt-1 md:hidden'>
+                <p className='text-gray-400 line-through'>{productDetails.price.toLocaleString()}</p>
+                <span className='block bg-red-200 text-red-500 py-0.5 px-1.5 rounded-sm'>{productDetails.quantity} %</span>
+              </div>
+            </div>
           }
         </div>
         <div className='text-xs lg:text-sm flex justify-between items-center mt-2.5 gap-10'>
           <div className='w-2/3'>
             {count ?
-              <ProductCounter 
-              setCount={setCount} 
-              count={count}
-              productDetails={productDetails} />
+              <ProductCounter
+                setCount={setCount}
+                count={count}
+                productDetails={productDetails} />
               :
               <PrimaryButton text="افزودن به سبد خرید"
                 onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
             }
           </div>
-          <Heart className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 duration-300 size-5' />
+          <Heart className='text-2xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
+              duration-300 stroke-3' />
         </div>
       </div>
     </div>

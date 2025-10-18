@@ -2,7 +2,6 @@ import React from 'react'
 import ProductCartMobile from '../ProductCartMobile'
 
 const ProductsCartMobile = ({cart}) => {
-  console.log(cart)
   return (
     <section className='mt-8'>
       <div className='container'>
@@ -12,7 +11,6 @@ const ProductsCartMobile = ({cart}) => {
             key={item._id} 
             cartItem={item}
             index={index}/>)}
-            
           </div>
         </div>
       </div>

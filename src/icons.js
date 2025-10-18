@@ -6,7 +6,7 @@ import { IoFastFoodOutline, IoClose,IoLocationOutline  } from "react-icons/io5";
 import { BiSearch,BiSort  } from "react-icons/bi";
 import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
 import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
-import { IoIosNotificationsOutline,IoMdCart  } from "react-icons/io";
+import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory } from "react-icons/md"
 import { BsDatabaseFillAdd,BsHouses  } from "react-icons/bs";
 import { FaUsers,FaRegHeart  } from "react-icons/fa";
@@ -23,7 +23,7 @@ const icons = {
   ChevronRight: FaChevronRight,
   ChartLine: LuChartLine,
   Card:FaRegCreditCard,
-  Heart:FaRegHeart,
+  Heart:IoMdHeartEmpty,
   Location:IoLocationOutline,
   UserLu: LuUser,
   LogOut:SlLogout ,

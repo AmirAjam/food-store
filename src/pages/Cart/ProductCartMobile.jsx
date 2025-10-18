@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 
 const ProductCartMobile = ({ cartItem, index }) => {
     const [count, setCount] = useState(cartItem.quantity)
-    console.log(cartItem)
     return (
         <div className={`flex items-center justify-between p-2 py-3 first:rounded-t-lg last:rounded-b-lg 
         ${index % 2 === 0 ? "bg-gray-200/50" : "bg-gray-200"}`}>

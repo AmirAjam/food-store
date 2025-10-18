@@ -3,8 +3,8 @@ import { deleteCartItem, updateCart } from '@/store/cartSlice'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-const ProductCounter = ({ setCount, count,productDetails }) => {
-  const { Plus, Minus } = icons
+const ProductCounter = ({ setCount, count, productDetails }) => {
+  const { Plus, Minus, Trash } = icons
 
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.accessToken)
@@ -29,7 +29,12 @@ const ProductCounter = ({ setCount, count,productDetails }) => {
     select-none w-20'>
       <Plus onClick={() => setCount(prev => prev + 1)} className='text-lg text-primary-color cursor-pointer' />
       <span className='text-sm md:text-base'>{count}</span>
-      <Minus onClick={() => setCount(prev => prev - 1)} className='text-lg text-primary-color cursor-pointer' />
+      {count > 1 ?
+        <Minus onClick={() => setCount(prev => prev - 1)} className='text-lg text-primary-color 
+      cursor-pointer' />
+        :
+        <Trash onClick={() => setCount(0)} className='md:text-base text-primary-color cursor-pointer'/>}
+
     </div>
   )
 }
