@@ -1,13 +1,18 @@
 import React from 'react'
 import ProductCartMobile from '../ProductCartMobile'
 
-const ProductsCartMobile = () => {
+const ProductsCartMobile = ({cart}) => {
+  console.log(cart)
   return (
-    <section className='mt-12'>
+    <section className='mt-8'>
       <div className='container'>
-        <div className='border-gray-300 border-2 rounded-lg p-3'>
+        <div className='border-gray-300 border-2 rounded-lg p-4'>
           <div>
-            <ProductCartMobile />
+            {cart.map((item,index) => <ProductCartMobile 
+            key={item._id} 
+            cartItem={item}
+            index={index}/>)}
+            
           </div>
         </div>
       </div>

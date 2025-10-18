@@ -5,11 +5,12 @@ import icons from "@/icons";
 import NavBar from "./NavBar";
 import Login from "../auth/Login";
 import Signup from "../auth/Signup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useFetch from "@/hooks/useFetch";
 import SubMenu from "./SubMenu";
 import MobileNavbar from "./MobileNavbar";
 import Cover from "../Cover/Cover";
+import { getCart } from "@/store/cartSlice";
 
 const Header = ({ openLogin = false }) => {
   const { sendRequest } = useFetch();
@@ -19,9 +20,13 @@ const Header = ({ openLogin = false }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
 
+  const dispatch = useDispatch()
+
+  const id = useSelector((state) => state.auth.userId);
+  const cart = useSelector((state) => state.cart.cart);
+  const token = useSelector((state) => state.auth.accessToken)
+
   const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;
-
-
 
   const subMenuList = [
     { id: 1, title: "پروفایل", slug: "profile/information", icon: <UserLu className="text-xl" /> },
@@ -29,7 +34,10 @@ const Header = ({ openLogin = false }) => {
     { id: 3, title: "علاقه‌مندی‌ها", slug: "profile/favorites", icon: <Heart className="text-lg " /> },
     { id: 3, title: "آدرس‌های من", slug: "profile/locations", icon: <Location className="text-lg " /> },
   ]
-  const id = useSelector((state) => state.auth.userId);
+
+  useEffect(() => {
+    dispatch(getCart({ token }))
+  }, [])
 
   useEffect(() => {
     if (!id) return;
@@ -40,6 +48,7 @@ const Header = ({ openLogin = false }) => {
   useEffect(() => {
     setIsOpenLogin(openLogin)
   }, [openLogin])
+
   return (
     <header className="mt-5 sm:mt6 shadow-xl sm:shadow-none pb-5 sm:pb-0">
       <div className="container flex justify-between items-center relative">
@@ -73,7 +82,7 @@ const Header = ({ openLogin = false }) => {
               <Cart className="text-xl" />
             </div>
             <div className="absolute bg-primary-color px-1.5 py-0.5 rounded-full -top-1.5 -right-1">
-              <span className="text-xs text-white block">۲</span>
+              <span className="text-xs text-white block">{cart.length}</span>
             </div>
           </NavLink>
 

@@ -1,5 +1,6 @@
-import { addToCartApi, getCartApi, updateCartApi } from "@/api/cartApi";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { addToCartApi, deleteCartItemApi, getCartApi, updateCartApi } from "@/api/cartApi";
+import { findArrayIndex } from "@/utils/utils";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 
 export const getCart = createAsyncThunk(
     "cart/getCart",
@@ -25,6 +26,14 @@ export const updateCart = createAsyncThunk(
     }
 )
 
+export const deleteCartItem = createAsyncThunk(
+    "cart/deleteCartItem",
+    async ({ token, productId}) => {
+        const res = await deleteCartItemApi(token, productId);
+        return res;
+    }
+)
+
 const slice = createSlice({
     name: "cart",
     initialState: {
@@ -41,8 +50,20 @@ const slice = createSlice({
         builder.addCase(addToCart.fulfilled, (state, action) => {
             state.cart = action.payload.cart.items
         });
+
         builder.addCase(updateCart.fulfilled, (state, action) => {
-            state.cart = action.payload.cart.items
+            const productId =  action.meta.arg.data.productId
+            const productQuantity = action.meta.arg.data.quantity
+
+            const productIndex = state.cart.findIndex(item => item.product._id === productId)
+            state.cart[productIndex].quantity = productQuantity
+        });
+
+        builder.addCase(deleteCartItem.fulfilled, (state, action) => {
+            const productId =  action.meta.arg.productId
+            console.log(productId)
+            const productIndex = state.cart.findIndex(item => item.product._id === productId)
+            state.cart.splice(productIndex, 1)
         });
     }
 })

@@ -5,7 +5,7 @@ import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, getCart, updateCart } from '@/store/cartSlice'
+import { addToCart, deleteCartItem, getCart, updateCart } from '@/store/cartSlice'
 
 const Product = ({ productDetails, setOpenLogin }) => {
   const dispatch = useDispatch()
@@ -37,6 +37,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   const findQuantityProduct = () => {
     const product = cart.find(item => item.product._id === productDetails._id)
+    console.log("cart => ",cart)
     if (product) {
       setCount(product.quantity)
     }
@@ -46,14 +47,6 @@ const Product = ({ productDetails, setOpenLogin }) => {
     findQuantityProduct()
   }, [])
 
-  useEffect(() => {
-    if (count >=0) {
-      dispatch(updateCart({
-        token,
-        data: { productId: productDetails._id, quantity: count }
-      }))
-    }
-  }, [count])
   return (
     <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
       <div className='w-1/3'>
@@ -85,7 +78,10 @@ const Product = ({ productDetails, setOpenLogin }) => {
         <div className='text-xs lg:text-sm flex justify-between items-center mt-2.5 gap-10'>
           <div className='w-2/3'>
             {count ?
-              <ProductCounter setCount={setCount} count={count} />
+              <ProductCounter 
+              setCount={setCount} 
+              count={count}
+              productDetails={productDetails} />
               :
               <PrimaryButton text="افزودن به سبد خرید"
                 onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
