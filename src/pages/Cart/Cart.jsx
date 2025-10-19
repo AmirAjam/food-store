@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
 import ProductsCartDesktop from './Components/ProductsCart/ProductsCartDesktop'
+import { calAllOff } from '@/utils/utils'
 
 const Cart = () => {
 
@@ -17,6 +18,10 @@ const Cart = () => {
 
     const cart = useSelector(state => state.cart.cart)
     const token = useSelector((state) => state.auth.accessToken)
+
+
+    let productsDiscounts = 0
+    cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
     useEffect(() => {
         dispatch(getCart({ token }))
@@ -34,11 +39,11 @@ const Cart = () => {
                             <Link className=''>منوی رستوران</Link>
                         </SecondaryButton>
                     </EmptyCart>
-                </div> 
+                </div>
                 :
                 <>
-                    <ProductsCartMobile cart={cart}/>
-                    <ProductsCartDesktop cart={cart}/>
+                    <ProductsCartMobile cart={cart} productsDiscounts={productsDiscounts} />
+                    <ProductsCartDesktop cart={cart} productsDiscounts={productsDiscounts} />
                 </>}
 
             <Footer />

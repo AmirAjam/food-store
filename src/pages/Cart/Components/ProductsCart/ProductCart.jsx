@@ -1,27 +1,41 @@
 import ProductCounter from '@/components/Products/ProductCounter'
 import icons from '@/icons'
+import { deleteCartItem } from '@/store/cartSlice'
+import { calFinalPrice } from '@/utils/utils'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ProductCart = ({ cartItem }) => {
     const { Trash } = icons
+
     const productDetails = cartItem.product
 
     const [count, setCount] = useState(cartItem.quantity)
 
-    console.log(productDetails.quantity)
+    const dispatch = useDispatch()
+    const token = useSelector((state) => state.auth.accessToken)
+    
+    const deleteItem = () => {
+        setCount(0)
+        dispatch(deleteCartItem({
+            token,
+            productId: productDetails._id
+        }))
+    }
     return (
         <div className='rounded-lg overflow-hidden flex gap-5 border-2 border-gray-300 mt-5 
-        first:mt-0'>
+        first:mt-0 pl-2'>
             <div>
                 <img src={`http://127.0.0.1:369/public/${productDetails.gallery[0]}`}
-                    alt="" className='w-52 h-full object-cover' />
+                    alt="" className='w-36 h-full object-cover' />
             </div>
-            <div className='p-4 w-full'>
+            <div className='p-1 pb-2 w-full'>
                 <div className='flex justify-between items-center w-fulls'>
                     <h2 className='font-Estedad-Bold text-lg'>{productDetails.title}</h2>
-                    <Trash className='text-xl cursor-pointer hover:text-red-500 duration-300' />
+                    <Trash onClick={deleteItem}
+                        className='text-xl cursor-pointer hover:text-red-500 duration-300' />
                 </div>
-                <div className='mt-4 flex justify-between items-center'>
+                <div className='mt-2 flex justify-between items-center'>
                     <p className='text-sm w-2/3 line-clamp-2'>
                         {productDetails.description}
                     </p>
@@ -39,7 +53,8 @@ const ProductCart = ({ cartItem }) => {
                     <ProductCounter productDetails={productDetails}
                         count={count}
                         setCount={setCount} />
-                    <p className='font-Estedad-Medium'>{productDetails.price.toLocaleString()} تومان</p>
+                    <p className='font-Estedad-Medium'>
+                        {calFinalPrice(productDetails.price, productDetails.quantity).toLocaleString()} تومان</p>
                 </div>
             </div>
         </div>

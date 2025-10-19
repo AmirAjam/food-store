@@ -20,7 +20,7 @@ export const addToCart = createAsyncThunk(
 
 export const updateCart = createAsyncThunk(
     "cart/updateCart",
-    async ({ token, data}) => {
+    async ({ token, data }) => {
         const res = await updateCartApi(token, data);
         return res;
     }
@@ -28,7 +28,7 @@ export const updateCart = createAsyncThunk(
 
 export const deleteCartItem = createAsyncThunk(
     "cart/deleteCartItem",
-    async ({ token, productId}) => {
+    async ({ token, productId }) => {
         const res = await deleteCartItemApi(token, productId);
         return res;
     }
@@ -37,24 +37,30 @@ export const deleteCartItem = createAsyncThunk(
 const slice = createSlice({
     name: "cart",
     initialState: {
-        cart: {items:[],totalPrice:0},
+        cart: {
+            items: [],
+            totalPrice: 0,
+            totalQuantity: 0
+        },
     },
     reducers: {
 
     },
     extraReducers: (builder) => {
         builder.addCase(getCart.fulfilled, (state, action) => {
-            state.cart.totalPrice = action.payload.cart.totalPrice
-            state.cart.items = action.payload.cart.items
+            state.cart = action.payload.cart
         });
 
         builder.addCase(addToCart.fulfilled, (state, action) => {
-            state.cart.totalPrice = action.payload.cart.totalPrice
-            state.cart.items = action.payload.cart.items
+            state.cart = action.payload.cart
         });
 
         builder.addCase(updateCart.fulfilled, (state, action) => {
-            const productId =  action.meta.arg.data.productId
+
+            state.cart.totalPrice = action.payload.cart.totalPrice
+            state.cart.totalQuantity = action.payload.cart.totalQuantity
+
+            const productId = action.meta.arg.data.productId
             const productQuantity = action.meta.arg.data.quantity
 
             const productIndex = state.cart.items.findIndex(item => item.product._id === productId)
@@ -62,7 +68,11 @@ const slice = createSlice({
         });
 
         builder.addCase(deleteCartItem.fulfilled, (state, action) => {
-            const productId =  action.meta.arg.productId
+
+            state.cart.totalPrice = action.payload.cart.totalPrice
+            state.cart.totalQuantity = action.payload.cart.totalQuantity
+
+            const productId = action.meta.arg.productId
             const productIndex = state.cart.items.findIndex(item => item.product._id === productId)
             state.cart.items.splice(productIndex, 1)
         });

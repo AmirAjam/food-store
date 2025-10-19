@@ -5,14 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 
-const ProductsCartMobile = ({cart}) => {
-
-  let productsDiscounts = 0
-
-  cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
-
-  console.log(cart)
-
+const ProductsCartMobile = ({cart,productsDiscounts}) => {
 
   return (
     <section className='mt-8 lg:hidden'>

@@ -9,31 +9,41 @@ const ProductCounter = ({ setCount, count, productDetails }) => {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.accessToken)
 
-  useEffect(() => {
-    if (count !== 0) {
-      dispatch(updateCart({
-        token,
-        data: { productId: productDetails._id, quantity: count }
-      }))
-    }
-    else {
-      dispatch(deleteCartItem({
-        token,
-        productId: productDetails._id
-      }))
-    }
-  }, [count])
+  const deleteItem = () => {
+    setCount(0)
+    dispatch(deleteCartItem({
+      token,
+      productId: productDetails._id
+    }))
+  }
+
+  const increaseQuantity = () => {
+    dispatch(updateCart({
+      token,
+      data: { productId: productDetails._id, quantity: count + 1 }
+    }))
+    setCount(prev => prev + 1)
+  }
+
+  const minusQuantity = () => {
+    dispatch(updateCart({
+      token,
+      data: { productId: productDetails._id, quantity: count - 1 }
+    }))
+
+    setCount(prev => prev - 1)
+  }
 
   return (
-    <div className='flex justify-between items-center gap-2 bg-green-200 px-0.5 py-2 rounded-sm 
-    select-none w-20'>
-      <Plus onClick={() => setCount(prev => prev + 1)} className='text-lg text-primary-color cursor-pointer' />
-      <span className='text-sm md:text-base'>{count}</span>
+    <div className='flex justify-between items-center gap-2 bg-green-200 p-1.5 rounded-sm 
+    select-none w-16'>
+      <Plus onClick={increaseQuantity} className='text-lg text-primary-color cursor-pointer' />
+      <span className='text-sm'>{count}</span>
       {count > 1 ?
-        <Minus onClick={() => setCount(prev => prev - 1)} className='text-lg text-primary-color 
+        <Minus onClick={minusQuantity} className='text-lg text-primary-color 
       cursor-pointer' />
         :
-        <Trash onClick={() => setCount(0)} className='md:text-base text-primary-color cursor-pointer'/>}
+        <Trash onClick={deleteItem} className='text-base text-primary-color cursor-pointer' />}
 
     </div>
   )
