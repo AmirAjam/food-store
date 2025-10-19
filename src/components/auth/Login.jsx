@@ -17,6 +17,7 @@ import { Toaster, toast } from 'sonner'
 import useFetch from "@/hooks/useFetch"
 import { setAccessToken, setUserId } from "@/store/authSlice";
 import { useDispatch } from "react-redux"
+import { getCart } from "@/store/cartSlice"
 
 const { Close } = icons
 
@@ -37,6 +38,7 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
                     dispatch(setUserId(res.user.id));
                     toast.success("با موفقیت وارد شدید.");
                     setIsOpenLogin(false)
+                    dispatch(getCart({ token:res.user.token }))
                 } else {
                     toast.error("نام کاربری یا رمز عبور اشتباه است.");
                 }

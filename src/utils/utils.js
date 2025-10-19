@@ -5,4 +5,10 @@ const calFinalPrice = (price, quantity) => {
 
 const findArrayIndex = (array, key) =>  array.findIndex(item => item._id === key)
 
-export { calFinalPrice,findArrayIndex }
+const calAllOff = cartItem => {
+    const finalPrice = calFinalPrice(cartItem.price , cartItem.product.quantity)
+    const discountAmount = cartItem.price - finalPrice
+    return discountAmount * cartItem.quantity
+}
+
+export { calFinalPrice,findArrayIndex,calAllOff }

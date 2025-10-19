@@ -36,7 +36,7 @@ const Cart = () => {
                 </div> 
                 :
                 <>
-                    <ProductsCartMobile cart={cart}/>
+                    <ProductsCartMobile/>
                 </>}
 
             <Footer />
