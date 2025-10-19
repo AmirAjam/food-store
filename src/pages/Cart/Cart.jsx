@@ -4,11 +4,12 @@ import React, { useEffect } from 'react'
 import TopCart from './Components/TopCart'
 import EmptyCart from './Components/EmptyCart'
 import CartNavbar from './Components/CartNavbar'
-import ProductsCartMobile from './Components/ProductsCartMobile'
+import ProductsCartMobile from './Components/ProductsCart/ProductsCartMobile'
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
+import ProductsCartDesktop from './Components/ProductsCart/ProductsCartDesktop'
 
 const Cart = () => {
 
@@ -37,6 +38,7 @@ const Cart = () => {
                 :
                 <>
                     <ProductsCartMobile cart={cart}/>
+                    <ProductsCartDesktop cart={cart}/>
                 </>}
 
             <Footer />

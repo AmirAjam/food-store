@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ProductCartMobile from '../ProductCartMobile'
+import ProductCartMobile from '../../ProductCartMobile'
 import { calAllOff } from '@/utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
@@ -15,7 +15,7 @@ const ProductsCartMobile = ({cart}) => {
 
 
   return (
-    <section className='mt-8'>
+    <section className='mt-8 lg:hidden'>
       <div className='container'>
         <div className='border-gray-300 border-2 rounded-lg p-4 '>
 
