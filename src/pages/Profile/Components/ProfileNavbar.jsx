@@ -15,11 +15,11 @@ const ProfileNavbar = () => {
 
   const NavbarList = [
     { id: 1, title: "پروفایل", slug: "/profile/information", icon: UserLu },
-    { id: 2, title: "پیگیری سفارش", slug: "/profile/orders", icon: Card  },
-    { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favorites", icon: Heart  },
-    { id: 4, title: "آدرس‌های من", slug: "/profile/locations", icon: Location  },
+    { id: 2, title: "پیگیری سفارش", slug: "/profile/orders", icon: Card },
+    { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favorites", icon: Heart },
+    { id: 4, title: "آدرس‌های من", slug: "/profile/locations", icon: Location },
   ]
-  
+
   useEffect(() => {
     if (!id) return;
     sendRequest(`user/${id}`, "GET")
@@ -27,25 +27,29 @@ const ProfileNavbar = () => {
   }, [])
 
   return (
-    <div className='border-2 border-gray-300 md:w-1/3 lg:w-1/4 rounded-lg p-2.5' >
-      <div className='flex gap-4 items-center border-b-2 border-gray-300 pb-3'>
-        <div className='w-10 md:w-18 '>
-          <img src="/images/user/user.jpg" alt="" className='rounded-full w-full' />
-        </div>
-        <p className='text-sm'>{username}</p>
-      </div>
-      <div className='mt-2 '>
-        {NavbarList.map(item => <ProfileNavbarItem 
-        key={item.id}
-        item={item} />)}
+    <div className="container md:w-1/3 lg:w-1/4 ">
+      <nav className='border-2 border-gray-300 rounded-lg p-2.5' >
+        <div className="conytainer">
+          <div className='flex gap-4 items-center border-b-2 border-gray-300 pb-3'>
+            <div className='w-10 md:w-18 '>
+              <img src="/images/user/user.jpg" alt="" className='rounded-full w-full' />
+            </div>
+            <p className='text-sm'>{username}</p>
+          </div>
+          <div className='mt-2 '>
+            {NavbarList.map(item => <ProfileNavbarItem
+              key={item.id}
+              item={item} />)}
 
 
-        <div className="text-red-500 flex items-center px-2 py-1 mt-2 hover:text-red-700 cursor-pointer
+            <div className="text-red-500 flex items-center px-2 py-1 mt-2 hover:text-red-700 cursor-pointer
         duration-200 gap-2 mr-1">
-          <LogOut className='text-lg' />
-          <span>خروج</span>
+              <LogOut className='text-lg' />
+              <span>خروج</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
   )
 }

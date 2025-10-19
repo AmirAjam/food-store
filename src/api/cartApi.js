@@ -47,9 +47,23 @@ const deleteCartItemApi = async (token, productId) => {
     return response.data
 }
 
+const clearCartApi = async (token) => {
+    console.log("response")
+    const response = await axios.delete("cart/clear",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    console.log(response)
+    return response.data
+}
+
 export {
     getCartApi,
     addToCartApi,
     updateCartApi,
-    deleteCartItemApi
+    deleteCartItemApi,
+    clearCartApi
 }

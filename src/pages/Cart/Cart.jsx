@@ -36,7 +36,7 @@ const Cart = () => {
                 <div className='mt-5 md:mt-8'>
                     <EmptyCart text="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!">
                         <SecondaryButton>
-                            <Link className=''>منوی رستوران</Link>
+                            <Link to='/' className=''>منوی رستوران</Link>
                         </SecondaryButton>
                     </EmptyCart>
                 </div>

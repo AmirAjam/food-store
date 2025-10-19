@@ -7,14 +7,16 @@ const Address = () => {
     const [isOpenAddress, setIsOpenAddress] = useState(false)
     return (
         <section className='w-full'>
-            <EmptyCart text="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!">
-                <SecondaryButton onClick={() => setIsOpenAddress(true)}>
-                    افزودن آدرس
-                </SecondaryButton>
-            </EmptyCart>
-            <AddAddress
-                isOpenAddress={isOpenAddress}
-                setIsOpenAddress={setIsOpenAddress} />
+            <div className='md:mt-0 mt-5'>
+                <EmptyCart text="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!">
+                    <SecondaryButton onClick={() => setIsOpenAddress(true)}>
+                        افزودن آدرس
+                    </SecondaryButton>
+                </EmptyCart>
+                <AddAddress
+                    isOpenAddress={isOpenAddress}
+                    setIsOpenAddress={setIsOpenAddress} />
+            </div>
         </section>
     )
 }
