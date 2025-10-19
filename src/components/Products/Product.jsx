@@ -12,7 +12,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   const [isUserLogin, setIsUserLogin] = useState(false)
 
-  const cart = useSelector(state => state.cart.cart)
+  const cart = useSelector(state => state.cart.cart.items)
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.accessToken)
 

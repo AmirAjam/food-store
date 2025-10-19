@@ -15,13 +15,14 @@ const MessageUs = () => {
                 </div>
                 <div>
                     <textarea placeholder='پیام شما'
-                        className='border border-gray-400 w-68 h-39 rounded-sm text-sm p-4 resize-none'></textarea>
+                        className='border border-gray-400 xl:w-68 h-39 rounded-sm text-sm p-4 
+                        resize-none'></textarea>
                     <div className='flex justify-end text-sm text-gray-300'>
                         <span>۲۰۰/</span>
                         <span>۱</span>
                     </div>
                     <div className='flex justify-end mt-2'>
-                        <WhiteButton text="ارسال پیام"/>
+                        <WhiteButton text="ارسال پیام" />
                     </div>
                 </div>
             </form>

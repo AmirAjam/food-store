@@ -23,7 +23,7 @@ const Header = ({ openLogin = false }) => {
   const dispatch = useDispatch()
 
   const id = useSelector((state) => state.auth.userId);
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart.items);
   const token = useSelector((state) => state.auth.accessToken)
 
   const { Menu, Search, Cart, UserLu, ArrowDown, Card, Heart, Location } = icons;

@@ -3,24 +3,15 @@ import ProductCartMobile from '../ProductCartMobile'
 import { calAllOff } from '@/utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
+import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 
-const ProductsCartMobile = () => {
+const ProductsCartMobile = ({cart}) => {
 
   let productsDiscounts = 0
 
-  const cart = useSelector(state => state.cart.cart)
-  const token = useSelector((state) => state.auth.accessToken)
-
-  const dispatch = useDispatch()
-
-  cart.forEach(item => productsDiscounts += (calAllOff(item)));
+  cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
   console.log(cart)
-
-
-  useEffect(() => {
-    dispatch(getCart({ token }))
-  }, [])
 
 
   return (
@@ -29,8 +20,8 @@ const ProductsCartMobile = () => {
         <div className='border-gray-300 border-2 rounded-lg p-4 '>
 
           <div className='border-b-2 border-gray-300 pb-5'>
-            <div className='h-50 overflow-y-scroll px-3'>
-              {cart.map((item, index) => <ProductCartMobile
+            <div className='h-49 overflow-y-scroll px-3'>
+              {cart.items.map((item, index) => <ProductCartMobile
                 key={item._id}
                 cartItem={item}
                 index={index} />)}
@@ -44,9 +35,12 @@ const ProductsCartMobile = () => {
 
           <div className='border-b-2 border-gray-300 py-5 flex justify-between text-sm'>
             <p>مبلغ قابل پرداخت</p>
-            <p>{productsDiscounts.toLocaleString()}</p>
+            <p className='text-primary-color font-Estedad-Bold'>{cart.totalPrice.toLocaleString()}</p>
           </div>
 
+          <div className='mt-5 text-sm sm:text-base'>
+            <PrimaryButton text="تکمیل اطلاعات"/>
+          </div>
         </div>
       </div>
     </section>

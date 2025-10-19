@@ -37,33 +37,34 @@ export const deleteCartItem = createAsyncThunk(
 const slice = createSlice({
     name: "cart",
     initialState: {
-        cart: [],
+        cart: {items:[],totalPrice:0},
     },
     reducers: {
 
     },
     extraReducers: (builder) => {
         builder.addCase(getCart.fulfilled, (state, action) => {
-            state.cart = action.payload.cart.items
+            state.cart.totalPrice = action.payload.cart.totalPrice
+            state.cart.items = action.payload.cart.items
         });
 
         builder.addCase(addToCart.fulfilled, (state, action) => {
-            state.cart = action.payload.cart.items
+            state.cart.totalPrice = action.payload.cart.totalPrice
+            state.cart.items = action.payload.cart.items
         });
 
         builder.addCase(updateCart.fulfilled, (state, action) => {
             const productId =  action.meta.arg.data.productId
             const productQuantity = action.meta.arg.data.quantity
 
-            const productIndex = state.cart.findIndex(item => item.product._id === productId)
-            state.cart[productIndex].quantity = productQuantity
+            const productIndex = state.cart.items.findIndex(item => item.product._id === productId)
+            state.cart.items[productIndex].quantity = productQuantity
         });
 
         builder.addCase(deleteCartItem.fulfilled, (state, action) => {
             const productId =  action.meta.arg.productId
-            console.log(productId)
-            const productIndex = state.cart.findIndex(item => item.product._id === productId)
-            state.cart.splice(productIndex, 1)
+            const productIndex = state.cart.items.findIndex(item => item.product._id === productId)
+            state.cart.items.splice(productIndex, 1)
         });
     }
 })

@@ -26,7 +26,7 @@ const Cart = () => {
             <Header />
             <CartNavbar step={1} />
             <TopCart />
-            {!cart.length ?
+            {!cart.items.length ?
                 <div className='mt-5 md:mt-8'>
                     <EmptyCart text="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!">
                         <SecondaryButton>
@@ -36,7 +36,7 @@ const Cart = () => {
                 </div> 
                 :
                 <>
-                    <ProductsCartMobile/>
+                    <ProductsCartMobile cart={cart}/>
                 </>}
 
             <Footer />
