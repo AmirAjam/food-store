@@ -52,7 +52,7 @@ const Information = () => {
     }, [])
     const { Edit } = icons
     return (
-        <div className='mt-5 md:mt-0 md:w-1/2 border border-gray-300 rounded-lg p-5 '>
+        <section className='mt-5 md:mt-0 md:w-1/2 border border-gray-300 rounded-lg p-5'>
             <form onSubmit={handleSubmit(onSubmit, onError)}>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
                     <InformationInput
@@ -112,7 +112,7 @@ const Information = () => {
                 </div>
 
             </form>
-        </div>
+        </section>
     )
 }
 

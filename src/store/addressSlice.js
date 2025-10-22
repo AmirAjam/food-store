@@ -20,7 +20,7 @@ export const addAddress = createAsyncThunk(
 const slice = createSlice({
     name: "address",
     initialState: {
-        address: []
+        addresses: []
     },
     reducers: {
 
@@ -28,10 +28,10 @@ const slice = createSlice({
     extraReducers: (builder) => {
 
         builder.addCase(getAddresses.fulfilled, (state, action) => {
-            console.log(action.payload)
+            state.addresses = action.payload.addresses
         })
         builder.addCase(addAddress.fulfilled, (state, action) => {
-            state.address.push(action.payload.address)
+            state.addresses.push(action.payload.address)
         })
 
     }

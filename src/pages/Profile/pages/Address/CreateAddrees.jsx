@@ -17,6 +17,8 @@ import { addAddress } from "@/store/addressSlice"
 
 
 const CreateAddrees = ({ isOpen, setIsOpen }) => {
+
+    console.log(isOpen)
     const { Close } = icons
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
