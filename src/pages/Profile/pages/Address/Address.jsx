@@ -1,10 +1,18 @@
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import EmptyCart from '@/pages/Cart/Components/EmptyCart'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CreateAddrees from './CreateAddrees'
+import { useDispatch } from 'react-redux'
+import { getAddresses } from '@/store/addressSlice'
 
 const Address = () => {
+    const dispatch = useDispatch()
+
     const [isOpenAddress, setIsOpenAddress] = useState(false)
+
+    useEffect(() => {
+        dispatch(getAddresses(token))
+    })
     return (
         <section className='w-full'>
             <div className='md:mt-0 mt-5'>

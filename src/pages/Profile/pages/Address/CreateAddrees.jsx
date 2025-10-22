@@ -12,20 +12,23 @@ import { toast, Toaster } from "sonner"
 import AddressInput from "./AddressInput"
 import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from "react-redux"
+import { addAddress } from "@/store/addressSlice"
 
 
 const CreateAddrees = ({ isOpen, setIsOpen }) => {
     const { Close } = icons
-
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+    const token = useSelector((state) => state.auth.accessToken)
+    const dispatch = useDispatch()
+
+
     const onSubmit = (data) => {
-        console.log("ss")
-        console.log("data => ", data)
+        dispatch(addAddress({ token,data }))
     };
 
     const onError = (errors) => {
-
         const errorValues = Object.values(errors);
         if (errorValues.length > 0) {
             toast.error(errorValues[0].message);
@@ -40,7 +43,8 @@ const CreateAddrees = ({ isOpen, setIsOpen }) => {
                 </DialogClose>
 
                 <DialogHeader>
-                    <DialogTitle className="text-center text-sm font-Estedad-Bold">ثبت آدرس</DialogTitle>
+                    <DialogTitle 
+                    className="text-center text-sm md:text-base font-Estedad-Bold">ثبت آدرس</DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit(onSubmit, onError)}
@@ -91,6 +95,7 @@ const CreateAddrees = ({ isOpen, setIsOpen }) => {
                             error={errors.fullName} />
 
                     </div>
+
                     <AddressInput
                         placeholder="کد پستی"
                         {...register("postalCode", {
