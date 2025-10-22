@@ -12,22 +12,20 @@ import { toast, Toaster } from "sonner"
 import AddressInput from "./AddressInput"
 import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 import { useForm } from "react-hook-form"
-import { loginSchema } from "@/schema/authSchema"
-import { yupResolver } from "@hookform/resolvers/yup"
 
 
 const CreateAddrees = ({ isOpen, setIsOpen }) => {
     const { Close } = icons
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(loginSchema),
-    });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const onSubmit = (data) => {
+        console.log("ss")
         console.log("data => ", data)
     };
 
     const onError = (errors) => {
+
         const errorValues = Object.values(errors);
         if (errorValues.length > 0) {
             toast.error(errorValues[0].message);
@@ -45,45 +43,72 @@ const CreateAddrees = ({ isOpen, setIsOpen }) => {
                     <DialogTitle className="text-center text-sm font-Estedad-Bold">ثبت آدرس</DialogTitle>
                 </DialogHeader>
 
-                <form className="mt-1 flex flex-col gap-5">
+                <form onSubmit={handleSubmit(onSubmit, onError)}
+                    className="mt-1 flex flex-col gap-5">
 
                     <AddressInput
-                        placeHolder="نام و نام‌خانوادگی"
-                        {...register("fullName")}
-                        error={errors.fullName?.message} />
+                        placeholder="نام و نام‌خانوادگی"
+                        {...register("fullName", {
+                            required: "وارد کردن نام و نام‌خانوادگی الزامی است.",
+                        })}
+                        error={errors.fullName}
+                    />
 
                     <AddressInput
-                        placeHolder="شماره همراه"
-                        {...register("phone")}
-                        error={errors.phone?.message} />
+                        placeholder="شماره همراه"
+                        {...register("phone", {
+                            required: "وارد کردن شماره همراه الزامی است.",
+                            minLength: {
+                                value: 11,
+                                message: "شماره همراه باید ۱۱ رقم باشد.",
+                            },
+                            maxLength: {
+                                value: 11,
+                                message: "شماره همراه باید ۱۱ رقم باشد.",
+                            },
+                            pattern: {
+                                value: /^[0-9]+$/,
+                                message: "فقط عدد مجاز است.",
+                            },
+                        })}
+                        error={errors.phone}
+                    />
 
                     <div className="sm:flex-row flex-col flex gap-5">
 
                         <AddressInput
-                            placeHolder="استان"
-                            {...register("province")}
-                            error={errors.province?.message} />
+                            placeholder="استان"
+                            {...register("province", {
+                                required: "وارد کردن استان الزامی است."
+                            })}
+                            error={errors.province} />
 
                         <AddressInput
-                            placeHolder="شهر"
-                            {...register("city")}
-                            error={errors.city?.message} />
+                            placeholder="شهر"
+                            {...register("city", {
+                                required: "وارد کردن شهر الزامی است."
+                            })}
+                            error={errors.fullName} />
 
                     </div>
                     <AddressInput
-                        placeHolder="کد پستی"
-                        {...register("postalCode")}
-                        error={errors.postalCode?.message} />
+                        placeholder="کد پستی"
+                        {...register("postalCode", {
+                            required: "وارد کردن کد پستی الزامی است."
+                        })}
+                        error={errors.postalCode} />
 
                     <textarea className="border border-gray-300 focus-within:border-gray-400 
-                    w-full rounded-sm text-sm p-2 resize-none outline-0"
+                    w-full rounded-sm text-sm p-2 resize-none outline-0 h-22"
 
-                        placeHolder="آدرس دقیق"
-                        {...register("addressLine")}
-                        error={errors.addressLine?.message} />
+                        placeholder="آدرس دقیق"
+                        {...register("addressLine", {
+                            required: "وارد کردن آدرس الزامی است."
+                        })}
+                        error={errors.addressLine} />
 
                     <div className="text-sm">
-                        <PrimaryButton text="ثبت آدرس" />
+                        <PrimaryButton type="submit" text="ثبت آدرس" />
                     </div>
                 </form>
 
