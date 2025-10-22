@@ -24,7 +24,7 @@ const ProductsCartDesktop = ({ cart, productsDiscounts }) => {
       <div className="container flex justify-between gap-5">
 
         <div className='w-8/13 border-2 border-gray-300 rounded-lg p-2'>
-          <div className='h-112 overflow-y-auto p-3'>
+          <div className='max-h-112 overflow-y-auto p-3'>
             {cart.items.map(item => <ProductCart key={item.product._id} cartItem={item} />)}
           </div>
         </div>

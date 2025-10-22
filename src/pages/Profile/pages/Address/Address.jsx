@@ -1,7 +1,7 @@
-import AddAddress from '@/components/Address/AddAddress'
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import EmptyCart from '@/pages/Cart/Components/EmptyCart'
 import React, { useState } from 'react'
+import CreateAddrees from './CreateAddrees'
 
 const Address = () => {
     const [isOpenAddress, setIsOpenAddress] = useState(false)
@@ -13,10 +13,11 @@ const Address = () => {
                         افزودن آدرس
                     </SecondaryButton>
                 </EmptyCart>
-                <AddAddress
-                    isOpenAddress={isOpenAddress}
-                    setIsOpenAddress={setIsOpenAddress} />
+                <CreateAddrees
+                    isOpen={isOpenAddress}
+                    setIsOpen={setIsOpenAddress} />
             </div>
+            <CreateAddrees />
         </section>
     )
 }
