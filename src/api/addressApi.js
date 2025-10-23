@@ -23,7 +23,19 @@ const addAddressApi = async (token, data) => {
     return response.data
 }
 
+const removeAddressApi = async (token, id) => {
+    const response = await axios.delete(`address/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
+
 export{
     getAddressesApi,
     addAddressApi,
+    removeAddressApi,
 }

@@ -28,6 +28,8 @@ const CreateAddrees = ({ isOpen, setIsOpen }) => {
 
     const onSubmit = (data) => {
         dispatch(addAddress({ token,data }))
+        setIsOpen(false)
+        reset()
     };
 
     const onError = (errors) => {

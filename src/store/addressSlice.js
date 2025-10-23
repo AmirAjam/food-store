@@ -1,4 +1,4 @@
-import { addAddressApi, getAddressesApi } from "@/api/addressApi";
+import { addAddressApi, getAddressesApi, removeAddressApi } from "@/api/addressApi";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 export const getAddresses = createAsyncThunk(
@@ -17,6 +17,15 @@ export const addAddress = createAsyncThunk(
     }
 )
 
+export const removeAddress = createAsyncThunk(
+    "address/removeAddress",
+    async ({ token, id }) => {
+        console.log("id => ", id)
+        const res = await removeAddressApi(token, id);
+        return res;
+    }
+)
+
 const slice = createSlice({
     name: "address",
     initialState: {
@@ -30,8 +39,15 @@ const slice = createSlice({
         builder.addCase(getAddresses.fulfilled, (state, action) => {
             state.addresses = action.payload.addresses
         })
+
         builder.addCase(addAddress.fulfilled, (state, action) => {
             state.addresses.push(action.payload.address)
+        })
+
+        builder.addCase(removeAddress.fulfilled, (state, action) => {
+            // state.addresses.push(action.payload.address)
+            const addressId = action.meta.arg.id;
+            state.addresses = state.addresses.filter(address => address._id !== addressId);
         })
 
     }

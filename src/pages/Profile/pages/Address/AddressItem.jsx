@@ -1,16 +1,26 @@
 import icons from '@/icons'
+import { removeAddress } from '@/store/addressSlice'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const AddressItem = ({ addressDetails }) => {
     const { Edit, Trash } = icons
+
+    const token = useSelector((state) => state.auth.accessToken)
+    const dispatch = useDispatch()
+
     console.log(addressDetails)
+
+    const removeAddressHandler = () => {
+        dispatch(removeAddress({token , id:addressDetails._id}))
+    }
     return (
         <div className='bg-gray-200 p-3 rounded-lg mt-5 first:mt-0'>
             <div className='flex  justify-between'>
                 <p className='text-xs w-9/12'>{addressDetails.addressLine}</p>
                 <div className='flex text-xl justify-between w-1/6 text-gray-600'>
                     <Edit />
-                    <Trash />
+                    <Trash onClick={removeAddressHandler} />
                 </div>
             </div>
             <div className='text-xs mt-3 text-gray-500 flex justify-between'>
