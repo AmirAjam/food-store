@@ -23,6 +23,7 @@ const addAddressApi = async (token, data) => {
     return response.data
 }
 
+
 const removeAddressApi = async (token, id) => {
     const response = await axios.delete(`address/${id}`,
         {
@@ -34,8 +35,20 @@ const removeAddressApi = async (token, id) => {
     return response.data
 }
 
+const editAddressApi = async (token, id ,data ) => {
+    const response = await axios.put(`address/${id}`,
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
 export{
     getAddressesApi,
     addAddressApi,
     removeAddressApi,
+    editAddressApi,
 }

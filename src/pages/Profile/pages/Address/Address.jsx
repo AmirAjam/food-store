@@ -11,12 +11,6 @@ const Address = () => {
     const [isOpenAddress, setIsOpenAddress] = useState(false)
     const addresses = useSelector((state) => state.address.addresses)
 
-    console.log(addresses)
-
-    useEffect(() => {
-        console.log(isOpenAddress)
-    }, [isOpenAddress])
-
     return (
         <section className='w-full'>
             {addresses.length ?
