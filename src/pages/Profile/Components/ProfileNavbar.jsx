@@ -27,8 +27,8 @@ const ProfileNavbar = () => {
   }, [])
 
   return (
-    <div className="container md:w-1/3 lg:w-1/4 ">
-      <nav className='border-2 border-gray-300 rounded-lg p-2.5' >
+    <div className="container md:w-1/3 lg:w-1/4 h-full">
+      <nav className='border-2 border-gray-300 rounded-lg p-2.5 h-full' >
         <div className="conytainer">
           <div className='flex gap-4 items-center border-b-2 border-gray-300 pb-3'>
             <div className='w-10 md:w-18 '>

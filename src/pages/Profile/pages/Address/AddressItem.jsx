@@ -23,11 +23,11 @@ const AddressItem = ({ addressDetails }) => {
         setIsOpenAddress(true)
     }
     return (
-        <>
+        <div>
             <div className='bg-gray-200 p-3 rounded-lg mt-5 first:mt-0'>
                 <div className='flex  justify-between'>
                     <p className='text-xs w-9/12'>{addressDetails.addressLine}</p>
-                    <div className='flex text-xl justify-between w-1/6 text-gray-600'>
+                    <div className='flex justify-end text-xl gap-3 w-1/6 text-gray-600'>
                         <Edit onClick={editHandler}/>
                         <Trash onClick={removeAddressHandler} />
                     </div>
@@ -49,7 +49,7 @@ const AddressItem = ({ addressDetails }) => {
                 addressDetails={addressDetails} />
 
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
-        </>
+        </div>
     )
 }
 
