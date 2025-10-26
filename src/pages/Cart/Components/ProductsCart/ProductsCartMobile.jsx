@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import ProductCartMobile from '../../ProductCartMobile'
+import ProductCartMobile from '../ProductCartMobile'
 import { calAllOff } from '@/utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
+import { Link } from 'react-router-dom'
 
 const ProductsCartMobile = ({cart,productsDiscounts}) => {
 
@@ -31,9 +32,9 @@ const ProductsCartMobile = ({cart,productsDiscounts}) => {
             <p className='text-primary-color font-Estedad-Bold'>{cart.totalPrice.toLocaleString()}</p>
           </div>
 
-          <div className='mt-5 text-sm sm:text-base'>
+          <Link to="/complete-information" className='mt-5 block text-sm sm:text-base'>
             <PrimaryButton text="تکمیل اطلاعات"/>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

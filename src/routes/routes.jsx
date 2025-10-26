@@ -10,12 +10,14 @@ import Cart from "@/pages/Cart/Cart";
 import Profile from "@/pages/Profile/pages/Profile";
 import Information from "@/pages/Profile/pages/Information/Information";
 import Address from "@/pages/Profile/pages/Address/Address";
+import CompleteInformation from "@/pages/CompleteInformation/CompleteInformation";
 
 
 export const routes = [
     { path: "/", element: <Home /> },
     { path: "/menu/:id", element: <Menu /> },
     { path: "/cart", element: <Cart /> },
+    { path: "/complete-information", element: <CompleteInformation /> },
     {
         path: "/profile", element: <Profile />,
         children: [

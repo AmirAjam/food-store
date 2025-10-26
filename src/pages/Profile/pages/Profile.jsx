@@ -8,14 +8,6 @@ import { getAddresses } from '@/store/addressSlice'
 
 
 const Profile = () => {
-    const token = useSelector((state) => state.auth.accessToken)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getAddresses(token))
-    })
-
     return (
         <>
             <Header />

@@ -11,8 +11,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '@/store/cartSlice'
 import ProductsCartDesktop from './Components/ProductsCart/ProductsCartDesktop'
 import { calAllOff } from '@/utils/utils'
+import icons from '@/icons'
 
 const Cart = () => {
+    const {Trash } = icons
 
     const dispatch = useDispatch()
 
@@ -31,7 +33,11 @@ const Cart = () => {
         <>
             <Header />
             <CartNavbar step={1} />
-            <TopCart />
+
+            <TopCart text="سبد خرید">
+                <Trash className='text-xl' />
+            </TopCart>
+
             {!cart.items.length ?
                 <div className='mt-5 md:mt-8'>
                     <EmptyCart text="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!">

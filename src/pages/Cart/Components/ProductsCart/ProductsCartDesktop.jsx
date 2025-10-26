@@ -5,6 +5,7 @@ import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '@/store/cartSlice'
+import { Link } from 'react-router-dom'
 
 
 const ProductsCartDesktop = ({ cart, productsDiscounts }) => {
@@ -43,9 +44,9 @@ const ProductsCartDesktop = ({ cart, productsDiscounts }) => {
             <p className=''>مبلغ قابل پرداخت</p>
             <p>{cart.totalPrice.toLocaleString()} تومان </p>
           </div>
-          <div className='mt-5 text-sm sm:text-base'>
-            <PrimaryButton text="تکمیل اطلاعات" />
-          </div>
+          <Link to="/complete-information" className='mt-5 text-sm sm:text-base '>
+            <PrimaryButton text="تکمیل اطلاعات"></PrimaryButton>
+          </Link>
         </div>
       </div>
 

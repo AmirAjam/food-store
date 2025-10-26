@@ -2,14 +2,26 @@ import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import EmptyCart from '@/pages/Cart/Components/EmptyCart'
 import React, { useEffect, useState } from 'react'
 import CreateAddrees from './CreateAddrees'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Addresses from './Addresses'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
+import { getAddresses } from '@/store/addressSlice'
 
 const Address = () => {
-
+    
     const [isOpenAddress, setIsOpenAddress] = useState(false)
+
+    const token = useSelector((state) => state.auth.accessToken)
     const addresses = useSelector((state) => state.address.addresses)
+    const dispatch = useDispatch()
+
+
+
+    console.log(addresses)
+
+    useEffect(() => {
+        dispatch(getAddresses(token))
+    })
 
     return (
         <section className='w-full'>

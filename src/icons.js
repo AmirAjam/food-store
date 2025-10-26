@@ -1,6 +1,6 @@
-import { CiUser, CiSearch   } from "react-icons/ci";
+import { CiUser, CiSearch,CiDeliveryTruck    } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
-import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus    } from "react-icons/lu";
+import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose,IoLocationOutline  } from "react-icons/io5";
 import { BiSearch,BiSort  } from "react-icons/bi";
@@ -9,7 +9,7 @@ import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } fr
 import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory } from "react-icons/md"
 import { BsDatabaseFillAdd,BsHouses  } from "react-icons/bs";
-import { FaUsers,FaRegHeart  } from "react-icons/fa";
+import { FaUsers  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
 import { FiTrash2 } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
@@ -55,6 +55,7 @@ const icons = {
   Trash:FiTrash2,
   CheckBox:FaRegSquareCheck,
   Edit:TbEdit,
+  Truck:LuTruck,
 };
 
 export default icons;
