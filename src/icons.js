@@ -1,4 +1,4 @@
-import { CiUser, CiSearch,CiDeliveryTruck    } from "react-icons/ci";
+import { CiUser, CiSearch    } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
@@ -8,12 +8,13 @@ import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
 import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
 import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory } from "react-icons/md"
-import { BsDatabaseFillAdd,BsHouses  } from "react-icons/bs";
+import { BsDatabaseFillAdd,BsBasket   } from "react-icons/bs";
 import { FaUsers  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
 import { FiTrash2 } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
 import { TbEdit } from "react-icons/tb";
+import { RxBackpack } from "react-icons/rx";
 
  
 
@@ -56,6 +57,7 @@ const icons = {
   CheckBox:FaRegSquareCheck,
   Edit:TbEdit,
   Truck:LuTruck,
+  Backpack:RxBackpack,
 };
 
 export default icons;

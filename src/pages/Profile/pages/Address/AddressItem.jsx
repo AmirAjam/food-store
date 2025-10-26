@@ -23,8 +23,8 @@ const AddressItem = ({ addressDetails }) => {
         setIsOpenAddress(true)
     }
     return (
-        <div>
-            <div className='bg-gray-200 p-3 rounded-lg mt-5 first:mt-0'>
+        <div className='px-2'>
+            <div className='bg-gray-100 border-2 border-gray-300 p-2 rounded-lg mt-5 first:mt-0'>
                 <div className='flex  justify-between'>
                     <p className='text-xs w-9/12'>{addressDetails.addressLine}</p>
                     <div className='flex justify-end text-xl gap-3 w-1/6 text-gray-600'>
