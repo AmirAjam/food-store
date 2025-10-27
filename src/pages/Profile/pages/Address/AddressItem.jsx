@@ -1,18 +1,17 @@
 import icons from '@/icons'
 import { removeAddress } from '@/store/addressSlice'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateAddrees from './CreateAddrees'
 import { toast, Toaster } from 'sonner'
 
-const AddressItem = ({ addressDetails }) => {
+const AddressItem = ({ addressDetails, selectAddress, setSelectAddress }) => {
     const { Edit, Trash } = icons
 
     const [isOpenAddress, setIsOpenAddress] = useState(false)
 
     const dispatch = useDispatch()
     const token = useSelector((state) => state.auth.accessToken)
-    const addresses = useSelector((state) => state.address.addresses)
 
     const removeAddressHandler = () => {
         dispatch(removeAddress({ token, id: addressDetails._id }))
@@ -22,13 +21,18 @@ const AddressItem = ({ addressDetails }) => {
     const editHandler = () => {
         setIsOpenAddress(true)
     }
+
+    console.log("selectAddress => ", selectAddress)
     return (
         <div className='px-2'>
-            <div className='bg-gray-100 border-2 border-gray-300 p-2 rounded-lg mt-5 first:mt-0'>
+            <div onClick={selectAddress && (() => setSelectAddress(addressDetails._id))}
+                className={`border-2 p-2 rounded-lg mt-5 first:mt-0 
+                ${selectAddress === addressDetails._id ? "bg-green-50 border-primary-color/50"
+                        : "bg-gray-100 border-gray-300"}`}>
                 <div className='flex  justify-between'>
                     <p className='text-xs w-9/12'>{addressDetails.addressLine}</p>
                     <div className='flex justify-end text-xl gap-3 w-1/6 text-gray-600'>
-                        <Edit onClick={editHandler}/>
+                        <Edit onClick={editHandler} />
                         <Trash onClick={removeAddressHandler} />
                     </div>
                 </div>

@@ -7,26 +7,36 @@ import Addresses from './Addresses'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { getAddresses } from '@/store/addressSlice'
 
-const Address = () => {
-    
+const Address = ({ selectAddress, setSelectAddress }) => {
+    console.log("selectAddress => ", selectAddress)
+
     const [isOpenAddress, setIsOpenAddress] = useState(false)
 
     const token = useSelector((state) => state.auth.accessToken)
     const addresses = useSelector((state) => state.address.addresses)
     const dispatch = useDispatch()
 
-
-
     console.log(addresses)
 
     useEffect(() => {
         dispatch(getAddresses(token))
-    })
+    }, [])
+
+    useEffect(() => {
+        if (addresses.length && selectAddress !== undefined) {
+            setSelectAddress(addresses[0]._id)
+        }
+    }, [addresses])
 
     return (
         <section className='w-full'>
             {addresses.length ?
-                <Addresses addresses={addresses} setIsOpenAddress={setIsOpenAddress} />
+                <Addresses
+                    selectAddress={selectAddress}
+                    setSelectAddress={setSelectAddress}
+                    addresses={addresses}
+                    setIsOpenAddress={setIsOpenAddress}
+                />
                 :
                 <div className='md:mt-0 mt-5'>
                     <EmptyCart text="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!">
