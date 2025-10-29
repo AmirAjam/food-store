@@ -6,7 +6,6 @@ import Footer from "@/components/Footer/Footer"
 import CartNavbar from "../Cart/Components/CartNavbar"
 import CartInformation from "./components/CartInformation"
 import { useState } from "react"
-import CartSettlement from "@/components/Cart/CartSettlement"
 import ProductsCartMobile from "../Cart/Components/ProductsCart/ProductsCartMobile"
 import icons from '@/icons'
 import { calAllOff } from '@/utils/utils'
@@ -39,7 +38,12 @@ const CompleteInformation = () => {
         </div>
 
         <div className="w-4/12 hidden lg:block">
-          <ProductsCartMobile cart={cart} productsDiscounts={productsDiscounts} text="ثبت سفارش"/>
+          <ProductsCartMobile
+            cart={cart}
+            productsDiscounts={productsDiscounts}
+            text="ثبت سفارش"
+            Settlement
+          />
         </div>
 
       </div>

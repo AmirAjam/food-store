@@ -20,12 +20,12 @@ const Information = () => {
 
 
     const onSubmit = async (data) => {
-        const res = await editUserInfoApi(token,data)
-        if(res.success){
+        const res = await editUserInfoApi(token, data)
+        if (res.success) {
             toast.success("با موفقیت تغییر کرد.")
             setIsDisabled(true)
         }
-        else{
+        else {
             toast.success("مشکلی در سرور به وحود آمده است.")
         }
     }
@@ -53,8 +53,8 @@ const Information = () => {
     const { Edit } = icons
     return (
         <section className='mt-5 md:mt-0 md:w-full h-full border border-gray-300 rounded-lg p-5 '>
-            <form onSubmit={handleSubmit(onSubmit, onError)} 
-            className='flex flex-col space-between h-full'>
+            <form onSubmit={handleSubmit(onSubmit, onError)}
+                className='flex flex-col space-between h-full'>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
                     <InformationInput
                         {...register("firstname", {
@@ -94,7 +94,8 @@ const Information = () => {
                     />
                 </div>
 
-                <div className={`w-fit text-xxs m-auto grow flex items-end ${!isDisabled ? "hidden" : ""}`}>
+                <div className={`w-fit text-xxs m-auto grow flex items-end mt-5 md:mt-0
+                    ${!isDisabled ? "hidden" : ""}`}>
                     <SecondaryButton onClick={() => setIsDisabled(false)}>
                         <div className='flex items-center px-4'>
                             <Edit className='text-lg' />
@@ -103,7 +104,8 @@ const Information = () => {
                     </SecondaryButton>
                 </div>
 
-                <div className={`text-xxs sm:w-80 mx-auto mt-8 flex gap-5 grow flex items-end ${isDisabled ? "hidden" : ""}`}>
+                <div className={`text-xxs w-full sm:w-80 sm:mx-auto mt-8 flex gap-5 grow items-end 
+                    ${isDisabled ? "hidden" : ""}`}>
                     <SecondaryButton onClick={() => setIsDisabled(true)}>
                         <span className='px-5 -my-0.5 block'>
                             انصراف

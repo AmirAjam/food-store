@@ -7,12 +7,14 @@ import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { Link } from 'react-router-dom'
 
 const ProductsCartMobile = ({cart,productsDiscounts,text}) => {
-
+  console.log(cart)
   return (
     <section className='mt-8'>
       <div className='container'>
         <div className='border-gray-300 border-2 rounded-lg p-4 '>
-
+          <div className="mb-5 font-Estedad-Bold">
+            <p>سبد خرید ({cart.items.length})</p>
+          </div>
           <div className='border-b-2 border-gray-300 pb-5'>
             <div className='max-h-49 overflow-y-scroll px-3'>
               {cart.items.map((item, index) => <ProductCartMobile
