@@ -3,6 +3,7 @@ import { getCart } from '@/store/cartSlice'
 import { calAllOff } from '@/utils/utils'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const CartInformation = () => {
 
@@ -31,9 +32,9 @@ const CartInformation = () => {
                         {cart.finalPrice?.toLocaleString()} تومان
                     </p>
                 </div>
-                <div className='block text-xs sm:text-base'>
+                <Link to="/payment" className='block text-xs sm:text-base'>
                     <PrimaryButton text="ثبت سفارش"/>
-                </div>
+                </Link>
             </div>
         </section>
     )

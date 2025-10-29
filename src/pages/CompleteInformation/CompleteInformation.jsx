@@ -42,7 +42,7 @@ const CompleteInformation = () => {
             cart={cart}
             productsDiscounts={productsDiscounts}
             text="ثبت سفارش"
-            Settlement
+            settlement
           />
         </div>
 

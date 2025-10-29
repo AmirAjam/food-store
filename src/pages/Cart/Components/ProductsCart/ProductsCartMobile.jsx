@@ -6,7 +6,7 @@ import { getCart } from '@/store/cartSlice'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { Link } from 'react-router-dom'
 
-const ProductsCartMobile = ({cart,productsDiscounts,text}) => {
+const ProductsCartMobile = ({ cart, productsDiscounts, text,settlement }) => {
   console.log(cart)
   return (
     <section className='mt-8'>
@@ -34,12 +34,13 @@ const ProductsCartMobile = ({cart,productsDiscounts,text}) => {
             <p className='text-primary-color font-Estedad-Bold'>{cart.totalPrice.toLocaleString()}</p>
           </div>
 
-          <Link to="/complete-information" className='mt-5 block text-sm sm:text-base'>
-            <PrimaryButton text={text}/>
-          </Link>
-        </div>
+          <Link to={`${settlement ? "/payment" : "/complete-information"}`} 
+          className='mt-5 block text-sm sm:text-base'>
+          <PrimaryButton text={text} />
+        </Link>
       </div>
-    </section>
+    </div>
+    </section >
   )
 }
 
