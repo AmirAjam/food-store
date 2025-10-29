@@ -5,12 +5,12 @@ import React from 'react'
 const DiscountCode = () => {
     const { Discount } = icons
     return (
-        <section className='mt-8 border-2 border-gray-300 rounded-lg px-3 py-5'>
+        <section className='mt-8 border-2 border-gray-300 rounded-lg p-3'>
             <div className='flex gap-2 items-center border-b-2 pb-4 border-gray-300'>
                 <Discount className='text-xl' />
                 <p className='text-sm'>ثبت کد تخفیف</p>
             </div>
-            <div className='mt-5 flex justify-between'>
+            <div className='mt-5 flex items-center justify-between'>
                 <input
                     type="text"
                     placeholder='کد تخفیف'

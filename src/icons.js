@@ -2,19 +2,20 @@ import { CiUser, CiSearch,CiDiscount1} from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
-import { IoFastFoodOutline, IoClose,IoLocationOutline  } from "react-icons/io5";
+import { IoFastFoodOutline, IoClose,IoLocationOutline,IoWalletOutline  } from "react-icons/io5";
 import { BiSearch,BiSort  } from "react-icons/bi";
 import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
 import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
 import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
 import { MdSpaceDashboard, MdCategory,MdOutlineSportsMotorsports  } from "react-icons/md"
-import { BsDatabaseFillAdd,BsBasket   } from "react-icons/bs";
+import { BsDatabaseFillAdd    } from "react-icons/bs";
 import { FaUsers  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
 import { FiTrash2 } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
-import { TbEdit } from "react-icons/tb";
+import { TbEdit  } from "react-icons/tb";
 import { RxBackpack } from "react-icons/rx";
+
 
  
 
@@ -59,7 +60,8 @@ const icons = {
   Truck:LuTruck,
   Backpack:RxBackpack,
   Motor:MdOutlineSportsMotorsports,
-  Discount:CiDiscount1  
+  Discount:CiDiscount1,
+  Wallet:IoWalletOutline   
 };
 
 export default icons;
