@@ -21,7 +21,7 @@ const CartNavbar = ({ step = 1 }) => {
 
         <div className="border-t-2 border-dashed border-primary-color group-[.step-1]:border-gray-400 w-50"></div>
 
-        <Link to="/completion-nformation " className='flex gap-2 items-center text-gray-400
+        <Link to="/complete-information" className='flex gap-2 items-center text-gray-400
         group-[.step-2]:text-primary-color group-[.step-3]:text-primary-color'>
           <CheckBox className='text-lg group-[.step-2]:text-xl' />
           <span className='text-sm group-[.step-2]:text-base group-[.step-2]:font-Estedad-Bold'>

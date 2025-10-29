@@ -1,7 +1,7 @@
 import { CiUser, CiSearch,CiDiscount1,CiCreditCardOff } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
-import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
+import { PiMaskHappyLight,PiPhoneLight,PiWarningOctagon   } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose,IoLocationOutline,IoWalletOutline  } from "react-icons/io5";
 import { BiSearch,BiSort  } from "react-icons/bi";
 import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
@@ -62,7 +62,8 @@ const icons = {
   Motor:MdOutlineSportsMotorsports,
   Discount:CiDiscount1,
   Wallet:IoWalletOutline,
-  CardOff:CiCreditCardOff   
+  CardOff:CiCreditCardOff,
+  Warning:PiWarningOctagon   
 };
 
 export default icons;

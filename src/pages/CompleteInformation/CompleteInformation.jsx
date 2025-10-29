@@ -13,17 +13,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const CompleteInformation = () => {
-  const { Trash } = icons
-
-  const dispatch = useDispatch()
+  const [selectAddress, setSelectAddress] = useState(null)
 
   const cart = useSelector(state => state.cart.cart)
-  const token = useSelector((state) => state.auth.accessToken)
-
 
   let productsDiscounts = 0
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
-  const [selectAddress, setSelectAddress] = useState(null)
+
   return (
     <>
       <Header />
@@ -31,13 +27,13 @@ const CompleteInformation = () => {
       <TopCart text="تکمیل اطلاعات" />
       <div className="container flex justify-between gap-10">
 
-        <div className="w-full lg:w-8/12 flex flex-col lg:gap-5">
+        <div className="w-full md:w-8/12 flex flex-col md:gap-5">
           <DeliveryMethod />
           <Address selectAddress={selectAddress} setSelectAddress={setSelectAddress} />
           <CartInformation />
         </div>
 
-        <div className="w-4/12 hidden lg:block">
+        <div className="w-4/12 hidden md:block">
           <ProductsCartMobile
             cart={cart}
             productsDiscounts={productsDiscounts}
