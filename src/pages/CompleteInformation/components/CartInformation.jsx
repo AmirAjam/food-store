@@ -20,7 +20,7 @@ const CartInformation = () => {
     }, [])
 
     return (
-        <section className='mt-8 border-2 border-gray-300 rounded-lg px-1.5 py-5 text-sm lg:hidden'>
+        <section className='mt-5 border-2 border-gray-300 rounded-lg px-1.5 py-5 text-sm lg:hidden'>
             <div className="container">
                 <div className='flex justify-between pb-5 border-b-2 border-gray-300'>
                     <p>تخفیف محصولات</p>

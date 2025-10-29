@@ -1,4 +1,4 @@
-import { CiUser, CiSearch,CiDiscount1} from "react-icons/ci";
+import { CiUser, CiSearch,CiDiscount1,CiCreditCardOff } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight  } from "react-icons/pi";
@@ -61,7 +61,8 @@ const icons = {
   Backpack:RxBackpack,
   Motor:MdOutlineSportsMotorsports,
   Discount:CiDiscount1,
-  Wallet:IoWalletOutline   
+  Wallet:IoWalletOutline,
+  CardOff:CiCreditCardOff   
 };
 
 export default icons;

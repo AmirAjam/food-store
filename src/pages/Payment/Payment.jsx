@@ -6,6 +6,8 @@ import TopCart from '../Cart/Components/TopCart'
 import DiscountCode from './Components/DiscountCode'
 import DeliveryMethod from '../CompleteInformation/components/DeliveryMethod'
 import PaymentMethod from './Components/PaymentMethod'
+import CartInformation from '../CompleteInformation/components/CartInformation'
+import PaymentGateways from './Components/PaymentGateways/PaymentGateways'
 
 const Payment = () => {
     return (
@@ -16,6 +18,8 @@ const Payment = () => {
             <div className="container">
                 <DiscountCode />
                 <PaymentMethod />
+                <PaymentGateways />
+                <CartInformation />
             </div>
             <Footer />
         </>

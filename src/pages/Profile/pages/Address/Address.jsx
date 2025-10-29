@@ -26,7 +26,7 @@ const Address = ({ selectAddress, setSelectAddress }) => {
     }, [addresses])
 
     return (
-        <section className='w-full'>
+        <section className='w-full mb-5'>
             {addresses.length ?
                 <Addresses
                     selectAddress={selectAddress}
