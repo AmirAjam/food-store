@@ -22,7 +22,6 @@ const AddressItem = ({ addressDetails, selectAddress, setSelectAddress }) => {
         setIsOpenAddress(true)
     }
 
-    console.log("selectAddress => ", selectAddress)
     return (
         <div className='px-2'>
             <div onClick={selectAddress && (() => setSelectAddress(addressDetails._id))}

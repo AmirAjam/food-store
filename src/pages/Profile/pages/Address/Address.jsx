@@ -8,15 +8,12 @@ import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { getAddresses } from '@/store/addressSlice'
 
 const Address = ({ selectAddress, setSelectAddress }) => {
-    console.log("selectAddress => ", selectAddress)
 
     const [isOpenAddress, setIsOpenAddress] = useState(false)
 
     const token = useSelector((state) => state.auth.accessToken)
     const addresses = useSelector((state) => state.address.addresses)
     const dispatch = useDispatch()
-
-    console.log(addresses)
 
     useEffect(() => {
         dispatch(getAddresses(token))

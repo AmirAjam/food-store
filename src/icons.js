@@ -7,7 +7,7 @@ import { BiSearch,BiSort  } from "react-icons/bi";
 import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
 import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
 import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
-import { MdSpaceDashboard, MdCategory } from "react-icons/md"
+import { MdSpaceDashboard, MdCategory,MdOutlineSportsMotorsports  } from "react-icons/md"
 import { BsDatabaseFillAdd,BsBasket   } from "react-icons/bs";
 import { FaUsers  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
@@ -58,6 +58,7 @@ const icons = {
   Edit:TbEdit,
   Truck:LuTruck,
   Backpack:RxBackpack,
+  Motor:MdOutlineSportsMotorsports 
 };
 
 export default icons;
