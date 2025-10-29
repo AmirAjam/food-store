@@ -23,7 +23,7 @@ const AddressItem = ({ addressDetails, selectAddress, setSelectAddress }) => {
     }
 
     return (
-        <div className='px-2'>
+        <div className='px-2 cursor-pointer'>
             <div onClick={selectAddress && (() => setSelectAddress(addressDetails._id))}
                 className={`border-2 p-2 rounded-lg mt-5 first:mt-0 
                 ${selectAddress === addressDetails._id ? "bg-green-50 border-primary-color/50"

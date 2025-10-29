@@ -14,7 +14,7 @@ import { calAllOff } from '@/utils/utils'
 import icons from '@/icons'
 
 const Cart = () => {
-    const {Trash } = icons
+    const { Trash } = icons
 
     const dispatch = useDispatch()
 
@@ -48,7 +48,12 @@ const Cart = () => {
                 </div>
                 :
                 <>
-                    <ProductsCartMobile cart={cart} productsDiscounts={productsDiscounts} />
+                    <div className='lg:hidden'>
+                        <ProductsCartMobile 
+                            cart={cart}
+                            productsDiscounts={productsDiscounts}
+                            text='تکمیل اطلاعات' />
+                    </div>
                     <ProductsCartDesktop cart={cart} productsDiscounts={productsDiscounts} />
                 </>}
 

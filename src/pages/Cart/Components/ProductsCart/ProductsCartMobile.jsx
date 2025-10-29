@@ -6,10 +6,10 @@ import { getCart } from '@/store/cartSlice'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { Link } from 'react-router-dom'
 
-const ProductsCartMobile = ({cart,productsDiscounts}) => {
+const ProductsCartMobile = ({cart,productsDiscounts,text}) => {
 
   return (
-    <section className='mt-8 lg:hidden'>
+    <section className='mt-8'>
       <div className='container'>
         <div className='border-gray-300 border-2 rounded-lg p-4 '>
 
@@ -33,7 +33,7 @@ const ProductsCartMobile = ({cart,productsDiscounts}) => {
           </div>
 
           <Link to="/complete-information" className='mt-5 block text-sm sm:text-base'>
-            <PrimaryButton text="تکمیل اطلاعات"/>
+            <PrimaryButton text={text}/>
           </Link>
         </div>
       </div>
