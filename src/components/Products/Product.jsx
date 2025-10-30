@@ -6,7 +6,7 @@ import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, deleteCartItem, getCart, updateCart } from '@/store/cartSlice'
-import { addToFavorite, removeFromFavorite } from '@/store/favoriteSlice'
+import { addToFavorite, removeFromFavorite } from '@/store/favouriteSlice'
 import { data } from 'react-router-dom'
 
 const Product = ({ productDetails, setOpenLogin }) => {
@@ -16,7 +16,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
   const [isUserLogin, setIsUserLogin] = useState(false)
 
   const cart = useSelector(state => state.cart.cart.items)
-  const favorites = useSelector(state => state.favorite.favorites)
+  const favourite = useSelector(state => state.favorite.favourite)
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.accessToken)
   const { sendRequest } = useFetch();
@@ -61,9 +61,9 @@ const Product = ({ productDetails, setOpenLogin }) => {
     }
   }
 
-  const findFavorites = () => {
-    console.log(favorites)
-    const product = favorites.find(item => item._id === productDetails._id)
+  const findFavourite = () => {
+    console.log(favourite)
+    const product = favourite.find(item => item._id === productDetails._id)
     if (product) {
       setCount(setIsFavorite(true))
     }
@@ -71,7 +71,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   useEffect(() => {
     findQuantityProduct()
-    findFavorites()
+    findFavourite()
   }, [])
 
   return (

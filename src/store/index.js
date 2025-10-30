@@ -5,7 +5,7 @@ import categoriesReducer from "./categorySlice"
 import productsReducer from "./productSlice"
 import cartReducer from "./cartSlice"
 import addressReducer from "./addressSlice"
-import favoriteReducer from "./favoriteSlice"
+import favoriteReducer from "./favouriteSlice"
 
 const store = configureStore({
   reducer: {

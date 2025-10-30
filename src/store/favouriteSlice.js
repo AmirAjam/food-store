@@ -29,23 +29,23 @@ export const removeFromFavorite = createAsyncThunk(
 const slice = createSlice({
     name: "favorite",
     initialState: {
-        favorites: [],
+        favourite: [],
     },
     reducers: {
 
     },
     extraReducers: (builder) => {
         builder.addCase(getFavorite.fulfilled, (state, action) => {
-            state.favorites = action.payload.whislist
+            state.favourite = action.payload.whislist
         });
 
         builder.addCase(addToFavorite.fulfilled, (state, action) => {
-            state.favorites.push(action.payload.product)
+            state.favourite.push(action.payload.product)
         });
 
         builder.addCase(removeFromFavorite.fulfilled, (state, action) => {
             const productId = action.meta.arg.productId;
-            state.favorites = state.favorites.filter(item => item !== productId)
+            state.favourite = state.favourite.filter(item => item !== productId)
         });
     }
 })

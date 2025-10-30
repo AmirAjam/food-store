@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Product from './Product'
 import { getCart } from '@/store/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFavorite } from '@/store/favoriteSlice'
+import { getFavorite } from '@/store/favouriteSlice'
 
 const Products = ({ products, setOpenLogin }) => {
   const token = useSelector((state) => state.auth.accessToken)

@@ -16,7 +16,7 @@ const ProfileNavbar = () => {
   const NavbarList = [
     { id: 1, title: "پروفایل", slug: "/profile/information", icon: UserLu },
     { id: 2, title: "پیگیری سفارش", slug: "/profile/orders", icon: Card },
-    { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favorites", icon: Heart },
+    { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favourite", icon: Heart },
     { id: 4, title: "آدرس‌های من", slug: "/profile/locations", icon: Location },
   ]
 
