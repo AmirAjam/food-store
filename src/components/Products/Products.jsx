@@ -2,13 +2,16 @@ import React, { useEffect } from 'react'
 import Product from './Product'
 import { getCart } from '@/store/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { getFavorite } from '@/store/favoriteSlice'
 
 const Products = ({ products, setOpenLogin }) => {
   const token = useSelector((state) => state.auth.accessToken)
+  const id = useSelector((state) => state.auth.userId)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getCart({ token }))
+    dispatch(getFavorite({ token,id }))
   }, [])
   
   return (

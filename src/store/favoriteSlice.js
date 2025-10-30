@@ -1,9 +1,17 @@
 
+import { getFavoriteApi } from "@/api/favoriteApi";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
+export const getFavorite = createAsyncThunk(
+    "favorite/getFavorite",
+    async ({ token, id }) => {
+        const res = await getFavoriteApi(token, id);
+        return res;
+    }
+)
 export const addProduct = createAsyncThunk(
-    "Product/addProduct",
+    "favorite/addProduct",
     async ({ token, data }) => {
         const res = await createProductApi(token, data);
         return res;
@@ -11,15 +19,17 @@ export const addProduct = createAsyncThunk(
 )
 
 const slice = createSlice({
-    name: "product",
+    name: "favorite",
     initialState: {
-        products: [],
+        favorites: [],
     },
     reducers: {
 
     },
     extraReducers: (builder) => {
-
+        builder.addCase(getFavorite.fulfilled, (state, action) => {
+            state.favorites = action.payload.whislist
+        });
     }
 })
 

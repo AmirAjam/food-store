@@ -12,7 +12,7 @@ const PaymentWarning = () => {
                     <h2 className='font-Estedad-Medium'>قابل توجه</h2>
                 </div>
                 <div className='mt-2'>
-                    <p className='text-gray-500 text-xs text-justify px-1 leading-5'>
+                    <p className='text-gray-500 text-xs lg:text-sm text-justify px-1 leading-5'>
                         هزینه سفارش شما در حین تحویل کالا دریافت خواهد شد. لطفا قبل از تحویل کالا کارت بانکی یا پول نقد همراه خود داشته باشید و از درخواست برای پرداخت در زمان بعدی یا نسیه خودداری فرمایید. با تشکر از همراهی شما.
                     </p>
                 </div>

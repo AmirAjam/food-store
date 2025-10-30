@@ -19,7 +19,7 @@ export const routes = [
     { path: "/menu/:id", element: <Menu /> },
     { path: "/cart", element: <Cart /> },
     { path: "/complete-information", element: <CompleteInformation /> },
-    { path: "/payment", element: <Payment /> },
+    { path: "/payment/:addressId", element: <Payment /> },
     {
         path: "/profile", element: <Profile />,
         children: [

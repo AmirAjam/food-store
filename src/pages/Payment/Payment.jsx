@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { calAllOff } from '@/utils/utils'
 import PaymentWarning from './Components/PaymentWarning'
 import { Activity } from 'react'
+import { useParams } from 'react-router-dom'
 
 const Payment = () => {
     const [methodActive, setMethodActive] = useState(0)
@@ -21,6 +22,9 @@ const Payment = () => {
 
     let productsDiscounts = 0
     cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
+
+    const param= useParams()
+    console.log(param.addressId)
     return (
         <>
             <Header />

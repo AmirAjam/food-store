@@ -38,6 +38,7 @@ const CompleteInformation = () => {
             cart={cart}
             productsDiscounts={productsDiscounts}
             text="ثبت سفارش"
+            addressId={selectAddress}
             settlement
           />
         </div>

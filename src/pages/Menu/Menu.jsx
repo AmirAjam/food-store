@@ -38,14 +38,13 @@ const Menu = () => {
     fetchProducts(findCategory._id)
   }
 
-
-
-
   useEffect(() => {
     if (categories.length) {
       findCategoryID(categorySlug)
     }
   }, [categories,categorySlug])
+
+  
 
   return (
     <>
