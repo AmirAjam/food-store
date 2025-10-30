@@ -6,21 +6,23 @@ import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, deleteCartItem, getCart, updateCart } from '@/store/cartSlice'
+import { addToFavorite, removeFromFavorite } from '@/store/favoriteSlice'
+import { data } from 'react-router-dom'
 
 const Product = ({ productDetails, setOpenLogin }) => {
+  const { Heart, FullHeart } = icons
   const dispatch = useDispatch()
 
   const [isUserLogin, setIsUserLogin] = useState(false)
 
   const cart = useSelector(state => state.cart.cart.items)
-  const favorite = useSelector(state => state.favorite.cart.items)
+  const favorites = useSelector(state => state.favorite.favorites)
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.accessToken)
-
   const { sendRequest } = useFetch();
 
   const [count, setCount] = useState()
-  const { Heart } = icons
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     if (!id) return;
@@ -36,6 +38,21 @@ const Product = ({ productDetails, setOpenLogin }) => {
     }))
   }
 
+  const addToFavoriteHandler = () => {
+    dispatch(addToFavorite({
+      token,
+      productId:productDetails._id
+    }))
+    setIsFavorite(true)
+  }
+  const removeFromFavoriteHandler = () => {
+    dispatch(removeFromFavorite({
+      token,
+      productId:productDetails._id
+    }))
+    setIsFavorite(false)
+  }
+
   const findQuantityProduct = () => {
     const product = cart.find(item => item.product._id === productDetails._id)
     console.log("cart => ", cart)
@@ -44,8 +61,17 @@ const Product = ({ productDetails, setOpenLogin }) => {
     }
   }
 
+  const findFavorites = () => {
+    console.log(favorites)
+    const product = favorites.find(item => item._id === productDetails._id)
+    if (product) {
+      setCount(setIsFavorite(true))
+    }
+  }
+
   useEffect(() => {
     findQuantityProduct()
+    findFavorites()
   }, [])
 
   return (
@@ -98,8 +124,13 @@ const Product = ({ productDetails, setOpenLogin }) => {
                 onClick={() => isUserLogin ? addProductToCart() : setOpenLogin(true)} />
             }
           </div>
-          <Heart className='text-2xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
-              duration-300 stroke-3' />
+          {isFavorite ?
+            <FullHeart onClick={removeFromFavoriteHandler}
+             className='text-2xl lg:text-xl text-red-500 cursor-pointer stroke-3' />
+            :
+            <Heart onClick={addToFavoriteHandler}
+              className='text-2xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
+              duration-300 stroke-3' />}
         </div>
       </div>
     </div>

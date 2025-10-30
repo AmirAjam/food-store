@@ -1,5 +1,6 @@
 
-import { getFavoriteApi } from "@/api/favoriteApi";
+import { AddToFavoriteApi, getFavoriteApi } from "@/api/favoriteApi";
+import { findArrayIndex } from "@/utils/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
@@ -10,10 +11,17 @@ export const getFavorite = createAsyncThunk(
         return res;
     }
 )
-export const addProduct = createAsyncThunk(
-    "favorite/addProduct",
-    async ({ token, data }) => {
-        const res = await createProductApi(token, data);
+export const addToFavorite = createAsyncThunk(
+    "favorite/addToFavorite",
+    async ({ token, productId }) => {
+        const res = await AddToFavoriteApi(token, productId);
+        return res;
+    }
+)
+export const removeFromFavorite = createAsyncThunk(
+    "favorite/removeFromFavorite",
+    async ({ token, productId }) => {
+        const res = await AddToFavoriteApi(token, productId);
         return res;
     }
 )
@@ -29,6 +37,15 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getFavorite.fulfilled, (state, action) => {
             state.favorites = action.payload.whislist
+        });
+
+        builder.addCase(addToFavorite.fulfilled, (state, action) => {
+            state.favorites.push(action.payload.product)
+        });
+
+        builder.addCase(removeFromFavorite.fulfilled, (state, action) => {
+            const productId = action.meta.arg.productId;
+            state.favorites = state.favorites.filter(item => item !== productId)
         });
     }
 })

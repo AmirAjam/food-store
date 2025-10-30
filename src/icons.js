@@ -1,5 +1,5 @@
 import { CiUser, CiSearch,CiDiscount1,CiCreditCardOff } from "react-icons/ci";
-import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck   } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight,FaRegCreditCard,FaRegSquareCheck,FaHeart    } from "react-icons/fa6";
 import { LuChartLine, LuUser,LuHouse,LuUsers,LuPlus,LuMinus,LuTruck     } from "react-icons/lu";
 import { PiMaskHappyLight,PiPhoneLight,PiWarningOctagon   } from "react-icons/pi";
 import { IoFastFoodOutline, IoClose,IoLocationOutline,IoWalletOutline  } from "react-icons/io5";
@@ -26,6 +26,7 @@ const icons = {
   ChartLine: LuChartLine,
   Card:FaRegCreditCard,
   Heart:IoMdHeartEmpty,
+  FullHeart:FaHeart ,
   Location:IoLocationOutline,
   UserLu: LuUser,
   LogOut:SlLogout ,

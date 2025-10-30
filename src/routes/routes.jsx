@@ -12,6 +12,7 @@ import Information from "@/pages/Profile/pages/Information/Information";
 import Address from "@/pages/Profile/pages/Address/Address";
 import CompleteInformation from "@/pages/CompleteInformation/CompleteInformation";
 import Payment from "@/pages/Payment/Payment";
+import Favorites from "@/pages/Profile/pages/Favorites/Favorites";
 
 
 export const routes = [
@@ -25,6 +26,7 @@ export const routes = [
         children: [
             { path: "/profile/information", element: <Information /> },
             { path: "/profile/locations", element: <Address /> },
+            { path: "/profile/favorites", element: <Favorites /> },
         ]
     },
     {
