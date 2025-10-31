@@ -14,6 +14,8 @@ import CompleteInformation from "@/pages/CompleteInformation/CompleteInformation
 import Payment from "@/pages/Payment/Payment";
 import Favourites from "@/pages/Profile/pages/Favourites/Favourites";
 import AboutUs from "@/pages/AboutUs/AboutUs";
+import FAQ from "@/pages/FAQ/FAQ";
+import Coupen from "@/pages/Admin/Pages/Coupen/Coupen";
 
 
 export const routes = [
@@ -21,6 +23,7 @@ export const routes = [
     { path: "/menu/:id", element: <Menu /> },
     { path: "/cart", element: <Cart /> },
     { path: "/about-us", element: <AboutUs /> },
+    { path: "/FAQ", element: <FAQ /> },
     { path: "/complete-information", element: <CompleteInformation /> },
     { path: "/payment/:addressId", element: <Payment /> },
     {
@@ -39,6 +42,7 @@ export const routes = [
             { path: "/p-admin/add-product", element: <AddProduct /> },
             { path: "/p-admin/products", element: <Products /> },
             { path: "/p-admin/category", element: <Category /> },
+            { path: "/p-admin/discount", element: <Coupen /> },
         ]
     },
 

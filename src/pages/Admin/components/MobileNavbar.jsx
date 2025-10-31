@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 
 const MobileNavbar = ({ isOpen, closeNav }) => {
-    const { Dashboard, AddProduct, Category, Users,Cart2,Close } = icons
+    const { Dashboard, AddProduct, Category, Users,Cart2,Close,Discount2 } = icons
     return (
         <div className={`lg:hidden fixed z-50 inset-y-0 bg-gray-300 w-62 py-4 px-5 duration-300 ${isOpen ? "right-0" : "-right-200"}`}>
             <div className='flex justify-between items-center'>
@@ -54,6 +54,15 @@ const MobileNavbar = ({ isOpen, closeNav }) => {
                     }>
                         <Users className='text-2xl' />
                         <span className='font-Vazirmatn-Medium'>کاربران</span>
+                    </NavLink>
+
+                </li>
+                <li>
+                    <NavLink onClick={closeNav} to="/p-admin/discount" className={({ isActive }) =>
+                        `flex items-center gap-2 py-2 px-2 rounded-lg ${isActive && "bg-dark"}`
+                    }>
+                        <Discount2 className='text-2xl' />
+                        <span className='font-Vazirmatn-Medium'>کد های تخفیف</span>
                     </NavLink>
 
                 </li>

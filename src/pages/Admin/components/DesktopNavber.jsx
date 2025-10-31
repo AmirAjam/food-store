@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import icons from '@/icons';
 
 const DesktopNavber = () => {
-    const {Cart2,AddProduct,Category,Users} = icons
+    const {Cart2,AddProduct,Category,Users,Discount2} = icons
     return (
         <nav className="lg:block lg:fixed right-0 hidden top-0 bottom-0 bg-gray-300 w-1/5 py-4 px-5">
             <div className='flex justify-between items-center'>
@@ -71,6 +71,18 @@ const DesktopNavber = () => {
                     >
                         <Users className='text-2xl' />
                         <span className='font-Vazirmatn-Medium'>کاربران</span>
+                    </NavLink>
+                </li>
+                <li className='flex items-center gap-4 '>
+                    <NavLink
+                        to="/p-admin/discount"
+                        className={({ isActive }) =>
+                            `w-full flex gap-4 items-center py-3 px-2 hover:bg-gray-200
+                            duration-300 rounded-lg ${isActive ? 'bg-gray-200' : ''}`
+                        }
+                    >
+                        <Discount2 className='text-2xl' />
+                        <span className='font-Vazirmatn-Medium'>کد های تخفیف</span>
                     </NavLink>
                 </li>
             </ul>

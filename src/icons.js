@@ -7,7 +7,7 @@ import { BiSearch,BiSort  } from "react-icons/bi";
 import { IoIosMenu,IoIosArrowDown } from "react-icons/io";
 import { RiShoppingCartLine,RiTwitterXLine,RiInstagramLine ,RiTelegram2Line } from "react-icons/ri";
 import { IoIosNotificationsOutline,IoMdCart,IoMdHeartEmpty   } from "react-icons/io";
-import { MdSpaceDashboard, MdCategory,MdOutlineSportsMotorsports  } from "react-icons/md"
+import { MdSpaceDashboard, MdCategory,MdOutlineSportsMotorsports,MdDiscount   } from "react-icons/md"
 import { BsDatabaseFillAdd    } from "react-icons/bs";
 import { FaUsers  } from "react-icons/fa";
 import { RiSortAlphabetDesc,RiSortAlphabetAsc  } from "react-icons/ri";
@@ -62,6 +62,7 @@ const icons = {
   Backpack:RxBackpack,
   Motor:MdOutlineSportsMotorsports,
   Discount:CiDiscount1,
+  Discount2:MdDiscount,
   Wallet:IoWalletOutline,
   CardOff:CiCreditCardOff,
   Warning:PiWarningOctagon   

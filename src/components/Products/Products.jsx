@@ -16,7 +16,7 @@ const Products = ({ products, setOpenLogin }) => {
 
   return (
     <section className='mt-8'>
-      <div className="container flex flex-wrap gap-5 justify-center" >
+      <div className="container flex flex-wrap gap-5 justify-between" >
         {products?.map(product =>
           <Product
             key={product._id}

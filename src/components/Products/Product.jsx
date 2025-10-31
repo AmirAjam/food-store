@@ -95,7 +95,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
           }
         </div>
         <div className='mt-2.5 text-xs md:flex gap-2'>
-          <p className='line-clamp-2 leading-5 text-xs'>{productDetails.description}</p>
+          <p className='line-clamp-1 md:line-clamp-2 leading-5 text-xs'>{productDetails.description}</p>
           {!productDetails.quantity ?
             <p className='text-nowrap text-sm lg:text-base font-Estedad-Medium mt-2.5'>
               {productDetails.price.toLocaleString()} تومان</p>
