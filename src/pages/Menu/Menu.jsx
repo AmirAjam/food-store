@@ -56,7 +56,7 @@ const Menu = () => {
       </div>
       <div className='container mt-8 flex items-center justify-between'>
         <h2 className='font-Estedad-Bold md:text-lg lg:text-xl'>غذاهای ایرانی</h2>
-        <Link className='flex items-center gap-1 text-sm md:text-base border border-primary-color 
+        <Link to="/cart" className='flex items-center gap-1 text-sm md:text-base border border-primary-color 
         p-1.5 md:px-4 rounded-sm text-primary-color hover:bg-primary-color hover:text-white duration-200'>
           <Cart className='text-lg' />
           <span>تکمیل خرید</span>

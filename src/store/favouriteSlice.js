@@ -1,7 +1,6 @@
 
-import { AddToFavoriteApi, getFavoriteApi } from "@/api/favoriteApi";
-import { findArrayIndex } from "@/utils/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { AddToFavoriteApi, getFavoriteApi } from "@/api/favoriteApi";
 
 
 export const getFavorite = createAsyncThunk(
@@ -45,13 +44,9 @@ const slice = createSlice({
 
         builder.addCase(removeFromFavorite.fulfilled, (state, action) => {
             const productId = action.meta.arg.productId;
-            state.favourite = state.favourite.filter(item => item !== productId)
+            state.favourite = state.favourite.filter(item => item._id !== productId)
         });
     }
 })
 
 export default slice.reducer;
-
-export const findProduct = (products, id) => {
-    return products.find(product => product._id === id)
-}

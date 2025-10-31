@@ -37,7 +37,7 @@ const MobileNavbar = ({ closeMenu, isOpen }) => {
             <MobileSubMenu isOpen={isSubMenuOpen} />
           </li>
           <li className=' border-b border-gray-300'>
-            <Link className='flex gap-2 items-center py-3 text-sm'>
+            <Link to="/about-us" className='flex gap-2 items-center py-3 text-sm'>
               <Users2 className='text-lg' />
               <span>درباره ما</span>
             </Link>

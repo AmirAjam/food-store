@@ -12,7 +12,7 @@ const Profile = () => {
         <>
             <Header />
             <section className='mt-12'>
-                <div className="md:flex gap-8 md:h-80">
+                <div className="md:flex gap-8 md:min-h-80">
                     <ProfileNavbar />
                     <div className="container">
                         <Outlet />

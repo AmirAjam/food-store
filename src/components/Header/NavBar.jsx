@@ -29,7 +29,7 @@ const NavBar = () => {
                     <SubMenu list={categories} isOpen={isSubMenuOpen} />
                 </li>
                 <li className="duration-300 hover:text-primary-color">
-                    <NavLink>درباره ما</NavLink>
+                    <NavLink to="/about-us">درباره ما</NavLink>
                 </li>
                 <li className="duration-300 hover:text-primary-color">
                     <NavLink>تماس با ما</NavLink>

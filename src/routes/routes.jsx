@@ -12,13 +12,15 @@ import Information from "@/pages/Profile/pages/Information/Information";
 import Address from "@/pages/Profile/pages/Address/Address";
 import CompleteInformation from "@/pages/CompleteInformation/CompleteInformation";
 import Payment from "@/pages/Payment/Payment";
-import Favourite from "@/pages/Profile/pages/Favourite/Favourite";
+import Favourites from "@/pages/Profile/pages/Favourites/Favourites";
+import AboutUs from "@/pages/AboutUs/AboutUs";
 
 
 export const routes = [
     { path: "/", element: <Home /> },
     { path: "/menu/:id", element: <Menu /> },
     { path: "/cart", element: <Cart /> },
+    { path: "/about-us", element: <AboutUs /> },
     { path: "/complete-information", element: <CompleteInformation /> },
     { path: "/payment/:addressId", element: <Payment /> },
     {
@@ -26,7 +28,7 @@ export const routes = [
         children: [
             { path: "/profile/information", element: <Information /> },
             { path: "/profile/locations", element: <Address /> },
-            { path: "/profile/favourite", element: <Favourite /> },
+            { path: "/profile/favourite", element: <Favourites /> },
         ]
     },
     {

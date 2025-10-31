@@ -11,12 +11,12 @@ const Products = ({ products, setOpenLogin }) => {
 
   useEffect(() => {
     dispatch(getCart({ token }))
-    dispatch(getFavorite({ token,id }))
+    dispatch(getFavorite({ token, id }))
   }, [])
-  
+
   return (
     <section className='mt-8'>
-      <div className="container grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="container flex flex-wrap gap-5 justify-center" >
         {products?.map(product =>
           <Product
             key={product._id}

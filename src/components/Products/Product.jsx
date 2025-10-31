@@ -5,9 +5,9 @@ import ProductCounter from './ProductCounter'
 import { calFinalPrice } from '@/utils/utils'
 import useFetch from '@/hooks/useFetch'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, deleteCartItem, getCart, updateCart } from '@/store/cartSlice'
+import { addToCart} from '@/store/cartSlice'
 import { addToFavorite, removeFromFavorite } from '@/store/favouriteSlice'
-import { data } from 'react-router-dom'
+// import { addToFavorite, removeFromFavorite } from '@/store/favoriteSlice'
 
 const Product = ({ productDetails, setOpenLogin }) => {
   const { Heart, FullHeart } = icons
@@ -41,14 +41,14 @@ const Product = ({ productDetails, setOpenLogin }) => {
   const addToFavoriteHandler = () => {
     dispatch(addToFavorite({
       token,
-      productId:productDetails._id
+      productId: productDetails._id
     }))
     setIsFavorite(true)
   }
   const removeFromFavoriteHandler = () => {
     dispatch(removeFromFavorite({
       token,
-      productId:productDetails._id
+      productId: productDetails._id
     }))
     setIsFavorite(false)
   }
@@ -75,7 +75,8 @@ const Product = ({ productDetails, setOpenLogin }) => {
   }, [])
 
   return (
-    <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between'>
+    <div className='border-2 border-gray-300 rounded-lg overflow-hidden flex gap-2 justify-between 
+    lg:max-w-105 max-w-full  md:max-w-80'>
       <div className='w-1/3'>
 
         <img src={`http://127.0.0.1:369/public/${productDetails.gallery[0]}`} alt=""
@@ -126,7 +127,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
           </div>
           {isFavorite ?
             <FullHeart onClick={removeFromFavoriteHandler}
-             className='text-2xl lg:text-xl text-red-500 cursor-pointer stroke-3' />
+              className='text-2xl lg:text-xl text-red-500 cursor-pointer stroke-3' />
             :
             <Heart onClick={addToFavoriteHandler}
               className='text-2xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
