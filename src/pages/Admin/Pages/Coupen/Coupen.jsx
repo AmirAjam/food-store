@@ -1,4 +1,5 @@
 import { getCategoryInfoApi } from '@/api/categoryApi'
+import { getTokensApi } from '@/api/coupenApi'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import AdminButton from '@/pages/Admin/ui/AdminButton'
 import AdminInput from '@/pages/Admin/ui/AdminInput'
@@ -6,6 +7,7 @@ import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
 import { addCategory, deleteCategory, editCategory } from '@/store/categorySlice'
+import { calDaysLeft } from '@/utils/utils'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +17,7 @@ const Coupen = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
     const [isOpenSheet, setIsOpenSheet] = useState(false)
     // const [categoryID, setCategoryID] = useState(null)
-    const [coupens, setCoupens] = useState(null)
+    const [coupens, setCoupens] = useState([])
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -24,22 +26,34 @@ const Coupen = () => {
 
     const columns = [
         {
-            accessorKey: "title",
-            header: "تیتر",
-            cell: ({ row }) => <div className="capitalize text-right! w-5/20">{row.getValue("title")} {" "}
-                {row.original.lastname}</div>,
+            accessorKey: "code",
+            header: "کد",
+            cell: ({ row }) => <div className="capitalize text-right! w-5/20">{row.getValue("code")}</div>,
         },
         {
-            accessorKey: "slug",
-            header: "لینک",
-            cell: ({ row }) => <div className="capitalize w-5/20">{row.getValue("slug")}</div>,
+            accessorKey: "value",
+            header: "مقدار تخفیف",
+            cell: ({ row }) => <div className="capitalize w-2/20">{row.getValue("value")}</div>,
             enableSorting: false
         },
         {
-            accessorKey: "description",
-            header: "توضیحات",
-            cell: ({ row }) => <div className="capitalize w-5/20">{row.getValue("description")}</div>,
-            enableSorting: false
+            accessorKey: "usageLimit",
+            header: "مقدار کل",
+            cell: ({ row }) => <div className="capitalize w-5/20 mr-4">{row.getValue("usageLimit")}</div>,
+        },
+        {
+            accessorKey: "usedCount",
+            header: "مقدار استفاده شده",
+            cell: ({ row }) => <div className="capitalize w-2/20 mr-4!">{row.getValue("usedCount")}</div>,
+        },
+        {
+            accessorKey: "expiresAt",
+            header: "روز باقی مانده",
+            accessorFn: (row) => {
+                return calDaysLeft(row.expiresAt) > 0 ? calDaysLeft(row.expiresAt) : 0
+            },
+            cell: ({ getValue }) => <div className="capitalize w-2/20 mr-4">
+                {getValue().toLocaleString()}</div>,
         },
         {
             accessorKey: "action",
@@ -79,17 +93,18 @@ const Coupen = () => {
     }
 
     useEffect(() => {
-
-    }, []);    
+        getTokensApi(token)
+            .then(res => setCoupens(res.coupens))
+    }, []);
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
-            {/* <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
+            <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
                     <PrimaryButton text="افزودن دسته بندی" onClick={() => setIsOpenSheet(true)} />
                 </div>
 
-                <DataTable data={categories} columns={columns} />
+                <DataTable data={coupens} columns={columns} />
                 <AdminAlertDialog
                     title="آیا از حذف دسته بندی مطمئن هستید؟"
                     confirmAlert={deleteHandler}
@@ -141,7 +156,7 @@ const Coupen = () => {
                         />
                     </form>
                 </AdminSheet>
-            </section> */}
+            </section>
         </>
     )
 }
