@@ -1,5 +1,4 @@
 import { getCategoryInfoApi } from '@/api/categoryApi'
-import { getTokensApi } from '@/api/coupenApi'
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import AdminButton from '@/pages/Admin/ui/AdminButton'
 import AdminInput from '@/pages/Admin/ui/AdminInput'
@@ -7,7 +6,8 @@ import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
 import { addCategory, deleteCategory, editCategory } from '@/store/categorySlice'
-import { calDaysLeft } from '@/utils/utils'
+import { addCoupen } from '@/store/coupensSlice'
+import { calDaysLeft, DateCollection } from '@/utils/utils'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,12 +16,13 @@ import { toast, Toaster } from 'sonner'
 const Coupen = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false)
     const [isOpenSheet, setIsOpenSheet] = useState(false)
-    // const [categoryID, setCategoryID] = useState(null)
-    const [coupens, setCoupens] = useState([])
+    const [coupenID, setCoupenID] = useState(null)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+    const dispatch = useDispatch()
     const token = useSelector((state) => state.auth.accessToken)
+    const coupens = useSelector((state) => state.coupen.coupens)
 
 
     const columns = [
@@ -56,6 +57,22 @@ const Coupen = () => {
                 {getValue().toLocaleString()}</div>,
         },
         {
+            accessorKey: "isActive",
+            header: "وضعیت",
+            accessorFn: (row) => {
+                return calDaysLeft(row.expiresAt)
+            },
+            cell: ({ row, getValue }) => (
+                <div className="capitalize mr-3 w-32!">
+                    {row.original.isActive ?
+                        getValue() > 0 ? <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span> :
+                            <span className="py-1 px-3 rounded-sm bg-red-500 text-white">منقضی</span>
+                        :
+                        <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>}
+                </div>
+            ),
+        },
+        {
             accessorKey: "action",
             header: "عملیات",
             cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
@@ -66,47 +83,57 @@ const Coupen = () => {
         },
     ]
 
-    const editHandler = (id) => {
-        setIsOpenSheet(true)
-    }
-
-
     const onSubmit = async (data) => {
         console.log(data)
+        data.type = "percentage"
+        data.expiresAt = (DateCollection(data.expiresAt))
+        console.log(data)
+        try {
+            const res = await dispatch(addCoupen({ token, data })).unwrap()
+            toast.success(" کوپن با موفقیت ساخته شد.")
+            reset()
+            setIsOpenSheet(false)
+        } catch (error) {
+            toast.error("کد وارد شده تکراری می باشد.")
+        }
     }
 
-    const onError = () => {
+    const onError = (errors) => {
         const errorValues = Object.values(errors);
 
         if (errorValues.length > 0) {
             toast.error(errorValues[0].message);
         }
-    }
+    };
 
     const openAlertDialog = (id) => {
         setIsOpenDialog(true)
     }
 
     const deleteHandler = () => {
-        dispatch(deleteCategory({ token, id: categoryID }))
-        toast.success("دسته بندی با موفقیت حذف شد.")
+        console.log("OK DEL")
+        // toast.success("دسته بندی با موفقیت حذف شد.")
+    }
+
+    const editHandler = (id) => {
+        setCoupenID(id)
+        setIsOpenSheet(true)
     }
 
     useEffect(() => {
-        getTokensApi(token)
-            .then(res => setCoupens(res.coupens))
-    }, []);
+        console.log(coupenID)
+    }, [coupenID]);
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
-                    <PrimaryButton text="افزودن دسته بندی" onClick={() => setIsOpenSheet(true)} />
+                    <PrimaryButton text="افزودن کوپن" onClick={() => setIsOpenSheet(true)} />
                 </div>
 
                 <DataTable data={coupens} columns={columns} />
                 <AdminAlertDialog
-                    title="آیا از حذف دسته بندی مطمئن هستید؟"
+                    title="آیا از حذف کوپن مطمئن هستید؟"
                     confirmAlert={deleteHandler}
                     setIsOpenDialog={setIsOpenDialog}
                     isOpenDialog={isOpenDialog}
@@ -117,42 +144,46 @@ const Coupen = () => {
                     onSubmitClick={handleSubmit(onSubmit, onError)}>
                     <form onSubmit={handleSubmit(onSubmit, onError)} className='px-4'>
                         <AdminInput
-                            {...register("title", {
-                                required: "نام دسته بندی الزامی است",
+                            {...register("code", {
+                                required: "نام کوپن الزامی است",
                                 minLength: {
                                     value: 3,
-                                    message: "نام دسته بندی باید حداقل ۳ کاراکتر باشد"
+                                    message: "نام کوپن باید حداقل ۳ کاراکتر باشد"
                                 }
                             })}
-                            error={errors.title?.message}
+                            error={errors.code?.message}
                             label="نام دسته بندی"
-                            placeholder="نام دسته بندی را وارد کنید..."
+                            placeholder="نام کوپن را وارد کنید."
                         />
 
                         <AdminInput
-                            {...register("slug", {
-                                required: "لینک دسته بندی الزامی است",
+                            {...register("value", {
+                                required: "مقدار تخفیف کوپن را وارد کنید.",
                                 pattern: {
-                                    value: /^[a-z0-9-]+$/i,
-                                    message: "لینک باید فقط شامل حروف، عدد و خط تیره باشد"
+                                    value: /^[0-9]+$/,
+                                    message: "لطفا فقط عدد انگلیسی وارد کنید."
                                 }
                             })}
-                            error={errors.slug?.message}
-                            label="لینک دسته بندی"
-                            placeholder="لینک دسته بندی را وارد کنید..."
+                            error={errors.value?.message}
+                            label="مقدار تخفیف کوپن "
+                            placeholder="مقدار تخفیف کوپن را وارد کنید..."
                         />
 
                         <AdminInput
-                            {...register("description", {
-                                required: "توضیحات الزامی است",
-                                maxLength: {
-                                    value: 200,
-                                    message: "توضیحات نباید بیشتر از ۲۰۰ کاراکتر باشد"
-                                }
+                            {...register("usageLimit", {
+                                required: "تعداد محاز استفاده از کوپن را وارد کنید",
                             })}
-                            error={errors.description?.message}
-                            label="توضیحات دسته بندی"
-                            placeholder="توضیحات دسته بندی را وارد کنید..."
+                            error={errors.usageLimit?.message}
+                            label="مقدار مجاز"
+                            placeholder="مقدار مجاز استفاده را وارد کنید..."
+                        />
+                        <AdminInput
+                            {...register("expiresAt", {
+                                required: "تعداد روز های کوپن را وارد کنید",
+                            })}
+                            error={errors.expiresAt?.message}
+                            label="روز"
+                            placeholder="تعداد روز های کوپن را وارد کنید..."
                         />
                     </form>
                 </AdminSheet>

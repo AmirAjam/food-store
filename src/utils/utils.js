@@ -21,5 +21,15 @@ const calDaysLeft = (target) => {
 
     return daysLeft
 }
+const DateCollection = (days) => {
+    const now = new Date();
+    now.setDate(now.getDate() + Number(days));
 
-export { calFinalPrice, findArrayIndex, calAllOff,calDaysLeft }
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+export { calFinalPrice, findArrayIndex, calAllOff, calDaysLeft, DateCollection }

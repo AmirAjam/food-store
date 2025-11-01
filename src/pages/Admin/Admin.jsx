@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { fetchUsers } from '@/store/usersSlice'
 import { getCategories } from '@/store/categorySlice'
 import { getProducts } from '@/store/productSlice'
+import { getCoupens } from '@/store/coupensSlice'
 
 
 const AdminPanel = () => {
@@ -20,6 +21,7 @@ const AdminPanel = () => {
     useEffect(() => {
         dispatch(fetchUsers(token))
         dispatch(getProducts(token))
+        dispatch(getCoupens(token))
     })
 
     return (
