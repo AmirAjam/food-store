@@ -6,7 +6,7 @@ import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
 import { addCategory, deleteCategory, editCategory } from '@/store/categorySlice'
-import { addCoupen } from '@/store/coupensSlice'
+import { activateCoupen, addCoupen, deactivateCoupen, editCoupen } from '@/store/coupensSlice'
 import { calDaysLeft, DateCollection } from '@/utils/utils'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -30,12 +30,12 @@ const Coupen = () => {
             accessorKey: "code",
             header: "کد",
             cell: ({ row }) => <div className="capitalize text-right! w-5/20">{row.getValue("code")}</div>,
+            enableSorting: false
         },
         {
             accessorKey: "value",
             header: "مقدار تخفیف",
-            cell: ({ row }) => <div className="capitalize w-2/20">{row.getValue("value")}</div>,
-            enableSorting: false
+            cell: ({ row }) => <div className="capitalize w-2/20 mr-5">{row.getValue("value")}</div>,
         },
         {
             accessorKey: "usageLimit",
@@ -60,15 +60,18 @@ const Coupen = () => {
             accessorKey: "isActive",
             header: "وضعیت",
             accessorFn: (row) => {
-                return calDaysLeft(row.expiresAt)
+                if (!row.isActive) return 0;
+                const daysLeft = calDaysLeft(row.expiresAt);
+                return daysLeft > 0 ? 2 : 1;
             },
-            cell: ({ row, getValue }) => (
+            cell: ({ getValue, row }) => (
                 <div className="capitalize mr-3 w-32!">
-                    {row.original.isActive ?
-                        getValue() > 0 ? <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span> :
-                            <span className="py-1 px-3 rounded-sm bg-red-500 text-white">منقضی</span>
-                        :
-                        <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>}
+                    {row.original.isActive
+                        ? getValue() === 2
+                            ? <span className="py-1 px-3 rounded-sm bg-green-700 text-white">فعال</span>
+                            : <span className="py-1 px-3 rounded-sm bg-red-500 text-white">منقضی</span>
+                        : <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>
+                    }
                 </div>
             ),
         },
@@ -78,16 +81,17 @@ const Coupen = () => {
             cell: ({ row }) => <div className="capitalize flex items-center gap-5 w-2/20!">
                 <AdminButton text="ویرایش" onClick={() => editHandler(row.original._id)} />
                 <AdminButton onClick={() => openAlertDialog(row.original._id)} danger text="حذف" />
+                {row.original.isActive ?
+                    <AdminButton onClick={() => deactivateCoupenHandler(row.original._id)} text="غیر فعال کردن" />
+                    :
+                    <AdminButton onClick={() => activateCoupenHandler(row.original._id)} text="فعال کردن" />
+                }
             </div>,
             enableSorting: false
         },
     ]
 
-    const onSubmit = async (data) => {
-        console.log(data)
-        data.type = "percentage"
-        data.expiresAt = (DateCollection(data.expiresAt))
-        console.log(data)
+    const addCoupenHandler = async (data) => {
         try {
             const res = await dispatch(addCoupen({ token, data })).unwrap()
             toast.success(" کوپن با موفقیت ساخته شد.")
@@ -96,6 +100,34 @@ const Coupen = () => {
         } catch (error) {
             toast.error("کد وارد شده تکراری می باشد.")
         }
+    }
+
+    const editCoupenHandler = async (data) => {
+        try {
+            const res = await dispatch(editCoupen({ token, id: coupenID, data })).unwrap()
+            toast.success(" کوپن با موفقیت ویرایش شد.")
+            reset()
+            setIsOpenSheet(false)
+            setCoupenID(null)
+        } catch (error) {
+            console.log(error)
+            toast.error("کد وارد شده تکراری می باشد.")
+        }
+    }
+
+    const activateCoupenHandler = (id) => {
+        dispatch(activateCoupen({ token, id }))
+    }
+
+    const deactivateCoupenHandler = (id) => {
+        dispatch(deactivateCoupen({ token, id }))
+    }
+
+    const onSubmit = data => {
+        console.log(data)
+        data.type = "percentage"
+        data.expiresAt = (DateCollection(data.expiresAt))
+        coupenID ? editCoupenHandler(data) : addCoupenHandler(data)
     }
 
     const onError = (errors) => {
@@ -120,8 +152,19 @@ const Coupen = () => {
         setIsOpenSheet(true)
     }
 
+    const setDefaultValue = async () => {
+        console.log("TEST")
+        const res = await getCategoryInfoApi(token, coupenID)
+        const coupenInfo = res.coupen
+        reset({
+            code: coupenInfo.code,
+            value: coupenInfo.value,
+            usageLimit: coupenInfo.usageLimit,
+        })
+    }
+
     useEffect(() => {
-        console.log(coupenID)
+        coupenID && setDefaultValue()
     }, [coupenID]);
     return (
         <>
@@ -152,7 +195,7 @@ const Coupen = () => {
                                 }
                             })}
                             error={errors.code?.message}
-                            label="نام دسته بندی"
+                            label="نام کوپن"
                             placeholder="نام کوپن را وارد کنید."
                         />
 

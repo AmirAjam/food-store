@@ -45,7 +45,7 @@ const removeCategoryApi = async (token, id) => {
 }
 
 const getCategoryInfoApi = async (token, id) => {
-    const response = await axios.get(`category/${id}`,
+    const response = await axios.get(`coupen/${id}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`

@@ -1,5 +1,6 @@
 
-import { addCoupenApi, getCoupensApi } from "@/api/coupenApi";
+import { addCoupenApi, changeStatusCoupenApi, editCoupenApi, getCoupensApi } from "@/api/coupenApi";
+import { findArrayIndex } from "@/utils/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 
@@ -27,6 +28,30 @@ export const removeCoupen = createAsyncThunk(
     }
 )
 
+export const editCoupen = createAsyncThunk(
+    "coupens/editCoupen",
+    async ({token,id,data}) => {
+        const res = await editCoupenApi(token,id,data);
+        return res;
+    }
+)
+
+export const deactivateCoupen = createAsyncThunk(
+    "coupens/deactivateCoupen",
+    async ({token,id}) => {
+        const res = await changeStatusCoupenApi(token,id);
+        return res;
+    }
+)
+
+export const activateCoupen = createAsyncThunk(
+    "coupens/activateCoupen",
+    async ({token,id}) => {
+        const res = await changeStatusCoupenApi(token,id);
+        return res;
+    }
+)
+
 const slice = createSlice({
     name: "coupens",
     initialState: {
@@ -42,7 +67,24 @@ const slice = createSlice({
 
         builder.addCase(addCoupen.fulfilled, (state, action) => {
             state.coupens.push(action.payload.coupen)
-            console.log(action.payload)
+        });
+
+        builder.addCase(editCoupen.fulfilled, (state, action) => {
+            const coupenID = action.meta.arg.id;
+            const coupenIndex = findArrayIndex(state.coupens , coupenID)
+            state.coupens[coupenIndex] = action.payload.coupen
+        });
+
+        builder.addCase(activateCoupen.fulfilled, (state, action) => {
+            const coupenID = action.meta.arg.id;
+            const coupenIndex = findArrayIndex(state.coupens , coupenID)
+            state.coupens[coupenIndex].isActive = true
+        });
+
+        builder.addCase(deactivateCoupen.fulfilled, (state, action) => {
+            const coupenID = action.meta.arg.id;
+            const coupenIndex = findArrayIndex(state.coupens , coupenID)
+            state.coupens[coupenIndex].isActive = false
         });
     }
 })
