@@ -53,7 +53,7 @@ const Header = ({ openLogin = false }) => {
   }, [openLogin])
 
   return (
-    <header className="mt-5 sm:mt6 shadow-xl sm:shadow-none pb-5 sm:pb-0">
+    <header className="mt-5 sm:mt6 shadow-sm  pb-5">
       <div className="container flex justify-between items-center relative">
         <div className="md:hidden" onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="text-3xl text-primary-color" />

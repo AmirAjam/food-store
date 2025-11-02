@@ -23,7 +23,7 @@ const Slider = () => {
     const { ChevronLeft,ChevronRight } = icons
     return (
         <>
-            <div className='mt-6 select-none relative hidden md:block'>
+            <div className='select-none relative hidden md:block'>
                 <Swiper
                     pagination={{
                         el: "#pagination-slider",

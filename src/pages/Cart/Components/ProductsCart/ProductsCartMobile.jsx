@@ -16,7 +16,7 @@ const ProductsCartMobile = ({ cart, productsDiscounts, text, settlement, address
             <p>سبد خرید ({cart.items.length})</p>
           </div>
           <div className='border-b-2 border-gray-300 pb-5'>
-            <div className='max-h-49 overflow-y-scroll px-3'>
+            <div className='max-h-49 overflow-y-auto px-3'>
               {cart.items.map((item, index) => <ProductCartMobile
                 key={item._id}
                 cartItem={item}
