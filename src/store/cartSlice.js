@@ -60,7 +60,14 @@ const slice = createSlice({
         },
     },
     reducers: {
-
+        cartLogout: (state) => {
+            state.cart = {
+                items: [],
+                totalPrice: 0,
+                totalQuantity: 0,
+                finalPrice: 0
+            }
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getCart.fulfilled, (state, action) => {
@@ -99,10 +106,11 @@ const slice = createSlice({
         });
 
         builder.addCase(applyCoupen.fulfilled, (state, action) => {
-            state.cart = action.payload.cart
-            console.log(action.payload.cart)
+            state.cart.finalPrice = action.payload.cart.finalPrice
+            state.cart.appliedCoupon = action.payload.cart.appliedCoupon
         });
     }
 })
 
+export const { cartLogout } = slice.actions;
 export default slice.reducer;

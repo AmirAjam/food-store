@@ -36,9 +36,9 @@ const Login = ({ isOpenLogin, setIsOpenLogin, setIsOpenSignup }) => {
                 if (res.user) {
                     dispatch(setAccessToken(res.user.token));
                     dispatch(setUserId(res.user.id));
+                    dispatch(getCart({ token:res.user.token }))
                     toast.success("با موفقیت وارد شدید.");
                     setIsOpenLogin(false)
-                    dispatch(getCart({ token:res.user.token }))
                 } else {
                     toast.error("نام کاربری یا رمز عبور اشتباه است.");
                 }

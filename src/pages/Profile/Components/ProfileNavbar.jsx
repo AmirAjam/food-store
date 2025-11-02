@@ -1,8 +1,11 @@
 import useFetch from '@/hooks/useFetch';
 import icons from '@/icons';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileNavbarItem from './ProfileNavbarItem';
+import { logout } from '@/store/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { cartLogout, getCart } from '@/store/cartSlice';
 
 const ProfileNavbar = () => {
   const { LogOut, UserLu, Card, Heart, Location } = icons;
@@ -19,6 +22,16 @@ const ProfileNavbar = () => {
     { id: 3, title: "علاقه‌مندی‌ها", slug: "/profile/favourite", icon: Heart },
     { id: 4, title: "آدرس‌های من", slug: "/profile/locations", icon: Location },
   ]
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    dispatch(cartLogout());
+    navigate("/")
+    
+  }
 
   useEffect(() => {
     if (!id) return;
@@ -42,7 +55,8 @@ const ProfileNavbar = () => {
               item={item} />)}
 
 
-            <div className="text-red-500 flex items-center px-2 py-1 mt-2 hover:text-red-700 cursor-pointer
+            <div onClick={logoutHandler}
+              className="text-red-500 flex items-center px-2 py-1 mt-2 hover:text-red-700 cursor-pointer
         duration-200 gap-2 mr-1">
               <LogOut className='text-lg' />
               <span>خروج</span>

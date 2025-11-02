@@ -30,7 +30,7 @@ const CompleteInformation = () => {
         <div className="w-full md:w-8/12 flex flex-col md:gap-5">
           <DeliveryMethod />
           <Address selectAddress={selectAddress} setSelectAddress={setSelectAddress} />
-          <CartInformation />
+          <CartInformation selectAddress={selectAddress}/>
         </div>
 
         <div className="w-4/12 hidden md:block">

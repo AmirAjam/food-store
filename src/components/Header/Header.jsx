@@ -40,7 +40,10 @@ const Header = ({ openLogin = false }) => {
   }, [])
 
   useEffect(() => {
-    if (!id) return;
+    if (!id){
+      setUsername(null)
+      return;
+    }
     sendRequest(`user/${id}`, "GET")
       .then(res => setUsername(res.user.firstname + " " + res.user.lastname))
   }, [id])

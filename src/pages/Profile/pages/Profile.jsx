@@ -2,12 +2,20 @@ import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import React, { useEffect } from 'react'
 import ProfileNavbar from '../Components/ProfileNavbar'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAddresses } from '@/store/addressSlice'
 
 
 const Profile = () => {
+    const id = useSelector((state) => state.auth.userId);
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!id) {
+            navigate("/")
+            console.log(id)
+        }
+    }, [id])
     return (
         <>
             <Header />

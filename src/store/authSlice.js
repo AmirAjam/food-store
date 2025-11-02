@@ -15,6 +15,7 @@ const authSlice = createSlice({
         localStorage.removeItem("accessToken");
       }
     },
+
     setUserId: (state, action) => {
       state.userId = action.payload;
       if (action.payload) {
@@ -23,11 +24,13 @@ const authSlice = createSlice({
         localStorage.removeItem("userId");
       }
     },
+
     logout: (state) => {
       state.accessToken = null;
       state.userId = null;
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
+      console.log("LogOut")
     },
   },
 });

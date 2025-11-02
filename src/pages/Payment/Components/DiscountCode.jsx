@@ -20,9 +20,9 @@ const DiscountCode = ({ appliedCoupon }) => {
     const onSubmit = async (data) => {
         try {
             const res = await dispatch(applyCoupen({ token, data })).unwrap()
-            console.log("Su")
+            toast.success("کد تخفیف با موفقیت اعمال شد.")
         } catch (error) {
-            toast.error("کوپن وارد شده منقضی یا اشتباه می باشد.")
+            toast.error("کد تخفیف وارد شده منقضی یا اشتباه می باشد.")
         }
     }
 

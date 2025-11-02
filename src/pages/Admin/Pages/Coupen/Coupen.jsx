@@ -94,7 +94,7 @@ const Coupen = () => {
     const addCoupenHandler = async (data) => {
         try {
             const res = await dispatch(addCoupen({ token, data })).unwrap()
-            toast.success(" کوپن با موفقیت ساخته شد.")
+            toast.success(" کد تخفیف با موفقیت ساخته شد.")
             reset()
             setIsOpenSheet(false)
         } catch (error) {
@@ -105,7 +105,7 @@ const Coupen = () => {
     const editCoupenHandler = async (data) => {
         try {
             const res = await dispatch(editCoupen({ token, id: coupenID, data })).unwrap()
-            toast.success(" کوپن با موفقیت ویرایش شد.")
+            toast.success(" کد تخفیف با موفقیت ویرایش شد.")
             reset()
             setIsOpenSheet(false)
             setCoupenID(null)
@@ -171,12 +171,12 @@ const Coupen = () => {
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
-                    <PrimaryButton text="افزودن کوپن" onClick={() => setIsOpenSheet(true)} />
+                    <PrimaryButton text="افزودن کد تخفیف" onClick={() => setIsOpenSheet(true)} />
                 </div>
 
                 <DataTable data={coupens} columns={columns} />
                 <AdminAlertDialog
-                    title="آیا از حذف کوپن مطمئن هستید؟"
+                    title="آیا از حذف کد تخفیف مطمئن هستید؟"
                     confirmAlert={deleteHandler}
                     setIsOpenDialog={setIsOpenDialog}
                     isOpenDialog={isOpenDialog}
@@ -188,33 +188,33 @@ const Coupen = () => {
                     <form onSubmit={handleSubmit(onSubmit, onError)} className='px-4'>
                         <AdminInput
                             {...register("code", {
-                                required: "نام کوپن الزامی است",
+                                required: "نام کد تخفیف الزامی است",
                                 minLength: {
                                     value: 3,
-                                    message: "نام کوپن باید حداقل ۳ کاراکتر باشد"
+                                    message: "نام کد تخفیف باید حداقل ۳ کاراکتر باشد"
                                 }
                             })}
                             error={errors.code?.message}
-                            label="نام کوپن"
-                            placeholder="نام کوپن را وارد کنید."
+                            label="نام کد تخفیف"
+                            placeholder="نام کد تخفیف را وارد کنید."
                         />
 
                         <AdminInput
                             {...register("value", {
-                                required: "مقدار تخفیف کوپن را وارد کنید.",
+                                required: "مقدار تخفیف کد تخفیف را وارد کنید.",
                                 pattern: {
                                     value: /^[0-9]+$/,
                                     message: "لطفا فقط عدد انگلیسی وارد کنید."
                                 }
                             })}
                             error={errors.value?.message}
-                            label="مقدار تخفیف کوپن "
-                            placeholder="مقدار تخفیف کوپن را وارد کنید..."
+                            label="مقدار تخفیف کد تخفیف "
+                            placeholder="مقدار تخفیف کد تخفیف را وارد کنید..."
                         />
 
                         <AdminInput
                             {...register("usageLimit", {
-                                required: "تعداد محاز استفاده از کوپن را وارد کنید",
+                                required: "تعداد محاز استفاده از کد تخفیف را وارد کنید",
                             })}
                             error={errors.usageLimit?.message}
                             label="مقدار مجاز"
@@ -222,11 +222,11 @@ const Coupen = () => {
                         />
                         <AdminInput
                             {...register("expiresAt", {
-                                required: "تعداد روز های کوپن را وارد کنید",
+                                required: "تعداد روز های کد تخفیف را وارد کنید",
                             })}
                             error={errors.expiresAt?.message}
                             label="روز"
-                            placeholder="تعداد روز های کوپن را وارد کنید..."
+                            placeholder="تعداد روز های کد تخفیف را وارد کنید..."
                         />
                     </form>
                 </AdminSheet>
