@@ -31,9 +31,9 @@ const Favourites = () => {
           </section>
           :
           <EmptyCart text="شما در حال حاضر هیچ علاقه مندی ثبت نکرده‌اید!">
-            <SecondaryButton>
+            <SecondaryButto        n>
               <Link to='/' className=''>منوی رستوران</Link>
-            </SecondaryButton>
+            </SecondaryButto>
           </EmptyCart>
 
       }

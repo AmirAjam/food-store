@@ -5,21 +5,27 @@ import DeliveryMethod from "./components/DeliveryMethod"
 import Footer from "@/components/Footer/Footer"
 import CartNavbar from "../Cart/Components/CartNavbar"
 import CartInformation from "./components/CartInformation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ProductsCartMobile from "../Cart/Components/ProductsCart/ProductsCartMobile"
 import icons from '@/icons'
 import { calAllOff } from '@/utils/utils'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom"
 
 const CompleteInformation = () => {
   const [selectAddress, setSelectAddress] = useState(null)
-
+  const navigate = useNavigate()
   const cart = useSelector(state => state.cart.cart)
 
   let productsDiscounts = 0
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
+  useEffect(() => {
+    if (!cart.length) {
+      navigate("/")
+    }
+  }, [cart])
   return (
     <>
       <Header />
@@ -30,7 +36,7 @@ const CompleteInformation = () => {
         <div className="w-full md:w-8/12 flex flex-col md:gap-5">
           <DeliveryMethod />
           <Address selectAddress={selectAddress} setSelectAddress={setSelectAddress} />
-          <CartInformation selectAddress={selectAddress}/>
+          <CartInformation selectAddress={selectAddress} />
         </div>
 
         <div className="w-4/12 hidden md:block">
