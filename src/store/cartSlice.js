@@ -1,4 +1,4 @@
-import { addToCartApi, clearCartApi, deleteCartItemApi, getCartApi, updateCartApi } from "@/api/cartApi";
+import { addToCartApi, applyCoupenApi, clearCartApi, deleteCartItemApi, getCartApi, updateCartApi } from "@/api/cartApi";
 import { findArrayIndex } from "@/utils/utils";
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 
@@ -41,6 +41,13 @@ export const clearCart = createAsyncThunk(
         return res;
     }
 )
+export const applyCoupen = createAsyncThunk(
+    "cart/applyCoupen",
+    async ({ token, data }) => {
+        const res = await applyCoupenApi(token, data);
+        return res;
+    }
+)
 
 const slice = createSlice({
     name: "cart",
@@ -48,7 +55,8 @@ const slice = createSlice({
         cart: {
             items: [],
             totalPrice: 0,
-            totalQuantity: 0
+            totalQuantity: 0,
+            finalPrice: 0
         },
     },
     reducers: {
@@ -87,7 +95,12 @@ const slice = createSlice({
 
         builder.addCase(clearCart.fulfilled, (state, action) => {
             console.log(action.payload)
-            state.cart.items = [] 
+            state.cart.items = []
+        });
+
+        builder.addCase(applyCoupen.fulfilled, (state, action) => {
+            state.cart = action.payload.cart
+            console.log(action.payload.cart)
         });
     }
 })

@@ -19,7 +19,6 @@ const Payment = () => {
     const [methodActive, setMethodActive] = useState(0)
 
     const cart = useSelector(state => state.cart.cart)
-
     let productsDiscounts = 0
     cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
@@ -32,7 +31,7 @@ const Payment = () => {
             <TopCart text="پرداخت" />
             <div className="container flex justify-between">
                 <div className='w-full md:w-8/12 lg:mt-3'>
-                    <DiscountCode />
+                    <DiscountCode appliedCoupon={cart.appliedCoupon}/>
                     <PaymentMethod
                         methodActive={methodActive}
                         setMethodActive={setMethodActive} />

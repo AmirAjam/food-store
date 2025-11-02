@@ -59,11 +59,23 @@ const clearCartApi = async (token) => {
     console.log(response)
     return response.data
 }
+const applyCoupenApi = async (token,data) => {
+    const response = await axios.post("cart/apply-coupen",
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
 
 export {
     getCartApi,
     addToCartApi,
     updateCartApi,
     deleteCartItemApi,
-    clearCartApi
+    clearCartApi,
+    applyCoupenApi
 }

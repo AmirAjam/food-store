@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TopCart from './Components/TopCart'
 import EmptyCart from './Components/EmptyCart'
 import CartNavbar from './Components/CartNavbar'
@@ -8,22 +8,29 @@ import ProductsCartMobile from './Components/ProductsCart/ProductsCartMobile'
 import SecondaryButton from '@/components/Ui/Button/SecondaryButton'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCart } from '@/store/cartSlice'
+import { clearCart, getCart } from '@/store/cartSlice'
 import ProductsCartDesktop from './Components/ProductsCart/ProductsCartDesktop'
 import { calAllOff } from '@/utils/utils'
 import icons from '@/icons'
+import { AdminAlertDialog } from '../Admin/ui/AlertDialog'
 
 const Cart = () => {
     const { Trash } = icons
 
-    const dispatch = useDispatch()
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
 
+
+    const dispatch = useDispatch()
     const cart = useSelector(state => state.cart.cart)
     const token = useSelector((state) => state.auth.accessToken)
 
 
     let productsDiscounts = 0
     cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
+
+    const clearCartHandler = () => {
+        dispatch(clearCart(token))
+    }
 
     useEffect(() => {
         dispatch(getCart({ token }))
@@ -35,7 +42,7 @@ const Cart = () => {
             <CartNavbar step={1} />
 
             <TopCart text="سبد خرید">
-                <Trash className='text-xl' />
+                <Trash onClick={() => setIsOpenDialog(true)} className='text-xl' />
             </TopCart>
 
             {!cart.items.length ?
@@ -49,13 +56,19 @@ const Cart = () => {
                 :
                 <>
                     <div className='lg:hidden'>
-                        <ProductsCartMobile 
+                        <ProductsCartMobile
                             cart={cart}
                             productsDiscounts={productsDiscounts}
                             text='تکمیل اطلاعات' />
                     </div>
                     <ProductsCartDesktop cart={cart} productsDiscounts={productsDiscounts} />
                 </>}
+
+            <AdminAlertDialog
+                title="همه محصولات سبد خرید شما حذف شود؟"
+                isOpenDialog={isOpenDialog}
+                setIsOpenDialog={setIsOpenDialog}
+                confirmAlert={clearCartHandler} />
 
             <Footer />
         </>

@@ -61,7 +61,6 @@ const changeStatusCoupenApi = async (token, id) => {
 
 const getCoupenInfoApi = async (token, id) => {
     const response = await axios.get(`coupen/${id}`,
-        data,
         {
             headers: {
                 Authorization: `Bearer ${token}`
