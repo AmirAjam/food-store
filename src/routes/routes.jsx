@@ -16,6 +16,7 @@ import Favourites from "@/pages/Profile/pages/Favourites/Favourites";
 import AboutUs from "@/pages/AboutUs/AboutUs";
 import FAQ from "@/pages/FAQ/FAQ";
 import Coupen from "@/pages/Admin/Pages/Coupen/Coupen";
+import AllOrders from "@/pages/Profile/pages/Orders/AllOrders";
 
 
 export const routes = [
@@ -32,6 +33,7 @@ export const routes = [
             { path: "/profile/information", element: <Information /> },
             { path: "/profile/locations", element: <Address /> },
             { path: "/profile/favourite", element: <Favourites /> },
+            { path: "/profile/orders", element: <AllOrders /> },
         ]
     },
     {

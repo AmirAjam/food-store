@@ -7,6 +7,7 @@ import cartReducer from "./cartSlice"
 import addressReducer from "./addressSlice"
 import favoriteReducer from "./favouriteSlice"
 import coupenReducer from "./coupensSlice"
+import orderReducer from "./orderSlice"
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     address:addressReducer,
     favorite:favoriteReducer,
     coupen:coupenReducer,
+    order:orderReducer,
   },
 });
 

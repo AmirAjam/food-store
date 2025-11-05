@@ -31,13 +31,13 @@ const CartNavbar = ({ step = 1 }) => {
 
         <div className="border-t-2 border-dashed border-gray-400 w-50 group-[.step-3]:border-primary-color"></div>
 
-        <Link to="/payment " className='flex gap-2 items-center text-gray-400 group-[.step-3]:text-primary-color'>
+        <div to="/payment " className='flex gap-2 items-center text-gray-400 group-[.step-3]:text-primary-color'>
           <Card className='text-xl group-[.step-3]:text-xl' />
           <span className='font-Estedad-Bold text-sm group-[.step-3]:text-base 
           group-[.step-3]:font-Estedad-Bold'>
-            سبد خرید
+            پرداخت
           </span>
-        </Link>
+        </div>
 
       </div>
     </section>

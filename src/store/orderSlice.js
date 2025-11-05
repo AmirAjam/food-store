@@ -1,9 +1,10 @@
+import { getUserOrdersApi } from "@/api/orderApi";
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 
-export const addToCart = createAsyncThunk(
-    "cart/addToCart",
-    async ({ token, data }) => {
-        const res = await addToCartApi(token, data);
+export const getUserOrder = createAsyncThunk(
+    "order/getUserOrder",
+    async (token) => {
+        const res = await getUserOrdersApi(token);
         return res;
     }
 )
@@ -17,8 +18,8 @@ const slice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(getCart.fulfilled, (state, action) => {
-            state.cart = action.payload.cart
+        builder.addCase(getUserOrder.fulfilled, (state, action) => {
+            state.orders = action.payload.orders
         });
     }
 })

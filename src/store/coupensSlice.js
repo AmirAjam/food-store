@@ -1,5 +1,5 @@
 
-import { addCoupenApi, changeStatusCoupenApi, editCoupenApi, getCoupensApi } from "@/api/coupenApi";
+import { addCoupenApi, changeStatusCoupenApi, editCoupenApi, getCoupensApi, removeCoupenApi } from "@/api/coupenApi";
 import { findArrayIndex } from "@/utils/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
@@ -23,7 +23,8 @@ export const addCoupen = createAsyncThunk(
 export const removeCoupen = createAsyncThunk(
     "coupens/removeCoupen",
     async ({token,id}) => {
-        const res = await addCoupenApi(token,data);
+        console.log("removeCoupen")
+        const res = await removeCoupenApi(token,id);
         return res;
     }
 )
@@ -67,6 +68,11 @@ const slice = createSlice({
 
         builder.addCase(addCoupen.fulfilled, (state, action) => {
             state.coupens.push(action.payload.coupen)
+        });
+        builder.addCase(removeCoupen.fulfilled, (state, action) => {
+            // state.coupens.push(action.payload.coupen)
+            const coupenID = action.meta.arg.id;
+            state.coupens = state.coupens.filter(item => item._id!==coupenID)
         });
 
         builder.addCase(editCoupen.fulfilled, (state, action) => {

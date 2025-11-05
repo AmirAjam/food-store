@@ -52,7 +52,7 @@ const Information = () => {
     }, [])
     const { Edit } = icons
     return (
-        <section className='mt-5 md:mt-0 md:w-full h-full border border-gray-300 rounded-lg p-5 '>
+        <section className='mt-5 md:mt-0 h-98/100 border-2 border-gray-300 rounded-lg p-5 '>
             <form onSubmit={handleSubmit(onSubmit, onError)}
                 className='flex flex-col space-between h-full'>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>

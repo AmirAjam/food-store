@@ -24,7 +24,6 @@ const addCoupenApi = async (token, data) => {
 
 const removeCoupenApi = async (token, id) => {
     const response = await axios.delete(`coupen/${id}`,
-        data,
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -73,6 +72,7 @@ const getCoupenInfoApi = async (token, id) => {
 export {
     getCoupensApi,
     addCoupenApi,
+    removeCoupenApi,
     getCoupenInfoApi,
     editCoupenApi,
     changeStatusCoupenApi

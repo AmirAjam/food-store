@@ -6,7 +6,7 @@ import { AdminSheet } from '@/pages/Admin/ui/AdminSheet'
 import { AdminAlertDialog } from '@/pages/Admin/ui/AlertDialog'
 import { DataTable } from '@/pages/Admin/ui/DataTable'
 import { addCategory, deleteCategory, editCategory } from '@/store/categorySlice'
-import { activateCoupen, addCoupen, deactivateCoupen, editCoupen } from '@/store/coupensSlice'
+import { activateCoupen, addCoupen, deactivateCoupen, editCoupen, removeCoupen } from '@/store/coupensSlice'
 import { calDaysLeft, DateCollection } from '@/utils/utils'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -140,11 +140,12 @@ const Coupen = () => {
 
     const openAlertDialog = (id) => {
         setIsOpenDialog(true)
+        setCoupenID(id)
     }
 
     const deleteHandler = () => {
-        console.log("OK DEL")
-        // toast.success("دسته بندی با موفقیت حذف شد.")
+        dispatch(removeCoupen({ token, id: coupenID }))
+        toast.success("کد تخفیف با موفقیت حذف شد.")
     }
 
     const editHandler = (id) => {
@@ -153,7 +154,6 @@ const Coupen = () => {
     }
 
     const setDefaultValue = async () => {
-        console.log("TEST")
         const res = await getCategoryInfoApi(token, coupenID)
         const coupenInfo = res.coupen
         reset({
@@ -163,15 +163,39 @@ const Coupen = () => {
         })
     }
 
+
+
     useEffect(() => {
-        coupenID && setDefaultValue()
+        if (coupenID)
+            setDefaultValue()
+        else 
+            reset({
+            code: "",
+            value: "",
+            usageLimit: "",
+        })
+
     }, [coupenID]);
+
+    useEffect(() => {
+        console.log(coupenID)
+        console.log(isOpenSheet)
+        if(isOpenSheet && !coupenID){
+            console.log("OK")
+            reset()
+        }
+    }, [isOpenSheet]);
+    
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
-                    <PrimaryButton text="افزودن کد تخفیف" onClick={() => setIsOpenSheet(true)} />
+                    <PrimaryButton text="افزودن کد تخفیف" onClick={() => {
+                        setCoupenID(null)
+                        setIsOpenSheet(true)
+                        reset()
+                    }} />
                 </div>
 
                 <DataTable data={coupens} columns={columns} />

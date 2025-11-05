@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Favourites = () => {
-  const [openLogin, setOpenLogin] = useState(false)
-
   const dispatch = useDispatch()
   const favourite = useSelector(state => state.favorite.favourite)
   const id = useSelector((state) => state.auth.userId);
@@ -18,10 +16,6 @@ const Favourites = () => {
   useEffect(() => {
     dispatch(getFavorite({ id, token }))
   }, [])
-
-  useEffect(() => {
-    console.log(favourite)
-  }, [favourite])
   return (
     <>
       {
@@ -31,9 +25,9 @@ const Favourites = () => {
           </section>
           :
           <EmptyCart text="شما در حال حاضر هیچ علاقه مندی ثبت نکرده‌اید!">
-            <SecondaryButto        n>
+            <SecondaryButton>
               <Link to='/' className=''>منوی رستوران</Link>
-            </SecondaryButto>
+            </SecondaryButton>
           </EmptyCart>
 
       }

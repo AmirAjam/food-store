@@ -1,7 +1,7 @@
 import axios from "./axiosConfig"
 
-const createOrderApi = async (paymentMethod,addressId) => {
-    const response = await axios.get("address",
+const getUserOrdersApi = async (token) => {
+    const response = await axios.get("order",
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -9,4 +9,8 @@ const createOrderApi = async (paymentMethod,addressId) => {
         }
     )
     return response.data
+}
+
+export {
+    getUserOrdersApi,
 }

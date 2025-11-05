@@ -12,20 +12,27 @@ import { calAllOff } from '@/utils/utils'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
+import { getCart } from "@/store/cartSlice"
 
 const CompleteInformation = () => {
   const [selectAddress, setSelectAddress] = useState(null)
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart.cart)
+  const token = useSelector((state) => state.auth.accessToken)
 
   let productsDiscounts = 0
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
+  console.log(cart)
+
   useEffect(() => {
-    if (!cart.length) {
-      navigate("/")
+    if (!cart?.items?.length) {
+      navigate("/cart")
     }
   }, [cart])
+
   return (
     <>
       <Header />
