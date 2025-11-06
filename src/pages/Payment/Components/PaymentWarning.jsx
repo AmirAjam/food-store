@@ -4,7 +4,7 @@ import React from 'react'
 const PaymentWarning = () => {
     const { Warning } = icons
     return (
-        <section className='mt-5 border-2 border-gray-300 rounded-lg p-3 text-sm'>
+        <section className='border-2 border-gray-300 rounded-lg p-3 text-sm'>
             <div className="container lg:flex items-center justify-between">
                 <div className='flex items-center gap-2 border-b-2 border-gray-300 pb-4 
                     lg:border-0 lg:pb-0 lg:w-1/3'>

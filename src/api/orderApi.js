@@ -10,7 +10,19 @@ const getUserOrdersApi = async (token) => {
     )
     return response.data
 }
+const createOrdersApi = async (token,addressId,paymentMethod) => {
+    const response = await axios.post("order",
+        {addressId,paymentMethod},
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
 
 export {
     getUserOrdersApi,
+    createOrdersApi
 }

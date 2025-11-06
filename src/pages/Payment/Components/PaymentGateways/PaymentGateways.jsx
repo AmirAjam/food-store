@@ -11,7 +11,7 @@ const PaymentGateways = () => {
     ]
 
     return (
-        <section className='mt-5 border-2 border-gray-300 rounded-lg px-1.5 py-5 text-sm'>
+        <section className='border-2 border-gray-300 rounded-lg px-1.5 py-5 text-sm'>
             <div className="container">
                 <div className='flex justify-between md:justify-center md:gap-10'>
                     {paymentGateways.map(item =>
