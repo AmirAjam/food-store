@@ -13,11 +13,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { calAllOff } from '@/utils/utils'
 import PaymentWarning from './Components/PaymentWarning'
 import { Activity } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { createOrder } from '@/store/orderSlice'
+import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 
 const Payment = () => {
     const [methodActive, setMethodActive] = useState(0)
+
+    const navigate = useNavigate()
 
     const dispatch = useDispatch();
     const token = useSelector((state) => state.auth.accessToken)
@@ -32,12 +35,13 @@ const Payment = () => {
         dispatch(createOrder({
             token,
             addressId: param.addressId,
-            paymentMethod: methodActive === 0 ? "online" : "cod"}))
+            paymentMethod: methodActive === 0 ? "online" : "cod"
+        }))
+        navigate("/successful-payment")
     }
-    console.log("payOrder")
 
     useEffect(() => {
-    },[methodActive])
+    }, [methodActive])
     return (
         <>
             <Header />
@@ -54,7 +58,9 @@ const Payment = () => {
                         :
                         <PaymentWarning />
                     }
-                    <CartInformation />
+                    <CartInformation payment>
+                        <PrimaryButton text="نهایی کردن" onClick={payOrder}/>
+                    </CartInformation>
                 </div>
                 <div className="w-4/12 hidden md:block">
                     <ProductsCartMobile

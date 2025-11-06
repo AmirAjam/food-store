@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const CartInformation = ({selectAddress}) => {
+const CartInformation = ({ selectAddress, payment, children }) => {
 
     const dispatch = useDispatch()
 
@@ -32,9 +32,14 @@ const CartInformation = ({selectAddress}) => {
                         {cart.finalPrice?.toLocaleString()} تومان
                     </p>
                 </div>
-                <Link to={`/payment/${selectAddress}`} className='block text-xs sm:text-base'>
-                    <PrimaryButton text="ثبت سفارش"/>
-                </Link>
+                {payment ?
+                    (
+                        children
+                    ):
+                    <Link to={`/payment/${selectAddress}`} className='block text-xs sm:text-base'>
+                        <PrimaryButton text="ثبت سفارش" />
+                    </Link>
+                }
             </div>
         </section>
     )

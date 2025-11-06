@@ -17,6 +17,7 @@ import AboutUs from "@/pages/AboutUs/AboutUs";
 import FAQ from "@/pages/FAQ/FAQ";
 import Coupen from "@/pages/Admin/Pages/Coupen/Coupen";
 import AllOrders from "@/pages/Profile/pages/Orders/AllOrders";
+import SuccessfulPayment from "@/pages/SuccessfulPayment/SuccessfulPayment";
 
 
 export const routes = [
@@ -27,6 +28,7 @@ export const routes = [
     { path: "/FAQ", element: <FAQ /> },
     { path: "/complete-information", element: <CompleteInformation /> },
     { path: "/payment/:addressId", element: <Payment /> },
+    { path: "/successful-payment", element: <SuccessfulPayment /> },
     {
         path: "/profile", element: <Profile />,
         children: [

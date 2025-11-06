@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import jalaliday from "jalaliday";
+
 const calFinalPrice = (price, quantity) => {
     const finalPrice = ((100 - quantity) * price) / 100
     return finalPrice
@@ -32,4 +35,15 @@ const DateCollection = (days) => {
     return `${year}-${month}-${day}`;
 }
 
-export { calFinalPrice, findArrayIndex, calAllOff, calDaysLeft, DateCollection }
+const changeDateFormat = (date) => {
+    dayjs.extend(jalaliday);
+
+    const persianDate = dayjs(date)
+        .calendar("jalali")
+        .locale("fa")
+        .format("dddd D MMMM، ساعت HH:mm");
+
+    return persianDate
+}
+
+export { calFinalPrice, findArrayIndex, calAllOff, calDaysLeft, DateCollection, changeDateFormat }
