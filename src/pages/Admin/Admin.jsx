@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Header from './components/Header'
 import DesktopNavber from './components/DesktopNavber'
 import MobileNavbar from './components/MobileNavbar'
@@ -10,11 +10,12 @@ import { fetchUsers } from '@/store/usersSlice'
 import { getCategories } from '@/store/categorySlice'
 import { getProducts } from '@/store/productSlice'
 import { getCoupens } from '@/store/coupensSlice'
+import { getAllOrders } from '@/store/orderSlice'
 
 
 const AdminPanel = () => {
     const [isOpenMobileNav, setIsOpenMobileNav] = useState(false)
-
+    const navigate=useNavigate()
     const dispatch = useDispatch();
     const token = localStorage.getItem("accessToken");
 
@@ -22,7 +23,9 @@ const AdminPanel = () => {
         dispatch(fetchUsers(token))
         dispatch(getProducts(token))
         dispatch(getCoupens(token))
-    })
+        dispatch(getAllOrders(token))
+        window.location.pathname === "/p-admin" && navigate("/p-admin/users")
+    },[])
 
     return (
         <>
@@ -32,7 +35,6 @@ const AdminPanel = () => {
                     <Outlet />
                 </div>
                 <DesktopNavber />
-
                 <MobileNavbar isOpen={isOpenMobileNav} closeNav={() => setIsOpenMobileNav(false)} />
                 <Cover onClick={() => setIsOpenMobileNav(false)} coverStatus={isOpenMobileNav} />
             </div>

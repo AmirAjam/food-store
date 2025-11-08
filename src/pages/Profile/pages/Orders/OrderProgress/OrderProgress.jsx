@@ -3,7 +3,7 @@ import icons from "@/icons"
 const OrderProgress = ({ ProgressNumber }) => {
     const { House, Truck } = icons
     return (
-        <div className="mt-8 group step-1 flex items-center justify-center gap-3">
+        <div className="mt-8 md:mt-4 group step-1 flex items-center justify-center gap-3">
             <div className="flex gap-2 items-center text-primary-color">
                 <House className="text-lg group-[.step-1]:text-2lg" />
                 <span className='text-xs hidden lg:block font-Estedad-Regular 

@@ -7,11 +7,11 @@ import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 const Order = ({ orderDetails }) => {
     const { Calendar, Location } = icons
     console.log(orderDetails)
-    const jalaliDate = changeDateFormat(orderDetails.updatedAt)
+    const jalaliDate = changeDateFormat(orderDetails.createdAt)
     return (
         <>
-            <div className='mt-5  text-sm  md:mt-0 md:w-full h-98/100 border-2 border-gray-300 
-            rounded-lg p-5 '>
+            <div className='mt-5 text-sm first:md:mt-0 md:w-full h-98/100 border-2 border-gray-300 
+            rounded-lg px-5 py-3'>
                 <div className="flex justify-between">
                     <p className="">{orderDetails.shippingAddress.fullName}</p>
                     <div>
@@ -25,12 +25,12 @@ const Order = ({ orderDetails }) => {
                         }
                     </div>
                 </div>
-                <div className="md:flex justify-between items-center md:mt-8">
+                <div className="lg:flex justify-between items-center md:mt-4">
                     <div className="mt-5 md:mt-0 flex items-center gap-2 text-gray-500">
                         <Calendar className="text-lg" />
-                        <span className="text-xs">{jalaliDate}</span>
+                        <span className="text-xs">{jalaliDate} - {orderDetails.finalPrice.toLocaleString()} تومان</span>
                     </div>
-                    <div className="mt-3 md:mt-0 flex items-center gap-2 text-gray-500">
+                    <div className="mt-3 lg:mt-0 flex items-center gap-2 text-gray-500">
                         <Location className="text-lg" />
                         <span className="text-xs">{orderDetails.shippingAddress.addressLine}</span>
                     </div>

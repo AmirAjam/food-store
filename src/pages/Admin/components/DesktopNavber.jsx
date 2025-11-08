@@ -14,19 +14,6 @@ const DesktopNavber = () => {
             <ul className='mt-10 flex flex-col gap-2'>
                 <li className='flex items-center gap-4 '>
                     <NavLink
-                        to="/p-admin"
-                        end
-                        className={({ isActive }) =>
-                            `w-full flex gap-4 items-center py-3 px-2 hover:bg-gray-200
-                            duration-300 rounded-lg ${isActive ? 'bg-gray-200' : ''}`
-                        }
-                    >
-                        <Cart2 className='text-2xl' />
-                        <span className='font-Vazirmatn-Medium'>داشبورد</span>
-                    </NavLink>
-                </li>
-                <li className='flex items-center gap-4 '>
-                    <NavLink
                         to="/p-admin/products"
                         className={({ isActive }) =>
                             `w-full flex gap-4 items-center py-3 px-2 hover:bg-gray-200
@@ -83,6 +70,18 @@ const DesktopNavber = () => {
                     >
                         <Discount2 className='text-2xl' />
                         <span className='font-Vazirmatn-Medium'>کد های تخفیف</span>
+                    </NavLink>
+                </li>
+                <li className='flex items-center gap-4 '>
+                    <NavLink
+                        to="/p-admin/orders"
+                        className={({ isActive }) =>
+                            `w-full flex gap-4 items-center py-3 px-2 hover:bg-gray-200
+                            duration-300 rounded-lg ${isActive ? 'bg-gray-200' : ''}`
+                        }
+                    >
+                        <Cart2 className='text-2xl' />
+                        <span className='font-Vazirmatn-Medium'>سفارشات</span>
                     </NavLink>
                 </li>
             </ul>

@@ -13,14 +13,6 @@ const MobileNavbar = ({ isOpen, closeNav }) => {
                 <Close onClick={closeNav} className='text-3xl' />
             </div>
             <ul className='mt-10 flex flex-col gap-4'>
-                <li className=''>
-                    <NavLink onClick={closeNav} to="/p-admin" end className={({ isActive }) =>
-                        `flex items-center gap-2 py-2 px-2 rounded-lg ${isActive && "bg-dark"}`
-                    }>
-                        <Dashboard className='text-2xl' />
-                        <span className='font-Vazirmatn-Medium'>داشبورد</span>
-                    </NavLink>
-                </li>
                 <li>
                     <NavLink onClick={closeNav} to="/p-admin/product-list" className={({ isActive }) =>
                         `flex items-center gap-2 py-2 px-2 rounded-lg ${isActive && "bg-dark"}`
@@ -64,7 +56,14 @@ const MobileNavbar = ({ isOpen, closeNav }) => {
                         <Discount2 className='text-2xl' />
                         <span className='font-Vazirmatn-Medium'>کد های تخفیف</span>
                     </NavLink>
-
+                </li>
+                <li>
+                    <NavLink onClick={closeNav} to="/p-admin/orders" className={({ isActive }) =>
+                        `flex items-center gap-2 py-2 px-2 rounded-lg ${isActive && "bg-dark"}`
+                    }>
+                        <Cart2 className='text-2xl' />
+                        <span className='font-Vazirmatn-Medium'>سفارشات</span>
+                    </NavLink>
                 </li>
             </ul>
         </div >

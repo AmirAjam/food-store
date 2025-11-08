@@ -27,7 +27,6 @@ const AllOrders = () => {
                         </div>
                         <div className="mt-8">
                             {orders.map(order => <Order key={order._id} orderDetails={order} />)}
-
                         </div>
                     </section >
                     :

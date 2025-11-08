@@ -46,12 +46,6 @@ const Category = () => {
             cell: ({ row }) => <div className="capitalize w-5/20">{row.getValue("description")}</div>,
             enableSorting: false
         },
-        // {
-        //     accessorKey: "description",
-        //     header: "توصیحات",
-        //     cell: ({ row }) => <div className="capitalize w-5/20">{row.original.children}</div>,
-        //     enableSorting: false
-        // },
         {
             accessorKey: "action",
             header: "عملیات",
