@@ -24,7 +24,7 @@ const AdminPanel = () => {
         dispatch(getProducts(token))
         dispatch(getCoupens(token))
         dispatch(getAllOrders(token))
-        window.location.pathname === "/p-admin" && navigate("/p-admin/users")
+        window.location.pathname === "/p-admin" && navigate("/p-admin/products")
     },[])
 
     return (

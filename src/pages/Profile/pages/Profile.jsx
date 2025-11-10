@@ -10,12 +10,18 @@ import { getAddresses } from '@/store/addressSlice'
 const Profile = () => {
     const id = useSelector((state) => state.auth.userId);
     const navigate = useNavigate()
+
     useEffect(() => {
         if (!id) {
             navigate("/")
             console.log(id)
         }
     }, [id])
+
+    useEffect(() => {
+        window.location.pathname === "/profile" && navigate("/profile/information")
+
+    }, [])
     return (
         <>
             <Header />

@@ -1,4 +1,4 @@
-import { createOrdersApi, getAllOrdersApi, getUserOrdersApi } from "@/api/orderApi";
+import { changeOrderStatusApi, createOrdersApi, getAllOrdersApi, getUserOrdersApi } from "@/api/orderApi";
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 
 export const getUserOrder = createAsyncThunk(
@@ -23,6 +23,13 @@ export const createOrder = createAsyncThunk(
         return res;
     }
 )
+export const changeOrderStatus = createAsyncThunk(
+    "order/changeOrderStatus",
+    async ({token,id,status}) => {
+        const res = await changeOrderStatusApi(token,id,status);
+        return res;
+    }
+)
 
 const slice = createSlice({
     name: "order",
@@ -39,12 +46,17 @@ const slice = createSlice({
         });
 
         builder.addCase(getAllOrders.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.adminOrders = action.payload.orders
             console.log(action.payload)
         });
 
         builder.addCase(createOrder.fulfilled, (state, action) => {
             // state.orders = action.payload.orders
+            console.log(action.payload)
+        });
+
+        builder.addCase(changeOrderStatus.fulfilled, (state, action) => {
             console.log(action.payload)
         });
     }

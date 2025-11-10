@@ -12,7 +12,7 @@ const getUserOrdersApi = async (token) => {
 }
 
 const getAllOrdersApi = async (token) => {
-    const response = await axios.get("order",
+    const response = await axios.get("order/get-all",
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -30,9 +30,9 @@ const getOneOrderApi = async (token,id) => {
             }
         }
     )
-    console.log(response)
     return response.data
 }
+
 const createOrdersApi = async (token,addressId,paymentMethod) => {
     const response = await axios.post("order",
         {addressId,paymentMethod},
@@ -45,9 +45,25 @@ const createOrdersApi = async (token,addressId,paymentMethod) => {
     return response.data
 }
 
+const changeOrderStatusApi = async (token,id,status) => {
+    console.log(status)
+    const response = await axios.patch(`order/${id}/order-status`,
+        {status},
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    return response.data
+}
+
+
+
 export {
     getUserOrdersApi,
     createOrdersApi,
     getOneOrderApi,
-    getAllOrdersApi
+    getAllOrdersApi,
+    changeOrderStatusApi
 }

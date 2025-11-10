@@ -18,14 +18,18 @@ const CompleteInformation = () => {
   const [selectAddress, setSelectAddress] = useState(null)
   const navigate = useNavigate()
 
-  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart.cart)
-  const token = useSelector((state) => state.auth.accessToken)
 
   let productsDiscounts = 0
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
-  console.log(cart)
+  const changeUrl = () => {
+    console.log(selectAddress)
+    if(selectAddress){
+      navigate(`/payment/${selectAddress}`)
+      console.log("na")
+    }
+  }
 
   useEffect(() => {
     if (!cart?.items?.length) {
@@ -39,7 +43,6 @@ const CompleteInformation = () => {
       <CartNavbar step={2} />
       <TopCart text="تکمیل اطلاعات" />
       <div className="container flex justify-between gap-10">
-
         <div className="w-full md:w-8/12 flex flex-col md:gap-5">
           <DeliveryMethod />
           <Address selectAddress={selectAddress} setSelectAddress={setSelectAddress} />
@@ -52,7 +55,8 @@ const CompleteInformation = () => {
             productsDiscounts={productsDiscounts}
             text="ثبت سفارش"
             addressId={selectAddress}
-            settlement
+            payment
+            onClick={changeUrl}
           />
         </div>
 

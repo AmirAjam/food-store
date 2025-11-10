@@ -61,10 +61,12 @@ const AddProduct = () => {
     }
 
     const editProductHandler = (data) => {
+        console.log("fileInput =>", fileInput)
         if (fileInput) {
             removeProductImageApi(token, productDetials._id, productDetials.gallery[0])
             addImageProduct(productDetials._id)
             dispatch(editProduct({ token, id: productDetials._id, data }))
+            toast.success("ویرایش با موفقیت انجام شد.");
         }
         else {
             toast.error("لطفا عکس محصول را وارد کنید.");

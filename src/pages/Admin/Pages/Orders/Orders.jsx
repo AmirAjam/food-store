@@ -1,28 +1,22 @@
 import { useDispatch } from 'react-redux';
 import store from "@/store/index";
-import { addUser, blockUser, changeUserRole, deleteUser, editUser, unBlockUser } from '@/store/usersSlice';
 import { useSelector } from "react-redux"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup";
 import { DataTable } from '../../ui/DataTable';
 import AdminButton from "../../ui/AdminButton";
-import { AdminAlertDialog } from '../../ui/AlertDialog';
-import { useEffect, useId, useRef, useState } from 'react';
+import {useState } from 'react';
 import { toast, Toaster } from 'sonner';
-import { AdminSheet } from '../../ui/AdminSheet';
-import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
-import AdminInput from '../../ui/AdminInput';
-import { signupSchema } from '@/schema/authSchema';
-import { blockUserApi, getOneUserApi } from '@/api/usersApi';
 import { AdminSelect } from '../../ui/AdminSelect';
 import { SelectItem } from "@/components/ui/select"
 import { changeDateFormat } from '@/utils/utils';
-import OrderProduct from '@/pages/Profile/pages/Orders/OrderProduct';
-import { getOneOrderApi } from '@/api/orderApi';
 import Order from '@/pages/Profile/pages/Orders/Order';
 import Cover from '@/components/Cover/Cover';
+import icons from '@/icons';
+import { changeOrderStatus } from '@/store/orderSlice';
 
 const Orders = () => {
+  const { Close } = icons
+  const [openDetailBox, setOpenDetailBox] = useState(false)
+  const [orderData, setOrderData] = useState(false)
 
   const dispatch = useDispatch()
   const orders = useSelector((state) => state.order.adminOrders)
@@ -46,21 +40,23 @@ const Orders = () => {
       },
       cell: ({ getValue }) => <div className="capitalize w-5/20 mr-3">{getValue()}</div>,
     },
-    // {
-    //   accessorKey: "role",
-    //   header: "نقش",
-    //   cell: ({ row }) => {
-    //     const role = row.getValue("role");
-    //     return (
-    //       <div className="capitalize mr-3 w-4/20">
-    //         <AdminSelect defaultValue={role} changeHandler={changeRole} itemId={row.original._id}>
-    //           <SelectItem value="admin" className="text-right cursor-pointer">ادمین</SelectItem>
-    //           <SelectItem value="user" className="text-right cursor-pointer">یوزر</SelectItem>
-    //         </AdminSelect>
-    //       </div>
-    //     );
-    //   },
-    // },
+    {
+      accessorKey: "orderStatus",
+      header: "وضعیت",
+      cell: ({ row }) => {
+        return (
+          <div className="capitalize mr-3 w-50!">
+            <AdminSelect defaultValue={row.original.orderStatus}
+              changeHandler={changeStatus}
+              itemId={row.original._id}>
+              <SelectItem value="pending" className="text-right cursor-pointer">در حال آماده‌سازی</SelectItem>
+              <SelectItem value="processing" className="text-right cursor-pointer">ارسال توسط پیک</SelectItem>
+              <SelectItem value="shipped" className="text-right cursor-pointer">تحویل داده شده</SelectItem>
+            </AdminSelect>
+          </div>
+        );
+      },
+    },
     {
       accessorKey: "finalPrice",
       header: "قیمت نهایی",
@@ -86,10 +82,15 @@ const Orders = () => {
     },
   ]
 
+  const changeStatus = (status, id) => {
+    console.log("Id => ", id)
+    console.log("status => ", status)
+    dispatch(changeOrderStatus({token,id,status}))
+  }
+
   const editHandler = async (id) => {
-    getOneOrderApi(token, id)
-    .then(res => setOrderData(res.order))
-    setIsOpenSheet(true)
+    setOpenDetailBox(true)
+     setOrderData(orders.find(order => order._id === id))
   }
 
   return (
@@ -101,10 +102,19 @@ const Orders = () => {
         </div>
         <DataTable data={orders} columns={columns} />
       </section >
-      <div>
-
-      </div>
-      <Cover />
+      {
+        openDetailBox && orderData &&
+        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+        bg-white z-50 rounded-lg w-2/3 pt-5 pb-8 px-8'>
+          <div className='flex justify-between items-center -mx-2'>
+            <h3>توضیحات</h3>
+            <Close onClick={() => setOpenDetailBox(false)}
+              className='text-2xl hover:text-red-700 cursor-pointer -ml-3' />
+          </div>
+          <Order orderDetails={orderData} />
+        </div>
+      }
+      <Cover onClick={() => setOpenDetailBox(false)} isShow={openDetailBox} />
     </>
   )
 }

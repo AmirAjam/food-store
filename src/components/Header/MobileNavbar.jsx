@@ -21,7 +21,7 @@ const MobileNavbar = ({ closeMenu, isOpen }) => {
       <div>
         <ul className='px-4'>
           <li className=' border-b border-gray-300'>
-            <Link className='flex gap-2 items-center py-3 text-sm'>
+            <Link to="/" className='flex gap-2 items-center py-3 text-sm'>
               <House className='text-lg' />
               <span>صفحه اصلی</span>
             </Link>
@@ -43,7 +43,7 @@ const MobileNavbar = ({ closeMenu, isOpen }) => {
             </Link>
           </li>
           <li className=' border-b border-gray-300'>
-            <Link className='flex gap-2 items-center py-3 text-sm'>
+            <Link to="/FAQ" className='flex gap-2 items-center py-3 text-sm'>
               <Phone className='text-lg' />
               <span>تماس با ما</span>
             </Link>

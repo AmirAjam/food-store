@@ -15,7 +15,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   const [isUserLogin, setIsUserLogin] = useState(false)
 
-  const cart = useSelector(state => state.cart.cart.items)
+  const cart = useSelector(state => state.cart.cart?.items)
   const favourite = useSelector(state => state.favorite.favourite)
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.accessToken)
@@ -54,7 +54,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
   }
 
   const findQuantityProduct = () => {
-    const product = cart.find(item => item.product._id === productDetails._id)
+    const product = cart?.find(item => item.product._id === productDetails._id)
     console.log("cart => ", cart)
     if (product) {
       setCount(product.quantity)
@@ -127,10 +127,10 @@ const Product = ({ productDetails, setOpenLogin }) => {
           </div>
           {isFavorite ?
             <FullHeart onClick={removeFromFavoriteHandler}
-              className='text-2xl lg:text-xl text-red-500 cursor-pointer stroke-3' />
+              className='text-lg lg:text-xl text-red-500 cursor-pointer stroke-3' />
             :
             <Heart onClick={addToFavoriteHandler}
-              className='text-2xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
+              className='text-xl lg:text-2xl text-gray-500 cursor-pointer hover:text-red-500 
               duration-300 stroke-3' />}
         </div>
       </div>

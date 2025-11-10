@@ -35,7 +35,7 @@ const Address = ({ selectAddress, setSelectAddress }) => {
                     setIsOpenAddress={setIsOpenAddress}
                 />
                 :
-                <div className='md:mt-0 mt-5'>
+                <div className='md:mt-0 mt-5 -mx-3'>
                     <EmptyCart text="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!">
                         <SecondaryButton onClick={() => setIsOpenAddress(true)}>
                             افزودن آدرس

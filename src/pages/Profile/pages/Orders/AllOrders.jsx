@@ -13,7 +13,6 @@ const AllOrders = () => {
 
     useEffect(() => {
         dispatch(getUserOrder(token))
-
     }, [])
 
     return (

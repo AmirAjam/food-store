@@ -39,9 +39,9 @@ const ProductsCartMobile = ({ cart, productsDiscounts, text, settlement, payment
               <PrimaryButton text={text} onClick={onClick} />
             </div>
             :
-            <Link to={`${settlement ? `/payment/${addressId}` : "/complete-information"}`}
+            <Link to={`${settlement ? "/complete-information" : ""}`}
               className='mt-5 block text-sm sm:text-base'>
-              <PrimaryButton text={text} />
+              <PrimaryButton text={text} onClick={onClick}/>
             </Link>
           }
 

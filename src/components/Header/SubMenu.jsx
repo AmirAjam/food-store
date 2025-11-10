@@ -21,7 +21,11 @@ const SubMenu = ({ isOpen, list }) => {
                 last:border-none hover:text-primary-color! text-[#414141] ${item.icon ? "text-xs" : "text-sm"}`}>
                     {item.icon &&
                         item.icon}
-                    <NavLink to={!item.icon ? `/menu/${item.slug}` : `/${item.slug}`} className='size-full'>{item.title}</NavLink>
+                    <NavLink to={!item.icon ? `/menu/${item.slug}` : `/${item.slug}`}
+                        className={({ isActive }) =>
+                            `size-full ${isActive ? "text-primary-color" : ""}`}>
+                       {item.title}
+                       </NavLink>
                 </li>
             )}
             {list[0]?.icon &&

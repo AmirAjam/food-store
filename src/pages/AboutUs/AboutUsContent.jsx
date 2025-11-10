@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutUsContent = () => {
     return (
-        <section className='mt-12 mb-10 h-[59vh] md:h-full'>
+        <section className='mt-12 mb-10 h-[65vh] md:h-full'>
             <div className='container'>
                 <h1 className='text-lg font-Estedad-Bold'>درباره‌ما</h1>
                 <div className='md:hidden'>

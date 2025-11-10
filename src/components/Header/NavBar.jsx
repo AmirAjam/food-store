@@ -16,7 +16,8 @@ const NavBar = () => {
         <nav className="hidden md:block">
             <ul className="flex gap-6 text-sm lg:text-base ">
                 <li className="duration-300 hover:text-primary-color">
-                    <NavLink className="text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1">
+                    <NavLink to="/" className={({ isActive }) =>
+                        `${isActive ? "text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1" : ""}`}>
                         صفحه اصلی
                     </NavLink>
                 </li>
@@ -29,10 +30,18 @@ const NavBar = () => {
                     <SubMenu list={categories} isOpen={isSubMenuOpen} />
                 </li>
                 <li className="duration-300 hover:text-primary-color">
-                    <NavLink to="/about-us">درباره ما</NavLink>
+                    <NavLink to="/about-us"
+                        className={({ isActive }) =>
+                            `${isActive ? "text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1" : ""}`}>
+                        درباره ما
+                    </NavLink>
                 </li>
                 <li className="duration-300 hover:text-primary-color">
-                    <NavLink>تماس با ما</NavLink>
+                    <NavLink to="/FAQ"
+                        className={({ isActive }) =>
+                            `${isActive ? "text-primary-color font-Estedad-Bold border-primary-color border-b-1 pb-1" : ""}`}>
+                        سوالات متداول
+                    </NavLink>
                 </li>
             </ul>
         </nav>
