@@ -6,7 +6,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/Ui/dialog"
 import icons from "@/icons"
 import { toast, Toaster } from "sonner"
 import AddressInput from "./AddressInput"

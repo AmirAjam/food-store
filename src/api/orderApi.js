@@ -46,7 +46,6 @@ const createOrdersApi = async (token,addressId,paymentMethod) => {
 }
 
 const changeOrderStatusApi = async (token,id,status) => {
-    console.log(status)
     const response = await axios.patch(`order/${id}/order-status`,
         {status},
         {

@@ -46,18 +46,14 @@ const slice = createSlice({
         });
 
         builder.addCase(getAllOrders.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.adminOrders = action.payload.orders
-            console.log(action.payload)
         });
 
         builder.addCase(createOrder.fulfilled, (state, action) => {
             // state.orders = action.payload.orders
-            console.log(action.payload)
         });
 
         builder.addCase(changeOrderStatus.fulfilled, (state, action) => {
-            console.log(action.payload)
         });
     }
 })

@@ -13,9 +13,9 @@ import { AdminSheet } from '../../ui/AdminSheet';
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton';
 import AdminInput from '../../ui/AdminInput';
 import { signupSchema } from '@/schema/authSchema';
-import { blockUserApi, getOneUserApi } from '@/api/usersApi';
+import { getOneUserApi } from '@/api/usersApi';
 import { AdminSelect } from '../../ui/AdminSelect';
-import {SelectItem} from "@/components/ui/select"
+import {SelectItem} from "@/components/Ui/select"
 
 const Users = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false)

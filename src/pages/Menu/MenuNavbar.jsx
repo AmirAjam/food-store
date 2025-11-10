@@ -22,11 +22,6 @@ const MenuNavbar = ({categories}) => {
                         </li>
                     )}
                 </ul>
-                <div className="hidden md:flex justify-between w-xs border border-gray-400 items-center py-0 
-                text-sm px-4 rounded-lg ">
-                    <input type="text" placeholder="جستجو" className="w-full border-none outline-none" />
-                    <Search className='text-xl cursor-pointer' />
-                </div>
             </div>
         </nav>
     )

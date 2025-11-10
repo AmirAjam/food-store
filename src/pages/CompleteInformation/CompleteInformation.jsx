@@ -24,10 +24,8 @@ const CompleteInformation = () => {
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
   const changeUrl = () => {
-    console.log(selectAddress)
     if(selectAddress){
       navigate(`/payment/${selectAddress}`)
-      console.log("na")
     }
   }
 

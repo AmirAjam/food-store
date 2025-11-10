@@ -55,14 +55,12 @@ const Product = ({ productDetails, setOpenLogin }) => {
 
   const findQuantityProduct = () => {
     const product = cart?.find(item => item.product._id === productDetails._id)
-    console.log("cart => ", cart)
     if (product) {
       setCount(product.quantity)
     }
   }
 
   const findFavourite = () => {
-    console.log(favourite)
     const product = favourite.find(item => item._id === productDetails._id)
     if (product) {
       setCount(setIsFavorite(true))

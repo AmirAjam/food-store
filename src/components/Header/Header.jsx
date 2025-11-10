@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import icons from "@/icons";
 
@@ -55,11 +55,13 @@ const Header = ({ openLogin = false }) => {
   return (
     <>
       <div className="bg-primary-color text-gray-200 p-3 text-sm md:text-base leading-7">
-          <p>برای ورود به پنل ادمین لطفا با ایمیل 
-            <span className="text-white font-Estedad-Medium "> admin@gmail.com </span>
-             و رمزعبور  
-             <span className="text-white font-Estedad-Medium"> Admin@123 </span>
-             وارد شوید.</p>
+        <p>برای ورود به پنل ادمین لطفا با ایمیل
+          <span className="text-white font-Estedad-Medium "> admin@gmail.com </span>
+          و رمزعبور
+          <span className="text-white font-Estedad-Medium"> Admin@123 </span>
+          وارد شوید.
+          <Link className="mr-5 text-gray-200">https://tarkhineh-view.liara.run/p-admin</Link>
+        </p>
       </div>
       <header className="mt-5 sm:mt6 shadow-sm  pb-5">
         <div className="container flex justify-between items-center relative">

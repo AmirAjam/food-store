@@ -48,7 +48,6 @@ const deleteCartItemApi = async (token, productId) => {
 }
 
 const clearCartApi = async (token) => {
-    console.log("response")
     const response = await axios.delete("cart/clear",
         {
             headers: {
@@ -56,7 +55,6 @@ const clearCartApi = async (token) => {
             }
         }
     )
-    console.log(response)
     return response.data
 }
 const applyCoupenApi = async (token,data) => {

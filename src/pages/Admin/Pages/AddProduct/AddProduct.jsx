@@ -3,7 +3,7 @@ import AdminInput from '../../ui/AdminInput'
 import AddProductInput from './AddProductInput'
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminSelect } from '../../ui/AdminSelect'
-import { SelectItem } from "@/components/ui/select"
+import { SelectItem } from "@/components/Ui/select"
 import PrimaryButton from '@/components/Ui/Button/PrimaryButton'
 import { useForm } from 'react-hook-form'
 import { toast, Toaster } from 'sonner'
@@ -61,7 +61,6 @@ const AddProduct = () => {
     }
 
     const editProductHandler = (data) => {
-        console.log("fileInput =>", fileInput)
         if (fileInput) {
             removeProductImageApi(token, productDetials._id, productDetials.gallery[0])
             addImageProduct(productDetials._id)

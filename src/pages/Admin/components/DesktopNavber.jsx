@@ -8,7 +8,7 @@ const DesktopNavber = () => {
         <nav className="lg:block lg:fixed right-0 hidden top-0 bottom-0 bg-gray-300 w-1/5 py-4 px-5">
             <div className='flex justify-between items-center'>
                 <Link to="/" className='px-10 mx-auto'>
-                    <img className='size-3/4 mt-5' src="/public/images/logo/logo.png" alt="logo" />
+                    <img className='size-3/4 mt-5' src="/images/logo/logo.png" alt="logo" />
                 </Link>
             </div>
             <ul className='mt-10 flex flex-col gap-2'>

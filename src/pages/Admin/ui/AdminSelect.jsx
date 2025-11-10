@@ -7,7 +7,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/Ui/select"
 
 export function AdminSelect({defaultValue, children ,changeHandler,itemId}) {
     return (

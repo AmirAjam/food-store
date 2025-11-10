@@ -15,8 +15,9 @@ export function AccordionUI({ items }) {
         >
             {items.map(item => {
                 return (
-                    <AccordionItem value={item.id} className="px-3 border-b-2 border-gray-300">
-                        <AccordionTrigger className="py-4 font-Estedad-Bold 
+                    <AccordionItem key={item.id} value={item.id} className="px-3 border-b-2 
+                    border-gray-300">
+                        <AccordionTrigger className="py-4 font-Estedad-Bold cursor-pointer
                 data-[state=open]:text-primary-color md:text-base text-right">
                             {item.title}
                         </AccordionTrigger>

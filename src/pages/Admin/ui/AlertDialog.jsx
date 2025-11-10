@@ -8,7 +8,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/Ui/alert-dialog"
 import AdminButton from "./AdminButton"
 import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 import WhiteButton from "@/components/Ui/Button/WhiteButton"

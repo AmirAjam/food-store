@@ -1,7 +1,6 @@
 import icons from "@/icons"
 
 const OrderProgress = ({ progressStep }) => {
-    console.log("progressStep =>",progressStep)
     const { House, Truck,CircleCheck } = icons
     return (
         <div className={`mt-8 md:mt-4 group flex items-center justify-center gap-3 step-${progressStep}`}>

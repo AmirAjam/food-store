@@ -101,7 +101,6 @@ const slice = createSlice({
         });
 
         builder.addCase(clearCart.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.cart.items = []
         });
 

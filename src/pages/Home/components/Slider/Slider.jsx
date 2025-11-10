@@ -70,7 +70,7 @@ const Slider = () => {
                 w-36! justify-center'>
                     </div>
                     <div className='absolute z-20 w-36 bottom-0 left-1/2 -translate-x-1/2'>
-                        <img src="../src/assets/images/Slider/shape.png" alt="" />
+                        <img src="/images/Slider/shape.png" alt="" />
                     </div>
                 </div>
 
@@ -125,7 +125,7 @@ const Slider = () => {
                         w-28! justify-center'>
                     </div>
                     <div className='absolute z-20 w-28 bottom-0 left-1/2 -translate-x-1/2'>
-                        <img src="../src/assets/images/Slider/shape.png" alt="" />
+                        <img src="/images/Slider/shape.png" alt="" />
                     </div>
                 </div>
             </div>

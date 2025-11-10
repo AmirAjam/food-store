@@ -18,7 +18,6 @@ import FAQ from "@/pages/FAQ/FAQ";
 import Coupen from "@/pages/Admin/Pages/Coupen/Coupen";
 import AllOrders from "@/pages/Profile/pages/Orders/AllOrders";
 import SuccessfulPayment from "@/pages/SuccessfulPayment/SuccessfulPayment";
-import Orders from "@/pages/Admin/Pages/Orders/orders";
 
 
 export const routes = [
@@ -48,7 +47,7 @@ export const routes = [
             { path: "/p-admin/products", element: <Products /> },
             { path: "/p-admin/category", element: <Category /> },
             { path: "/p-admin/discount", element: <Coupen /> },
-            { path: "/p-admin/orders", element: <Orders /> },
+            { path: "/p-admin/orders", element: <AllOrders /> },
         ]
     },
 

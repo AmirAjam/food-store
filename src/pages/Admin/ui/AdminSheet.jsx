@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/Ui/button"
 import {
     Sheet,
     SheetClose,
@@ -7,7 +7,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/Ui/sheet"
 import AdminInput from "./AdminInput"
 import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 import SecondaryButton from "@/components/Ui/Button/SecondaryButton"

@@ -26,7 +26,7 @@ const Cart = () => {
 
 
     let productsDiscounts = 0
-    cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
+    cart?.items?.forEach(item => productsDiscounts += (calAllOff(item)));
 
     const clearCartHandler = () => {
         dispatch(clearCart(token))
@@ -45,7 +45,7 @@ const Cart = () => {
                 <Trash onClick={() => setIsOpenDialog(true)} className='text-xl' />
             </TopCart>
 
-            {!cart.items.length ?
+            {!cart?.items?.length ?
                 <div className='mt-5 md:mt-8'>
                     <EmptyCart text="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!">
                         <SecondaryButton>

@@ -6,7 +6,7 @@ import AdminButton from "../../ui/AdminButton";
 import {useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import { AdminSelect } from '../../ui/AdminSelect';
-import { SelectItem } from "@/components/ui/select"
+import { SelectItem } from "@/components/Ui/select"
 import { changeDateFormat } from '@/utils/utils';
 import Order from '@/pages/Profile/pages/Orders/Order';
 import Cover from '@/components/Cover/Cover';
@@ -22,7 +22,6 @@ const Orders = () => {
   const orders = useSelector((state) => state.order.adminOrders)
   const token = useSelector((state) => state.auth.accessToken)
 
-  console.log("orders => ", orders)
 
   const columns = [
     {
@@ -83,8 +82,6 @@ const Orders = () => {
   ]
 
   const changeStatus = (status, id) => {
-    console.log("Id => ", id)
-    console.log("status => ", status)
     dispatch(changeOrderStatus({token,id,status}))
   }
 

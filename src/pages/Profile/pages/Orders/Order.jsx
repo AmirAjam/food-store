@@ -6,7 +6,6 @@ import PrimaryButton from "@/components/Ui/Button/PrimaryButton"
 
 const Order = ({ orderDetails }) => {
     const { Calendar, Location } = icons
-    console.log(orderDetails)
     const jalaliDate = changeDateFormat(orderDetails.createdAt)
     let progressStep;
 
@@ -68,11 +67,6 @@ const Order = ({ orderDetails }) => {
                 mt-8 gap-5">
                     {orderDetails.items.map(product =>
                         <OrderProduct key={product.product._id} productDetails={product} />)}
-                </div>
-                <div className="w-40 mt-5">
-                    {orderDetails.paymentStatus === "pending" && progressStep !== 3 &&
-                        <PrimaryButton danger text="لغو سفارش" />
-                    }
                 </div>
             </div>
         </>

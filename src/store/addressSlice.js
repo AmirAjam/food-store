@@ -21,7 +21,6 @@ export const addAddress = createAsyncThunk(
 export const removeAddress = createAsyncThunk(
     "address/removeAddress",
     async ({ token, id }) => {
-        console.log("id => ", id)
         const res = await removeAddressApi(token, id);
         return res;
     }
@@ -30,7 +29,6 @@ export const removeAddress = createAsyncThunk(
 export const editAddress = createAsyncThunk(
     "address/editAddress",
     async ({ token, id, data }) => {
-        console.log("data => ", data)
         const res = await editAddressApi(token, id, data);
         return res;
     }

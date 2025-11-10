@@ -23,7 +23,6 @@ export const addCoupen = createAsyncThunk(
 export const removeCoupen = createAsyncThunk(
     "coupens/removeCoupen",
     async ({token,id}) => {
-        console.log("removeCoupen")
         const res = await removeCoupenApi(token,id);
         return res;
     }

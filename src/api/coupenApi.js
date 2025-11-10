@@ -45,7 +45,6 @@ const editCoupenApi = async (token, id, data) => {
     return response.data
 }
 const changeStatusCoupenApi = async (token, id) => {
-    console.log(id)
     const response = await axios.patch("coupen/change-status",
         { coupenId: id },
         {

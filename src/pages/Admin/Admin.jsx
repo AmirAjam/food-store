@@ -31,7 +31,6 @@ const AdminPanel = () => {
         <>
             <div className='lg:float-end lg:w-80/100'>
                 <div className='container'>
-                    <Header openMobileNav={() => setIsOpenMobileNav(true)} />
                     <Outlet />
                 </div>
                 <DesktopNavber />

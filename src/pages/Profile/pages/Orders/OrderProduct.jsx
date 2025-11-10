@@ -1,7 +1,6 @@
 import icons from "@/icons"
 
 const OrderProduct = ({ productDetails }) => {
-    console.log(productDetails)
     const {Close} = icons
     return (
         <div className="border border-gray-300 rounded-lg overflow-hidden">

@@ -14,7 +14,6 @@ const Profile = () => {
     useEffect(() => {
         if (!id) {
             navigate("/")
-            console.log(id)
         }
     }, [id])
 

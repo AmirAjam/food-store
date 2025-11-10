@@ -6,7 +6,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/Ui/dialog"
 import { Link } from "react-router-dom"
 import icons from "@/icons"
 import AuthInput from "./AuthInput"

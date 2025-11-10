@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/Ui/button"
 
 import {
   Table,
@@ -16,7 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/Ui/table"
 
 import { useState } from "react"
 import icons from "@/icons"

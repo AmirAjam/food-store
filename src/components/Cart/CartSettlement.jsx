@@ -15,7 +15,6 @@ const CartSettlement = () => {
   let productsDiscounts = 0
   cart.items.forEach(item => productsDiscounts += (calAllOff(item)));
 
-  console.log(cart)
   return (
     <section className='mt-8 border-2 border-gray-300 rounded-lg px-1.5 py-3 text-sm'>
 

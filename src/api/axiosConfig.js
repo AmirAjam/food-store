@@ -3,7 +3,7 @@ import store from "@/store";
 import { setAccessToken, logout } from "@/store/authSlice";
 
 const axiosInstance = axios.create({
-  baseURL: "https://tarkhineh-api.liara.run/api",
+  baseURL: "http://127.0.0.1:369/api",
   headers: {
     "Content-Type": "application/json",
   },

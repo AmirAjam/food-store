@@ -110,7 +110,6 @@ const Coupen = () => {
             setIsOpenSheet(false)
             setCoupenID(null)
         } catch (error) {
-            console.log(error)
             toast.error("کد وارد شده تکراری می باشد.")
         }
     }
@@ -124,7 +123,6 @@ const Coupen = () => {
     }
 
     const onSubmit = data => {
-        console.log(data)
         data.type = "percentage"
         data.expiresAt = (DateCollection(data.expiresAt))
         coupenID ? editCoupenHandler(data) : addCoupenHandler(data)
@@ -178,10 +176,7 @@ const Coupen = () => {
     }, [coupenID]);
 
     useEffect(() => {
-        console.log(coupenID)
-        console.log(isOpenSheet)
         if(isOpenSheet && !coupenID){
-            console.log("OK")
             reset()
         }
     }, [isOpenSheet]);
