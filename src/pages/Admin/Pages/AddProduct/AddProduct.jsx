@@ -61,20 +61,23 @@ const AddProduct = () => {
     }
 
     const editProductHandler = (data) => {
-        if (fileInput) {
-            removeProductImageApi(token, productDetials._id, productDetials.gallery[0])
-            addImageProduct(productDetials._id)
+        if (fileInput === true) {
             dispatch(editProduct({ token, id: productDetials._id, data }))
             toast.success("ویرایش با موفقیت انجام شد.");
         }
-        else {
+        else if (!fileInput){
             toast.error("لطفا عکس محصول را وارد کنید.");
+        }
+        else{
+            addImageProduct(productDetials._id)
+            removeProductImageApi(token, productDetials._id, productDetials.gallery[0])
+            dispatch(editProduct({ token, id: productDetials._id, data }))
+            toast.success("ویرایش با موفقیت انجام شد.");
         }
     }
 
 
     const onSubmit = async (data) => {
-        data.brand = "68a712d9f395443e82350fee"
         data.category = categoryId
         if (productDetials) {
             editProductHandler(data)
@@ -88,7 +91,8 @@ const AddProduct = () => {
                 toast.success("محصول با موفقیت اضافه شد.")
                 resetForm()
             }
-            catch {
+            catch (error) {
+                console.log(error)
                 toast.error("لینک وارد شده تکراری می باشد.")
             }
         } else {
@@ -107,7 +111,7 @@ const AddProduct = () => {
     const setDefaultValue = () => {
         if (productDetials) {
             setFileInput(true)
-            const imageSrc = `http://127.0.0.1:369/public${productDetials.gallery[0]}`
+            const imageSrc = `https://tarkhineh-api.liara.run/public${productDetials.gallery[0]}`
             reset({
                 title: productDetials.title,
                 description: productDetials.description,
@@ -130,8 +134,6 @@ const AddProduct = () => {
     }, [categories, productDetials])
 
 
-    useEffect(() => {
-    }, [categoryId])
     return (
         <>
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
@@ -177,7 +179,7 @@ const AddProduct = () => {
                                         }
                                     </AdminSelect>}
 
-                                {categories[0] && !productDetials &&
+                                {categories[0] && !productDetials && !productParam.id &&
                                     <>
                                         <AdminSelect defaultValue={categories[0]?._id} changeHandler={changeCategory} itemId={""} >
                                             {categories.map(category =>

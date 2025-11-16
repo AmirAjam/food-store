@@ -3,7 +3,7 @@ import store from "@/store";
 import { setAccessToken, logout } from "@/store/authSlice";
 
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:369/api",
+  baseURL: "https://tarkhineh-api.liara.run/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         const res = await axios.post(
-          "http://127.0.0.1:369/api/auth/refresh-token",
+          "https://tarkhineh-api.liara.run/api/auth/refresh-token",
           {},
           { withCredentials: true }
         );

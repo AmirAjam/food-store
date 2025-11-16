@@ -6,7 +6,7 @@ const OrderProduct = ({ productDetails }) => {
         <div className="border border-gray-300 rounded-lg overflow-hidden">
             <div className="h-18 md:h-24 relative">
                 <img className="size-full object-cover "
-                    src={`http://127.0.0.1:369/public/${productDetails.product.gallery[0]}`} alt="" />
+                    src={`https://tarkhineh-api.liara.run/public/${productDetails.product.gallery[0]}`} alt="" />
                     <div className="absolute bottom-1 flex items-center bg-green-200 
                     text-primary-color rounded-sm px-1 left-1">
                         <span className="text-sm">{productDetails.quantity}</span>

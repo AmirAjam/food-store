@@ -42,7 +42,7 @@ const Products = () => {
         {
             accessorKey: "quantity",
             header: "تخفیف",
-            cell: ({ row }) => <div className="capitalize w-10!">
+            cell: ({ row }) => <div className="capitalize w-5!">
                 {row.getValue("quantity")}
             </div>,
         },
@@ -52,7 +52,7 @@ const Products = () => {
             accessorFn: (row) => {
                 return calFinalPrice(row.price, row.quantity)
             },
-            cell: ({ getValue }) => <div className="capitalize w-2/20">
+            cell: ({ getValue }) => <div className="capitalize w-5">
                 {getValue().toLocaleString()}
             </div>,
         },
@@ -70,7 +70,7 @@ const Products = () => {
             accessorKey: "statusProduct",
             header: "وضعیت",
             cell: ({ row }) => (
-                <div className="capitalize mr-3 w-32!">
+                <div className="capitalize mr-3 w-10!">
                     {row.original.statusProduct === "Unpublished" ?
                         <span className="py-1 px-3 rounded-sm bg-red-500 text-white">غیر فعال</span>
                         :
@@ -123,12 +123,8 @@ const Products = () => {
             <Toaster richColors position="top-left" className="font-Estedad-Medium!" />
             <section className='bg-gray-300 mt-12 rounded-lg px-4 py-2 mb-12'>
                 <div className='w-42 mt-5'>
-                    <img src="http://127.0.0.1:369/images/products/images-1757597547775.png" alt="" />
                     <Link to="/p-admin/add-product">
-                        <PrimaryButton text="افزودن محصول" onClick={() => {
-                            setCategoryID(null)
-                            setIsOpenSheet(true)
-                        }} />
+                        <PrimaryButton text="افزودن محصول" />
                     </Link>
                 </div>
 

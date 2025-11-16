@@ -59,7 +59,8 @@ const Cart = () => {
                         <ProductsCartMobile
                             cart={cart}
                             productsDiscounts={productsDiscounts}
-                            text='تکمیل اطلاعات' />
+                            text='تکمیل اطلاعات'
+                            settlement />
                     </div>
                     <ProductsCartDesktop cart={cart} productsDiscounts={productsDiscounts} />
                 </>}

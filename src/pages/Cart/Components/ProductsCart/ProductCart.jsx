@@ -26,7 +26,7 @@ const ProductCart = ({ cartItem }) => {
         <div className='rounded-lg overflow-hidden flex gap-5 border-2 border-gray-300 mt-5 
         first:mt-0 pl-2'>
             <div>
-                <img src={`http://127.0.0.1:369/public/${productDetails.gallery[0]}`}
+                <img src={`https://tarkhineh-api.liara.run/public/${productDetails.gallery[0]}`}
                     alt="" className='w-36 h-full object-cover' />
             </div>
             <div className='p-1 pb-2 w-full'>

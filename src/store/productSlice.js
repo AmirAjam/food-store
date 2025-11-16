@@ -83,9 +83,10 @@ const slice = createSlice({
         });
 
         builder.addCase(editProduct.fulfilled, (state, action) => {
+            console.log(action.payload)
             const productID = action.meta.arg.id;
-            const productData = action.meta.arg.data;
             const productIndex = findArrayIndex(state.products, productID)
+            state.products[productIndex] = action.payload.product
         });
 
         builder.addCase(uploadProductImage.fulfilled, (state, action) => {

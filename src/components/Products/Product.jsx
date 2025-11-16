@@ -77,7 +77,7 @@ const Product = ({ productDetails, setOpenLogin }) => {
     lg:max-w-105 max-w-full  md:max-w-80'>
       <div className='w-1/3'>
 
-        <img src={`http://127.0.0.1:369/public/${productDetails.gallery[0]}`} alt=""
+        <img src={`https://tarkhineh-api.liara.run/public/${productDetails.gallery[0]}`} alt=""
           className='h-full w-full object-cover' />
       </div>
       <div className='px-1 sm:px-2 py-2.5 w-2/3 flex flex-col justify-between'>
